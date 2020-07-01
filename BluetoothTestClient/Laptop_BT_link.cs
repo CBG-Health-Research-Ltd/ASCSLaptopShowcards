@@ -46,7 +46,9 @@ namespace BluetoothTestClient
         List<string[]> adultY9ShowcardList;
         List<string[]> nzcvsy3ShowcardList;
         List<string[]> hls2020ShowcardList;
-        
+        List<string[]> adultY10ShowcardList;
+        List<string[]> childY10ShowcardList;
+
 
         string desiredShowcard;
         bool recording;
@@ -107,6 +109,8 @@ namespace BluetoothTestClient
             adultY9ShowcardList = GetShowcardPageList("ADULTY9");
             nzcvsy3ShowcardList = GetShowcardPageList("NZCVSY3");
             hls2020ShowcardList = GetShowcardPageList("HLS2020");
+            adultY10ShowcardList = GetShowcardPageList("ADULTY10");
+            childY10ShowcardList = GetShowcardPageList("CHILDY10");
         }
 
         private void closeFirstInstance()
@@ -830,6 +834,12 @@ namespace BluetoothTestClient
                 case ("hls20"): //THESE NEED TO BE UPDATED IN THE SAME FORMAT FOR HLS AND NZCVS!!!!
                     showcardList = hls2020ShowcardList;
                     break;
+                case ("nha10"):
+                    showcardList = adultY10ShowcardList;
+                    break;
+                case ("nhc10"):
+                    showcardList = childY10ShowcardList;
+                    break;
 
             }
             return showcardList;
@@ -880,6 +890,12 @@ namespace BluetoothTestClient
                     break;
                 case ("hls20"):
                     pageIndex = 10; //UPDATE!!!!
+                    break;
+                case ("nha10"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
+                    break;
+                case ("nhc10"):
+                    pageIndex = 11;//UPDATE FOR ASKIA SURVEY
                     break;
             }
             return pageIndex;
@@ -940,6 +956,12 @@ namespace BluetoothTestClient
                         break;
                     case ("HLS20"):
                         ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\HLS2020Instructions.txt");
+                        break;
+                    case ("CHILDY10"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10ChildInstructions.txt");
+                        break;
+                    case ("ADULTY10"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10AdultInstructions.txt");
                         break;
 
 

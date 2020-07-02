@@ -1161,6 +1161,9 @@ namespace BluetoothTestClient
 
             WindowControl chrome = new WindowControl();
             chrome.AppName = "chrome";
+            //WindowControl askiaFace = new WindowControl();
+            //chrome.AppName = "AskiaFace";
+
 
             if (MessageBox.Show(new Form { TopMost = true }, "Bluetooth auto re-connection attempt failed, or TabletShowcards has been closed." + Environment.NewLine + Environment.NewLine
              + "Click YES to attempt to re-connect. Re-connecting may take up to 15 seconds." + Environment.NewLine + Environment.NewLine +
@@ -1175,6 +1178,7 @@ namespace BluetoothTestClient
                 + "You will be informed if re-connection is successful to continue the survey");
 
                 chrome.Minimize();
+               // askiaFace.Minimize();
 
                 //Alerting surveyor that an automatic re-connection attempt is underway
                 this.TopMost = true;
@@ -1217,12 +1221,14 @@ namespace BluetoothTestClient
                     this.TopMost = false;                  
                     Thread.Sleep(500);
                     chrome.Restore();
+                    //askiaFace.Restore();
                     }
                 }
                 else
                 {
                 //Exits the application, however TabletShowcards will still be running.
                 chrome.Restore();
+                //askiaFace.Restore();
                 Application.Exit();
                 }
             this.TopMost = false;

@@ -895,7 +895,7 @@ namespace BluetoothTestClient
                     pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
                     break;
                 case ("nhc10"):
-                    pageIndex = 11;//UPDATE FOR ASKIA SURVEY
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
                     break;
             }
             return pageIndex;

@@ -630,7 +630,7 @@ namespace BluetoothTestClient
 
             while (true)
             {
-                System.Threading.Thread.Sleep(50);//Significantly lowers CPU usage
+                System.Threading.Thread.Sleep(20);//Significantly lowers CPU usage
                 MethodInvoker AwaitTextChange = delegate ()
                {
 
@@ -658,6 +658,8 @@ namespace BluetoothTestClient
                    {
                        //Below only occurrs on the event of a .txt file update or creation withing QuestionLog folder.
                        //Open a dictionary which contains the relevant bookmark for each question.
+
+                       
 
                        latestFile = getLatest(@"C:\nzhs\questioninformation\QuestionLog\");
                        pageNum = ObtainShowcard(latestFile);
@@ -714,13 +716,14 @@ namespace BluetoothTestClient
 
             FileInfo[] files = directoryInfo.GetFiles();
             DateTime lastWrite = DateTime.MinValue;
+            TimeSpan lastWriteMiliseconds = lastWrite.TimeOfDay;
             FileInfo lastWrittenFile = null;
 
             foreach (FileInfo file in files)
             {
-                if (file.LastWriteTime > lastWrite)
+                if (file.LastWriteTime.TimeOfDay > lastWriteMiliseconds)
                 {
-                    lastWrite = file.LastWriteTime;
+                    lastWriteMiliseconds = file.LastWriteTime.TimeOfDay;
                     lastWrittenFile = file;
                 }
             }
@@ -744,7 +747,7 @@ namespace BluetoothTestClient
 
         }
 
-
+        bool firstShowcardPresented = false;
         private string ReturnDesiredShowcard(string survey, string questionNum)  //Quite an ugly function but no other option really.
         {
             int i = 0;
@@ -763,11 +766,12 @@ namespace BluetoothTestClient
                     }
 
                     desiredShowcard = (showcardList[i])[1];//Because desired showcard is found in 2nd index of list.
+                    firstShowcardPresented = true;
                     break;
                 }
                 //Automatically returns to title page for the case that showcards haven't started being displayed.
                 //EXTRMEMELY IMPORTANT: 20 is hardcoded for NZCHSY7 survey!!!
-                else if (Int32.Parse(questionNum) < firstPageIndex)
+                else if (firstShowcardPresented == false)
                     {
                         desiredShowcard = "0"; //Because on tablet side, a +1 is added to 'desiredShowcard'. So actual display at "1"
                     }

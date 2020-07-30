@@ -85,6 +85,7 @@ namespace BluetoothTestClient
 
         }
 
+        #region initialisation
         private void showInitialText()
         {
             txtStatus.Text = "Not doing anything..";
@@ -122,6 +123,10 @@ namespace BluetoothTestClient
             }
         }
 
+        #endregion
+
+        #region controls/UI
+
         private void button_connect_Click(object sender, EventArgs e)
         {
             startScan();
@@ -132,6 +137,61 @@ namespace BluetoothTestClient
 
         }
 
+        //Updates the "message to surveyor" area on form - this is generally transmitted to tablet as well if connection available.
+        private void updateSent(string message)
+        {
+            Func<int> del = delegate ()
+            {
+                sentMessage.Text = (System.Environment.NewLine + message + System.Environment.NewLine);
+                return 0;
+            }; Invoke(del);
+        }
+
+        //Updates the status area on form
+        private void updateStatus(string text)
+        {
+            Func<int> del = delegate ()
+            {
+                txtStatus.Text = (text + System.Environment.NewLine);
+                return 0;
+            }; Invoke(del);
+        }
+
+
+        private void EnableConnect()
+        {
+            Func<int> del = delegate ()
+            { button_connect.Enabled = true; return 0; }; Invoke(del);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            System.IO.DirectoryInfo di = new DirectoryInfo(@"C:\CBGshared\currentdevice");
+
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                dir.Delete(true);
+            }
+
+            MessageBox.Show(new Form { TopMost = true }, "Previously connected devices cleared." + Environment.NewLine +
+                                                          Environment.NewLine + "You may connect your new device.");
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Help.ShowHelp(this, "file://C:\\LaptopShowcards\\HelpFile.chm",
+                           HelpNavigator.Topic, "About.htm");
+        }
+
+        #endregion
+
+        #region scan and select device scenarios
         private void startScan()
         {
             button_connect.Enabled = false;//Prevents muliple connection thread instances and therefore app crashing.
@@ -308,25 +368,9 @@ namespace BluetoothTestClient
 
         }
 
-        //Updates the "message to surveyor" area on form - this is generally transmitted to tablet as well if connection available.
-        private void updateSent(string message)
-        {
-            Func<int> del = delegate ()
-            {
-                sentMessage.Text = (System.Environment.NewLine + message + System.Environment.NewLine);
-                return 0;
-            }; Invoke(del);
-        }
+        #endregion
 
-        //Updates the status area on form
-        private void updateStatus(string text)
-        {
-            Func<int> del = delegate ()
-            {
-                txtStatus.Text = (text + System.Environment.NewLine);
-                return 0;
-            }; Invoke(del);
-        }
+        #region initial connection + re-connect attempt connection (for cases of Bluetooth drop out for re-connection)
 
         BluetoothDeviceInfo deviceInfo;
         private void BeginConnection()
@@ -393,11 +437,6 @@ namespace BluetoothTestClient
 
         }
 
-        private void EnableConnect()
-        {
-            Func<int> del = delegate ()
-            { button_connect.Enabled = true; return 0; }; Invoke(del);
-        }
 
         private void ClientConnectionThread()
         {
@@ -603,6 +642,9 @@ namespace BluetoothTestClient
             return true;
         }
 
+        #endregion
+
+        #region polling questions to display appropriate showcard from QuestionLog folder
         //Function used for sending strings regarding SC information.
         private void transmitText(string text, Stream stream)
         {
@@ -730,6 +772,10 @@ namespace BluetoothTestClient
             return lastWrittenFile;
         }
 
+        #endregion
+
+        #region showcard loading functions and retrieval functions. firstpageindex function obsolete for askia use, for tss it is used in ReturnDesiredshowcard()
+
         private string ObtainShowcard(string inputTxt)
         {
 
@@ -785,12 +831,7 @@ namespace BluetoothTestClient
             //return "Non specific survey detail, check pageturner.txt";
         }
 
-/// <summary>
-/// The three functions below could all be cleaned up. Messy strategy at the moment.
-/// </summary>
-/// <param name="survey"></param>
-/// <returns></returns>
-
+        
         //Two functions below must be changed to accomodate new surveys, also the global variable list instantiation
         //must be updated so that showcard reference lists are generated upon application launch.
         private List<string[]> getShowcardList(string survey)
@@ -997,6 +1038,10 @@ namespace BluetoothTestClient
             return shoPageList;
         }
 
+        #endregion
+
+        #region showcard associated recording. currently obsolete kept for reference
+
         //record is passed through to this function to let application know to record in secret.
         //if a TSS question has a 'record' tag, then it will begin recording. It will stop recording if there is no record tag.
         //this record tag is to be found in the lok up table which contains TSS &QN& -> ShowCard page.
@@ -1088,10 +1133,9 @@ namespace BluetoothTestClient
             return permission;
         }
 
-/// <summary>
-/// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// </summary>
+        #endregion
 
+        #region connection monitoring functions
         //This is run in while(true) of polltxtfile(), if a connection has failed, it runs the auto-
         //reconnection attempt. If this then fails it runs the ManualReconnectionAttempt.
         private void CheckConnection() //Force refreshes device info, then checks if display device still connected.
@@ -1317,6 +1361,9 @@ namespace BluetoothTestClient
             else { return false; }
         }
 
+        #endregion
+
+        #region chrome close
         private void CloseChrome()//Makes sure foxit is closed before launch so it can be launch full-screen mode.
         {
             if (Process.GetProcessesByName("chrome").Length > 0)
@@ -1328,35 +1375,11 @@ namespace BluetoothTestClient
             }
         }
 
-        
+        #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            System.IO.DirectoryInfo di = new DirectoryInfo(@"C:\CBGshared\currentdevice");
-
-            foreach (FileInfo file in di.GetFiles())
-            {
-                file.Delete();
-            }
-            foreach (DirectoryInfo dir in di.GetDirectories())
-            {
-                dir.Delete(true);
-            }
-
-            MessageBox.Show(new Form { TopMost = true }, "Previously connected devices cleared." + Environment.NewLine +
-                                                          Environment.NewLine + "You may connect your new device.");
-
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Help.ShowHelp(this, "file://C:\\LaptopShowcards\\HelpFile.chm",
-                           HelpNavigator.Topic, "About.htm");
-        }
     }
 
-
+    #region external control classes
 
     public class AutoClosingMessageBox
     {
@@ -1515,6 +1538,8 @@ namespace BluetoothTestClient
         }
 
     }
+
+    #endregion
 
 }
 

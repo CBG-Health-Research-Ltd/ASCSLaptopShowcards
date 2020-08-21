@@ -1000,13 +1000,13 @@ namespace BluetoothTestClient
                         ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY2NewInstructions.txt");
                         break;
                     case ("HLS20"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\HLS2020Instructions.txt");
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\HLS2020Instructions.txt", Encoding.Default);
                         break;
                     case ("CHILDY10"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10ChildInstructions.txt");
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10ChildInstructions.txt", Encoding.Default);
                         break;
                     case ("ADULTY10"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10AdultInstructions.txt");
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10AdultInstructions.txt", Encoding.Default);
                         break;
 
 

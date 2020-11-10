@@ -48,6 +48,7 @@ namespace BluetoothTestClient
         List<string[]> hls2020ShowcardList;
         List<string[]> adultY10ShowcardList;
         List<string[]> childY10ShowcardList;
+        List<string[]> nzcvsy4ShowcardList;
 
 
         string desiredShowcard;
@@ -109,9 +110,10 @@ namespace BluetoothTestClient
             childY9ShowcardList = GetShowcardPageList("CHILDY9");
             adultY9ShowcardList = GetShowcardPageList("ADULTY9");
             nzcvsy3ShowcardList = GetShowcardPageList("NZCVSY3");
-            hls2020ShowcardList = GetShowcardPageList("HLS2020");
+            hls2020ShowcardList = GetShowcardPageList("HLS20");
             adultY10ShowcardList = GetShowcardPageList("ADULTY10");
             childY10ShowcardList = GetShowcardPageList("CHILDY10");
+            nzcvsy4ShowcardList = GetShowcardPageList("NZCVSY4");
         }
 
         private void closeFirstInstance()
@@ -885,12 +887,16 @@ namespace BluetoothTestClient
                 case ("nhc10"):
                     showcardList = childY10ShowcardList;
                     break;
+                case ("y4cvs"):
+                    showcardList = nzcvsy4ShowcardList;
+                    break;
 
             }
             return showcardList;
         }
 
         //Function returns the first page index of a given set of showcards. These all need to be hardcoded into the system.
+        //This function is obsolete for askia driven surveys
         private int FirstPageIndex(string survey)
         {
             survey = survey.ToLower();
@@ -941,6 +947,9 @@ namespace BluetoothTestClient
                     break;
                 case ("nhc10"):
                     pageIndex = 3;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("y4cvs"):
+                    pageIndex = 11;//UPDATE!!!!
                     break;
             }
             return pageIndex;
@@ -1007,6 +1016,9 @@ namespace BluetoothTestClient
                         break;
                     case ("ADULTY10"):
                         ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10AdultInstructions.txt", Encoding.Default);
+                        break;
+                    case ("NZCVSY4"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY4Instructions.txt");
                         break;
 
 

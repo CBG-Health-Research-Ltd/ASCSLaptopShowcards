@@ -49,6 +49,8 @@ namespace BluetoothTestClient
         List<string[]> adultY10ShowcardList;
         List<string[]> childY10ShowcardList;
         List<string[]> nzcvsy4ShowcardList;
+        List<string[]> adultY11ShowcardList;
+        List<string[]> childY11ShowcardList;
 
 
         string desiredShowcard;
@@ -114,6 +116,8 @@ namespace BluetoothTestClient
             adultY10ShowcardList = GetShowcardPageList("ADULTY10");
             childY10ShowcardList = GetShowcardPageList("CHILDY10");
             nzcvsy4ShowcardList = GetShowcardPageList("NZCVSY4");
+            childY11ShowcardList = GetShowcardPageList("CHILDY11");
+            adultY11ShowcardList = GetShowcardPageList("ADULTY11");
         }
 
         private void closeFirstInstance()
@@ -890,6 +894,12 @@ namespace BluetoothTestClient
                 case ("y4cvs"):
                     showcardList = nzcvsy4ShowcardList;
                     break;
+                case ("nha11"):
+                    showcardList = adultY11ShowcardList;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
+                    break;
+                case ("nhc11"):
+                    showcardList = childY11ShowcardList;//UPDATE FOR ASKIA SURVEY
+                    break;
 
             }
             return showcardList;
@@ -950,6 +960,12 @@ namespace BluetoothTestClient
                     break;
                 case ("y4cvs"):
                     pageIndex = 11;//UPDATE!!!!
+                    break;
+                case ("nha11"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
+                    break;
+                case ("nhc11"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
                     break;
             }
             return pageIndex;
@@ -1018,7 +1034,13 @@ namespace BluetoothTestClient
                         ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10AdultInstructions.txt", Encoding.Default);
                         break;
                     case ("NZCVSY4"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY4Instructions.txt");
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY4Instructions.txt", Encoding.Default);
+                        break;
+                    case ("CHILDY11"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY11ChildInstructions.txt", Encoding.Default);
+                        break;
+                    case ("ADULTY11"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY11AdultInstructions.txt", Encoding.Default);
                         break;
 
 

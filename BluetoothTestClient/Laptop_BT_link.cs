@@ -903,7 +903,7 @@ namespace BluetoothTestClient
                     showcardList = childY11ShowcardList;//UPDATE FOR ASKIA SURVEY
                     break;
                 case ("y5cvs"):
-                    showcardList = nzcvsy4ShowcardList;
+                    showcardList = nzcvsy5ShowcardList;
                     break;
 
             }

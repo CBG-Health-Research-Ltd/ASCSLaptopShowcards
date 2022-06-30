@@ -52,6 +52,9 @@ namespace BluetoothTestClient
         List<string[]> adultY11ShowcardList;
         List<string[]> childY11ShowcardList;
         List<string[]> nzcvsy5ShowcardList;
+        List<string[]> nzissy1ShowcardList;
+        List<string[]> adultY12ShowcardList;
+        List<string[]> childY12ShowcardList;
 
 
         string desiredShowcard;
@@ -120,6 +123,9 @@ namespace BluetoothTestClient
             childY11ShowcardList = GetShowcardPageList("CHILDY11");
             adultY11ShowcardList = GetShowcardPageList("ADULTY11");
             nzcvsy5ShowcardList = GetShowcardPageList("NZCVSY5");
+            childY12ShowcardList = GetShowcardPageList("CHILDY12");
+            adultY12ShowcardList = GetShowcardPageList("ADULTY12");
+            nzissy1ShowcardList = GetShowcardPageList("NZISSY1");
         }
 
         private void closeFirstInstance()
@@ -905,6 +911,15 @@ namespace BluetoothTestClient
                 case ("y5cvs"):
                     showcardList = nzcvsy5ShowcardList;
                     break;
+                case ("y1nzi"):
+                    showcardList = nzissy1ShowcardList;
+                    break;
+                case ("nhc12"):
+                    showcardList = childY12ShowcardList;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("nha12"):
+                    showcardList = adultY12ShowcardList;//UPDATE FOR ASKIA SURVEY
+                    break;
 
             }
             return showcardList;
@@ -974,6 +989,15 @@ namespace BluetoothTestClient
                     break;
                 case ("y5cvs"):
                     pageIndex = 11;//UPDATE!!!!
+                    break;
+                case ("nha12"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
+                    break;
+                case ("nhc12"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("y1nzi"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
                     break;
             }
             return pageIndex;
@@ -1052,6 +1076,15 @@ namespace BluetoothTestClient
                         break;
                     case ("NZCVSY5"):
                         ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY5Instructions.txt", Encoding.Default);
+                        break;
+                    case ("CHILDY12"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY12ChildInstructions.txt", Encoding.Default);
+                        break;
+                    case ("ADULTY12"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY12AdultInstructions.txt", Encoding.Default);
+                        break;
+                    case ("NZISSY1"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZISSY1Instructions.txt", Encoding.Default);
                         break;
 
 

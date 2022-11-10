@@ -55,6 +55,7 @@ namespace BluetoothTestClient
         List<string[]> nzissy1ShowcardList;
         List<string[]> adultY12ShowcardList;
         List<string[]> childY12ShowcardList;
+        List<string[]> nzcvsy6ShowcardList;
 
 
         string desiredShowcard;
@@ -126,6 +127,7 @@ namespace BluetoothTestClient
             childY12ShowcardList = GetShowcardPageList("CHILDY12");
             adultY12ShowcardList = GetShowcardPageList("ADULTY12");
             nzissy1ShowcardList = GetShowcardPageList("NZISSY1");
+            nzcvsy6ShowcardList = GetShowcardPageList("NZCVSY6");
         }
 
         private void closeFirstInstance()
@@ -920,6 +922,9 @@ namespace BluetoothTestClient
                 case ("nha12"):
                     showcardList = adultY12ShowcardList;//UPDATE FOR ASKIA SURVEY
                     break;
+                case ("y6cvs"):
+                    showcardList = nzcvsy6ShowcardList;
+                    break;
 
             }
             return showcardList;
@@ -998,6 +1003,9 @@ namespace BluetoothTestClient
                     break;
                 case ("y1nzi"):
                     pageIndex = 3;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("y6cvs"):
+                    pageIndex = 11;//UPDATE!!!!
                     break;
             }
             return pageIndex;
@@ -1086,6 +1094,10 @@ namespace BluetoothTestClient
                     case ("NZISSY1"):
                         ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZISSY1Instructions.txt", Encoding.Default);
                         break;
+                    case ("NZCVSY6"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY6Instructions.txt", Encoding.Default);
+                        break;
+
 
 
                 }

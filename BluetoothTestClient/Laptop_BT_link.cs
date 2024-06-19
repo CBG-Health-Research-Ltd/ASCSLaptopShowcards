@@ -27,35 +27,19 @@ namespace BluetoothTestClient
     public partial class Laptop_BT_link : Form
     {
         //Abundance of global variables is due to multi-threading nature of program.
+        //Update new proj/year area
         public static List<string> deviceItems;
         Guid mUUID;
         DeviceSelection devSelect;
         public static string currentDeviceName;
         Stream stream;
         string[] subStrings;
-        List<string[]> childShowcardList;
-        List<string[]> adultShowcardList;
-        List<string[]> hlsShowcardList;
-        List<string[]> nzcvsShowcardList;//All tese lists need to be nstantiated in order to display showcards/user-input
-        List<string[]> childY8ShowcardList;
-        List<string[]> adultY8ShowcardList;
-        List<string[]> mhwsShowcardList;
-        List<string[]> nzcvsy2ShowcardList;
-        List<string[]> nzcvsy2newShowcardList;
-        List<string[]> childY9ShowcardList;
-        List<string[]> adultY9ShowcardList;
-        List<string[]> nzcvsy3ShowcardList;
-        List<string[]> hls2020ShowcardList;
-        List<string[]> adultY10ShowcardList;
-        List<string[]> childY10ShowcardList;
-        List<string[]> nzcvsy4ShowcardList;
-        List<string[]> adultY11ShowcardList;
-        List<string[]> childY11ShowcardList;
-        List<string[]> nzcvsy5ShowcardList;
-        List<string[]> nzissy1ShowcardList;
-        List<string[]> adultY12ShowcardList;
-        List<string[]> childY12ShowcardList;
-        List<string[]> nzcvsy6ShowcardList;
+        List<string[]> adultY13ShowcardList;
+        List<string[]> childY13ShowcardList;
+        List<string[]> nzcvsy7ShowcardList;
+        List<string[]> ppmy7ShowcardList;
+        List<string[]> adultY14ShowcardList;
+        List<string[]> childY14ShowcardList;
 
 
         string desiredShowcard;
@@ -92,7 +76,8 @@ namespace BluetoothTestClient
             //this.TopMost = true;
 
         }
-
+        
+        //Update new proj/year area
         #region initialisation
         private void showInitialText()
         {
@@ -105,29 +90,12 @@ namespace BluetoothTestClient
         private void receiveShowcardLists()
         {
             //This method could be cleaned up in the future
-            childShowcardList = GetShowcardPageList("CHILD"); //Retrieves list to be used as QN -> Showcard reference.
-            adultShowcardList = GetShowcardPageList("ADULT");
-            hlsShowcardList = GetShowcardPageList("HLS18");
-            nzcvsShowcardList = GetShowcardPageList("NZCVS");
-            childY8ShowcardList = GetShowcardPageList("CHILDY8");
-            adultY8ShowcardList = GetShowcardPageList("ADULTY8");
-            mhwsShowcardList = GetShowcardPageList("MHWS");
-            nzcvsy2ShowcardList = GetShowcardPageList("NZCVSY2");
-            nzcvsy2newShowcardList = GetShowcardPageList("NZCVSY2NEW");
-            childY9ShowcardList = GetShowcardPageList("CHILDY9");
-            adultY9ShowcardList = GetShowcardPageList("ADULTY9");
-            nzcvsy3ShowcardList = GetShowcardPageList("NZCVSY3");
-            hls2020ShowcardList = GetShowcardPageList("HLS20");
-            adultY10ShowcardList = GetShowcardPageList("ADULTY10");
-            childY10ShowcardList = GetShowcardPageList("CHILDY10");
-            nzcvsy4ShowcardList = GetShowcardPageList("NZCVSY4");
-            childY11ShowcardList = GetShowcardPageList("CHILDY11");
-            adultY11ShowcardList = GetShowcardPageList("ADULTY11");
-            nzcvsy5ShowcardList = GetShowcardPageList("NZCVSY5");
-            childY12ShowcardList = GetShowcardPageList("CHILDY12");
-            adultY12ShowcardList = GetShowcardPageList("ADULTY12");
-            nzissy1ShowcardList = GetShowcardPageList("NZISSY1");
-            nzcvsy6ShowcardList = GetShowcardPageList("NZCVSY6");
+            childY13ShowcardList = GetShowcardPageList("CHILDY13");
+            adultY13ShowcardList = GetShowcardPageList("ADULTY13");
+            nzcvsy7ShowcardList = GetShowcardPageList("NZCVSY7");
+            ppmy7ShowcardList = GetShowcardPageList("PPMY7");
+            childY14ShowcardList = GetShowcardPageList("CHILDY14");
+            adultY14ShowcardList = GetShowcardPageList("ADULTY14");
         }
 
         private void closeFirstInstance()
@@ -699,25 +667,10 @@ namespace BluetoothTestClient
                    fileWatcher.Changed += delegate { changedFile = true; };
                    CheckConnection(); 
 
-                   /*
-                   //Checks for new post entries updated by user-interactivity via the bluetooth link.
-                   if (newPostFile == true || changedPostFile == true)
-                   {
-                       MessageBox.Show(new Form { TopMost = true }, "Respondent has completed answering.", "Submission complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                       //MessageBox.Show(File.ReadAllText(@"C:\nzhs\surveyinstructions\postRetrieve\post.txt"));
-                       //IMPORTANT: Enable below once post response is working on tablet side!!. This should show in message box!!
-                       OpenWebResponse(); //The post response should hopefully update QuestionLog via TSS12.cgi. i.e. Pageturner.exe
-                       changedPostFile = false;
-                       newPostFile = false;
-                       userInputting = false;//tell the program that user is no longer inputting. resets to true if input quesiton next.
-                   }*/
-
-                   /*else*/ if (newFile == true || changedFile == true)//Un-comment else for user-interactivity
+                   if (newFile == true || changedFile == true)//Un-comment else for user-interactivity
                    {
                        //Below only occurrs on the event of a .txt file update or creation withing QuestionLog folder.
                        //Open a dictionary which contains the relevant bookmark for each question.
-
-                       
 
                        latestFile = getLatest(@"C:\nzhs\questioninformation\QuestionLog\");
                        pageNum = ObtainShowcard(latestFile);
@@ -790,6 +743,7 @@ namespace BluetoothTestClient
 
         #endregion
 
+        //Update new proj/year area
         #region showcard loading functions and retrieval functions. firstpageindex function obsolete for askia use, for tss it is used in ReturnDesiredshowcard()
 
         private string ObtainShowcard(string inputTxt)
@@ -856,74 +810,23 @@ namespace BluetoothTestClient
             List<string[]> showcardList = new List<string[]>();
             switch(survey)
             {
-                case ("adult"):
-                    showcardList = adultShowcardList;
+                case ("nhc13"):
+                    showcardList = childY13ShowcardList;//UPDATE FOR ASKIA SURVEY
                     break;
-                case ("child"):
-                    showcardList = childShowcardList;
+                case ("nha13"):
+                    showcardList = adultY13ShowcardList;//UPDATE FOR ASKIA SURVEY
                     break;
-                case ("nzcvs"):
-                    showcardList = nzcvsShowcardList;
+                case ("y7cvs"):
+                    showcardList = nzcvsy7ShowcardList;
                     break;
-                case ("cvsy2"):
-                    showcardList = nzcvsy2ShowcardList;
+                case ("y7ppm"):
+                    showcardList = ppmy7ShowcardList;
                     break;
-                case ("hls18"): //THESE NEED TO BE UPDATED IN THE SAME FORMAT FOR HLS AND NZCVS!!!!
-                    showcardList = hlsShowcardList;
+                case ("nhc14"):
+                    showcardList = childY14ShowcardList;//UPDATE FOR ASKIA SURVEY
                     break;
-                case ("nzhsay8"):
-                    showcardList = adultY8ShowcardList;
-                    break;
-                case ("nzhscy8"):
-                    showcardList = childY8ShowcardList;
-                    break;
-                case ("nzay9"):
-                    showcardList = adultY9ShowcardList;
-                    break;
-                case ("nzcy9"):
-                    showcardList = childY9ShowcardList;
-                    break;
-                case ("mhs18"):
-                    showcardList = mhwsShowcardList;
-                    break;
-                case ("y2cvs"):
-                    showcardList = nzcvsy2newShowcardList;
-                    break;
-                case ("y3cvs"):
-                    showcardList = nzcvsy3ShowcardList;
-                    break;
-                case ("hls20"): //THESE NEED TO BE UPDATED IN THE SAME FORMAT FOR HLS AND NZCVS!!!!
-                    showcardList = hls2020ShowcardList;
-                    break;
-                case ("nha10"):
-                    showcardList = adultY10ShowcardList;
-                    break;
-                case ("nhc10"):
-                    showcardList = childY10ShowcardList;
-                    break;
-                case ("y4cvs"):
-                    showcardList = nzcvsy4ShowcardList;
-                    break;
-                case ("nha11"):
-                    showcardList = adultY11ShowcardList;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
-                    break;
-                case ("nhc11"):
-                    showcardList = childY11ShowcardList;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("y5cvs"):
-                    showcardList = nzcvsy5ShowcardList;
-                    break;
-                case ("y1nzi"):
-                    showcardList = nzissy1ShowcardList;
-                    break;
-                case ("nhc12"):
-                    showcardList = childY12ShowcardList;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("nha12"):
-                    showcardList = adultY12ShowcardList;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("y6cvs"):
-                    showcardList = nzcvsy6ShowcardList;
+                case ("nha14"):
+                    showcardList = adultY14ShowcardList;//UPDATE FOR ASKIA SURVEY
                     break;
 
             }
@@ -938,74 +841,23 @@ namespace BluetoothTestClient
             int pageIndex = 0;
             switch (survey)
             {
-                case ("adult"):
-                    pageIndex = 8;
-                    break;
-                case ("child"):
-                    pageIndex = 20;
-                    break;
-                case ("hls18"): 
-                    pageIndex = 21; //UPDATE!!!!
-                    break;
-                case ("nzcvs"):
-                    pageIndex = 11;//UPDATE!!!!
-                    break;
-                case ("cvsy2"):
-                    pageIndex = 11;//UPDATE!!!!
-                    break;
-                case ("y2cvs"):
-                    pageIndex = 11;//UPDATE!!!!
-                    break;
-                case ("y3cvs"):
-                    pageIndex = 11;//UPDATE!!!!
-                    break;
-                case ("nzhsay8"):
-                    pageIndex = 8;//UPDATE!!!!
-                    break;
-                case ("nzhscy8"):
-                    pageIndex = 20;//UPDATE!!!!
-                    break;
-                case ("mhs18"):
-                    pageIndex = 6;//UPDATE!!!!
-                    break;
-                case ("nzay9"):
-                    pageIndex = 8;//UPDATE!!!!
-                    break;
-                case ("nzcy9"):
-                    pageIndex = 20;//UPDATE!!!!
-                    break;
-                case ("hls20"):
-                    pageIndex = 10; //UPDATE!!!!
-                    break;
-                case ("nha10"):
+                case ("nha13"):
                     pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
                     break;
-                case ("nhc10"):
+                case ("nhc13"):
                     pageIndex = 3;//UPDATE FOR ASKIA SURVEY
                     break;
-                case ("y4cvs"):
-                    pageIndex = 11;//UPDATE!!!!
+                case ("y7cvs"):
+                    pageIndex = 2;//UPDATE!!!!
                     break;
-                case ("nha11"):
+                case ("y7ppm"):
+                    pageIndex = 2;//UPDATE!!!!
+                    break;
+                case ("nha14"):
                     pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
                     break;
-                case ("nhc11"):
+                case ("nhc14"):
                     pageIndex = 3;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("y5cvs"):
-                    pageIndex = 11;//UPDATE!!!!
-                    break;
-                case ("nha12"):
-                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
-                    break;
-                case ("nhc12"):
-                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("y1nzi"):
-                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("y6cvs"):
-                    pageIndex = 11;//UPDATE!!!!
                     break;
             }
             return pageIndex;
@@ -1028,78 +880,24 @@ namespace BluetoothTestClient
             {
                 switch (survey)
                 {
-                    case ("CHILD"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\surveyinstructions\NZHSChildInstructions.txt");
+                    case ("CHILDY13"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY13ChildInstructions.txt", Encoding.Default);
                         break;
-                    case ("ADULT"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\surveyinstructions\NZHSAdultInstructions.txt");
+                    case ("ADULTY13"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY13AdultInstructions.txt", Encoding.Default);
                         break;
-                    case ("NZCVS"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSInstructions.txt");
+                    case ("NZCVSY7"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY7Instructions.txt", Encoding.Default);
                         break;
-                    case ("NZCVSY2"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY2Instructions.txt");
+                    case ("PPMY7"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\PPMY7Instructions.txt", Encoding.Default);
                         break;
-                    case ("NZCVSY3"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY3Instructions.txt");
+                    case ("CHILDY14"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY14ChildInstructions.txt", Encoding.Default);
                         break;
-                    case ("CHILDY8"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY8ChildInstructions.txt");
+                    case ("ADULTY14"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY14AdultInstructions.txt", Encoding.Default);
                         break;
-                    case ("ADULTY8"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY8AdultInstructions.txt");
-                        break;
-                    case ("CHILDY9"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY9ChildInstructions.txt");
-                        break;
-                    case ("ADULTY9"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY9AdultInstructions.txt");
-                        break;
-                    case ("MHWS"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\MHS2018Instructions.txt");
-                        break;
-                    case ("HLS18"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\HLSInstructions.txt");
-                        break;
-                    case ("NZCVSY2NEW"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY2NewInstructions.txt");
-                        break;
-                    case ("HLS20"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\HLS2020Instructions.txt", Encoding.Default);
-                        break;
-                    case ("CHILDY10"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10ChildInstructions.txt", Encoding.Default);
-                        break;
-                    case ("ADULTY10"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY10AdultInstructions.txt", Encoding.Default);
-                        break;
-                    case ("NZCVSY4"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY4Instructions.txt", Encoding.Default);
-                        break;
-                    case ("CHILDY11"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY11ChildInstructions.txt", Encoding.Default);
-                        break;
-                    case ("ADULTY11"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY11AdultInstructions.txt", Encoding.Default);
-                        break;
-                    case ("NZCVSY5"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY5Instructions.txt", Encoding.Default);
-                        break;
-                    case ("CHILDY12"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY12ChildInstructions.txt", Encoding.Default);
-                        break;
-                    case ("ADULTY12"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY12AdultInstructions.txt", Encoding.Default);
-                        break;
-                    case ("NZISSY1"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZISSY1Instructions.txt", Encoding.Default);
-                        break;
-                    case ("NZCVSY6"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY6Instructions.txt", Encoding.Default);
-                        break;
-
-
-
                 }
             }
             catch (Exception e)
@@ -1467,6 +1265,10 @@ namespace BluetoothTestClient
 
         #endregion
 
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     #region external control classes
@@ -1505,81 +1307,6 @@ namespace BluetoothTestClient
         static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
     }
 
-    /*
-    //Clean way of maximising target forms
-    public class WinApi
-    {
-        [DllImport("user32.dll", EntryPoint = "GetSystemMetrics")]
-        public static extern int GetSystemMetrics(int which);
-
-        [DllImport("user32.dll")]
-        public static extern void
-            SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter,
-                         int X, int Y, int width, int height, uint flags);
-
-        private const int SM_CXSCREEN = 0;
-        private const int SM_CYSCREEN = 1;
-        private static IntPtr HWND_TOP = IntPtr.Zero;
-        private const int SWP_SHOWWINDOW = 64; // 0x0040
-
-        public static int ScreenX
-        {
-            get { return GetSystemMetrics(SM_CXSCREEN); }
-        }
-
-        public static int ScreenY
-        {
-            get { return GetSystemMetrics(SM_CYSCREEN); }
-        }
-
-        public static void SetWinFullScreen(IntPtr hwnd)
-        {
-            SetWindowPos(hwnd, HWND_TOP, 0, 0, ScreenX, ScreenY, SWP_SHOWWINDOW);
-        }
-    }
-
-    /// <summary>
-    /// Class used to preserve / restore state of the form
-    /// </summary>
-    public class FormState
-    {
-        private FormWindowState winState;
-        private FormBorderStyle brdStyle;
-        private bool topMost;
-        private Rectangle bounds;
-
-        private bool IsMaximized = false;
-
-        public void Maximize(Form targetForm)
-        {
-            if (!IsMaximized)
-            {
-                IsMaximized = true;
-                Save(targetForm);
-                targetForm.WindowState = FormWindowState.Maximized;
-                targetForm.FormBorderStyle = FormBorderStyle.None;
-                targetForm.TopMost = true;
-                WinApi.SetWinFullScreen(targetForm.Handle);
-            }
-        }
-
-        public void Save(Form targetForm)
-        {
-            winState = targetForm.WindowState;
-            brdStyle = targetForm.FormBorderStyle;
-            topMost = targetForm.TopMost;
-            bounds = targetForm.Bounds;
-        }
-
-        public void Restore(Form targetForm)
-        {
-            targetForm.WindowState = winState;
-            targetForm.FormBorderStyle = brdStyle;
-            targetForm.TopMost = topMost;
-            targetForm.Bounds = bounds;
-            IsMaximized = false;
-        }
-    }*/
 /// <summary>
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// </summary>

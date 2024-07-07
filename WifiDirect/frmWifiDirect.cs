@@ -23,21 +23,27 @@ namespace WifiDirect
             InitializeComponent();
         }
 
-        private void btnStart_Click(object? sender, EventArgs e)
+
+        private void StartListening()
         {
-      
             StartAdvertisement(WiFiDirectAdvertisementListenStateDiscoverability.Normal);
 
             if (_publisher.Status == WiFiDirectAdvertisementPublisherStatus.Started)
             {
                 btnStart.Enabled = false;
                 btnStop.Enabled = true;
-                toolStripStatusLabel1.Text="Listening For Connections....";
+                toolStripStatusLabel1.Text = "Listening For Connections....";
             }
             else
             {
-                toolStripStatusLabel1.Text=$"WifiDirect failed to start. Status is {_publisher.Status}";
+                toolStripStatusLabel1.Text = $"WifiDirect failed to start. Status is {_publisher.Status}";
             }
+        }
+        private void btnStart_Click(object? sender, EventArgs e)
+        {
+            StartListening();
+      
+          
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -55,6 +61,7 @@ namespace WifiDirect
             txtPassword.Text = _randomPassword;
             txtSSID.Text = _ssid;
             toolStripStatusLabel1.Text = "Loaded Wifi Direct.";
+            StartListening();
         }
 
 

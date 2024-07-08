@@ -45,12 +45,15 @@
             txtSendData = new TextBox();
             timer1 = new System.Windows.Forms.Timer(components);
             bindingSource1 = new BindingSource(components);
+            groupBox1 = new GroupBox();
+            txtError = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // btnStop
@@ -87,9 +90,9 @@
             // label1
             // 
             label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(123, 20);
+            label1.Location = new Point(214, 38);
             label1.Name = "label1";
-            label1.Size = new Size(481, 80);
+            label1.Size = new Size(481, 51);
             label1.TabIndex = 1;
             label1.Text = "Welcome to Ipsos Wifi Direct Host";
             // 
@@ -124,11 +127,12 @@
             btnDisconnect.TabIndex = 5;
             btnDisconnect.Text = "Disconnect";
             btnDisconnect.UseVisualStyleBackColor = true;
+            btnDisconnect.Click += btnDisconnect_Click;
             // 
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip1.Location = new Point(0, 596);
+            statusStrip1.Location = new Point(0, 726);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(912, 22);
             statusStrip1.TabIndex = 3;
@@ -145,15 +149,16 @@
             groupBox3.Controls.Add(txtMessage);
             groupBox3.Location = new Point(7, 366);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(863, 219);
+            groupBox3.Size = new Size(863, 195);
             groupBox3.TabIndex = 4;
             groupBox3.TabStop = false;
             groupBox3.Text = "Sent Data";
             // 
             // txtMessage
             // 
+            txtMessage.BackColor = Color.White;
             txtMessage.BorderStyle = BorderStyle.FixedSingle;
-            txtMessage.Location = new Point(20, 38);
+            txtMessage.Location = new Point(20, 22);
             txtMessage.Multiline = true;
             txtMessage.Name = "txtMessage";
             txtMessage.ReadOnly = true;
@@ -174,7 +179,7 @@
             // btnSendMessage
             // 
             btnSendMessage.Enabled = false;
-            btnSendMessage.Location = new Point(89, 158);
+            btnSendMessage.Location = new Point(142, 158);
             btnSendMessage.Name = "btnSendMessage";
             btnSendMessage.Size = new Size(123, 58);
             btnSendMessage.TabIndex = 6;
@@ -195,11 +200,34 @@
             timer1.Interval = 1000;
             timer1.Tick += timer1_Tick_1;
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(txtError);
+            groupBox1.Location = new Point(7, 567);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(863, 145);
+            groupBox1.TabIndex = 6;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Error Message";
+            // 
+            // txtError
+            // 
+            txtError.BackColor = Color.White;
+            txtError.BorderStyle = BorderStyle.FixedSingle;
+            txtError.ForeColor = Color.Red;
+            txtError.Location = new Point(20, 19);
+            txtError.Name = "txtError";
+            txtError.ReadOnly = true;
+            txtError.Size = new Size(828, 120);
+            txtError.TabIndex = 0;
+            txtError.Text = "";
+            // 
             // WifiDirect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(912, 618);
+            ClientSize = new Size(912, 748);
+            Controls.Add(groupBox1);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(statusStrip1);
@@ -219,6 +247,7 @@
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
+            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -240,5 +269,7 @@
         private ListBox listConnectedDevices;
         private System.Windows.Forms.Timer timer1;
         private BindingSource bindingSource1;
+        private GroupBox groupBox1;
+        private RichTextBox txtError;
     }
 }

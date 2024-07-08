@@ -45,11 +45,12 @@ namespace WifiDirect
             {
                 btnStart.Enabled = false;
                 btnStop.Enabled = true;
+                btnDisconnect.Enabled = true;
                 Notify("Listening For Connections....");
             }
             else
             {
-                Notify($"WifiDirect failed to start. Status is {_publisher.Status}", true, true);
+                Notify($"WifiDirect failed to start. Status is {_publisher.Status}", true);
             }
         }
         private void btnStart_Click(object? sender, EventArgs e)
@@ -59,32 +60,30 @@ namespace WifiDirect
 
         }
 
-        public void Notify(string message, bool showMessage = false, bool isError = false)
+        public void Notify(string message, bool isError = false)
         {
-            this.Invoke((System.Action)(() => {
+            this.Invoke((System.Action)(() =>
+            {
                 toolStripStatusLabel1.Text = message;
-                if (showMessage)
+                if (isError)
                 {
-                    if (isError)
-                    {
-                        MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtError.ForeColor = Color.Red;
+                    string currentDate = DateTime.Now.ToString("u");
+                    txtError.Text += "[" + currentDate + "] - " + message + "\n";
 
-                    }
-                    else
-                    {
-                        MessageBox.Show(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    }
                 }
+
             }));
-            
-           
+
+
         }
         private void btnStop_Click(object sender, EventArgs e)
         {
             StopAdvertisement();
             btnStop.Enabled = false;
             btnStart.Enabled = true;
+            btnDisconnect.Enabled = false;
+
 
         }
 
@@ -135,7 +134,7 @@ namespace WifiDirect
             }
             else
             {
-                Notify($"Connection request from {connectionRequest.DeviceInformation.Name} failed", true, true);
+                Notify($"Connection request from {connectionRequest.DeviceInformation.Name} failed", true);
 
                 connectionRequest.Dispose();
             }
@@ -154,7 +153,7 @@ namespace WifiDirect
             }
             catch (Exception ex)
             {
-                Notify("DeviceInformation.CreateFromIdAsync threw an exception: " + ex.Message, true, true);
+                Notify("DeviceInformation.CreateFromIdAsync threw an exception: " + ex.Message, true);
             }
 
             if (devInfo == null)
@@ -192,7 +191,7 @@ namespace WifiDirect
             {
                 string message = $"Connection request received from {deviceName}. Do you want to continue ?";
                 var result = MessageBox.Show(message, "ConnectionRequest", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 if (result == DialogResult.No)
                 {
                     return false;
@@ -209,7 +208,7 @@ namespace WifiDirect
             }
             catch (Exception ex)
             {
-                Notify($"Exception in FromIdAsync: {ex.Message}", true, true);
+                Notify($"Exception in FromIdAsync: {ex.Message}", true);
                 return false;
             }
 
@@ -235,7 +234,7 @@ namespace WifiDirect
             }
             catch (Exception ex)
             {
-                Notify($"Connect operation threw an exception: {ex.Message}", true, true);
+                Notify($"Connect operation threw an exception: {ex.Message}", true);
                 return false;
             }
 
@@ -333,7 +332,7 @@ namespace WifiDirect
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-       
+
         }
 
         private void timer1_Tick_1(object sender, EventArgs e)
@@ -342,6 +341,14 @@ namespace WifiDirect
             listConnectedDevices.Update();
             bindingSource1.ResetBindings(false);
 
+        }
+
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            var connectedDevice = (ConnectedDevice)listConnectedDevices.SelectedItem;
+            if (connectedDevice == null) return;
+            ConnectedDevices.Remove(connectedDevice);
+            connectedDevice.Dispose();
         }
     }
 }

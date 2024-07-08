@@ -104,7 +104,7 @@ namespace WifiDirect
                 MessageBox.Show($"Connection request from {connectionRequest.DeviceInformation.Name} failed",
                     "Connection Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 toolStripStatusLabel1.Text = string.Format($"Connection request from {connectionRequest.DeviceInformation.Name} failed");
-
+                
                 connectionRequest.Dispose();
             }
         }
@@ -139,11 +139,12 @@ namespace WifiDirect
         private async Task<bool> HandleConnectionRequestAsync(WiFiDirectConnectionRequest connectionRequest)
         {
             string deviceName = connectionRequest.DeviceInformation.Name;
+            string deviceId=connectionRequest.DeviceInformation.Id;
 
             toolStripStatusLabel1.Text = "Connecting to " + deviceName + "....";
 
             bool isPaired = (connectionRequest.DeviceInformation.Pairing?.IsPaired == true) ||
-                            (await IsAepPairedAsync(connectionRequest.DeviceInformation.Id));
+                            (await IsAepPairedAsync(deviceId));
 
             // Show the prompt only in case of WiFiDirect reconnection or Legacy client connection.
             return isPaired;

@@ -142,7 +142,7 @@
             label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(123, 20);
             label1.Name = "label1";
-            label1.Size = new Size(350, 80);
+            label1.Size = new Size(481, 80);
             label1.TabIndex = 1;
             label1.Text = "Welcome to Ipsos Wifi Direct Host";
             // 
@@ -150,9 +150,9 @@
             // 
             groupBox2.Controls.Add(button1);
             groupBox2.Controls.Add(listBox1);
-            groupBox2.Location = new Point(7, 341);
+            groupBox2.Location = new Point(548, 106);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(510, 244);
+            groupBox2.Size = new Size(510, 229);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Connection List";
@@ -160,7 +160,7 @@
             // button1
             // 
             button1.Enabled = false;
-            button1.Location = new Point(176, 180);
+            button1.Location = new Point(166, 162);
             button1.Name = "button1";
             button1.Size = new Size(123, 58);
             button1.TabIndex = 5;
@@ -171,9 +171,9 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(20, 32);
+            listBox1.Location = new Point(20, 47);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(461, 139);
+            listBox1.Size = new Size(461, 109);
             listBox1.TabIndex = 0;
             // 
             // statusStrip1
@@ -181,7 +181,7 @@
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
             statusStrip1.Location = new Point(0, 588);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(529, 22);
+            statusStrip1.Size = new Size(1073, 22);
             statusStrip1.TabIndex = 3;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -195,8 +195,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(529, 610);
-            ControlBox = false;
+            ClientSize = new Size(1073, 610);
             Controls.Add(statusStrip1);
             Controls.Add(groupBox2);
             Controls.Add(label1);

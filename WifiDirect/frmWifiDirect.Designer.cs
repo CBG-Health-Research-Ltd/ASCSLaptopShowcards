@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             btnStop = new Button();
             btnStart = new Button();
             pictureBox1 = new PictureBox();
@@ -42,11 +43,14 @@
             groupBox4 = new GroupBox();
             btnSendMessage = new Button();
             txtSendData = new TextBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            bindingSource1 = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
             // 
             // btnStop
@@ -185,6 +189,12 @@
             txtSendData.Size = new Size(367, 108);
             txtSendData.TabIndex = 0;
             // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick_1;
+            // 
             // WifiDirect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -208,6 +218,7 @@
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -227,5 +238,7 @@
         private Button btnSendMessage;
         private TextBox txtSendData;
         private ListBox listConnectedDevices;
+        private System.Windows.Forms.Timer timer1;
+        private BindingSource bindingSource1;
     }
 }

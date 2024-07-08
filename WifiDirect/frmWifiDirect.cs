@@ -25,12 +25,14 @@ namespace WifiDirect
         private bool _connected = false;
         private List<ConnectedDevice> ConnectedDevices = new List<ConnectedDevice>();
 
+        private List<string> ConnectedListNames = new List<string>();
+
         ConcurrentDictionary<StreamSocketListener, WiFiDirectDevice> _pendingConnections = new ConcurrentDictionary<StreamSocketListener, WiFiDirectDevice>();
 
         public WifiDirect()
         {
             InitializeComponent();
-            
+
         }
 
 
@@ -59,20 +61,24 @@ namespace WifiDirect
 
         public void Notify(string message, bool showMessage = false, bool isError = false)
         {
-            toolStripStatusLabel1.Text = message;
-            if (showMessage)
-            {
-                if (isError)
+            this.Invoke((System.Action)(() => {
+                toolStripStatusLabel1.Text = message;
+                if (showMessage)
                 {
-                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (isError)
+                    {
+                        MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                }
-                else
-                {
-                    MessageBox.Show(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    }
                 }
-            }
+            }));
+            
+           
         }
         private void btnStop_Click(object sender, EventArgs e)
         {
@@ -86,9 +92,15 @@ namespace WifiDirect
         {
             _randomPassword = GetMACAddress().ToLower().Replace(":", "");
             _ssid = "IPSOS_" + System.Environment.MachineName;
-          //  txtPassword.Text = _randomPassword;
-          //  txtSSID.Text = _ssid;
-            listConnectedDevices.DataSource = ConnectedDevices;
+            //  txtPassword.Text = _randomPassword;
+            //  txtSSID.Text = _ssid;
+            bindingSource1.DataSource = ConnectedDevices;
+            listConnectedDevices.SelectionMode = SelectionMode.One;
+            listConnectedDevices.DataSource = bindingSource1;
+            listConnectedDevices.DisplayMember = "DisplayName";
+            listConnectedDevices.ValueMember = "DisplayName";
+            bindingSource1.ResetBindings(false);
+
             btnStop.Enabled = true;
             Notify("Loaded Wifi Direct.");
             StartListening();
@@ -119,7 +131,6 @@ namespace WifiDirect
 
             if (success)
             {
-
 
             }
             else
@@ -157,11 +168,15 @@ namespace WifiDirect
             return pairedDeviceCollection.Count > 0;
         }
 
-        public void AddConnection(StreamSocketListener listenerSocket, WiFiDirectDevice wfdDevice)
+        public void AddConnection(StreamSocketListener listenerSocket, WiFiDirectDevice wfdDevice, string deviceName)
         {
             _pendingConnections[listenerSocket] = wfdDevice;
+
+
+            ConnectedDevices.Add(new ConnectedDevice(deviceName ?? "(unnamed)", wfdDevice, listenerSocket));
+
         }
-        
+
 
         private async Task<bool> HandleConnectionRequestAsync(WiFiDirectConnectionRequest connectionRequest)
         {
@@ -177,13 +192,13 @@ namespace WifiDirect
             {
                 string message = $"Connection request received from {deviceName}. Do you want to continue ?";
                 var result = MessageBox.Show(message, "ConnectionRequest", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
+                    MessageBoxIcon.Question,MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 if (result == DialogResult.No)
                 {
                     return false;
                 }
 
-               
+
             }
 
             WiFiDirectDevice wfdDevice = null;
@@ -194,7 +209,7 @@ namespace WifiDirect
             }
             catch (Exception ex)
             {
-                Notify($"Exception in FromIdAsync: {ex}", true, true);
+                Notify($"Exception in FromIdAsync: {ex.Message}", true, true);
                 return false;
             }
 
@@ -205,13 +220,13 @@ namespace WifiDirect
             var listenerSocket = new StreamSocketListener();
 
             // Save this (listenerSocket, wfdDevice) pair so we can hook it up when the socket connection is made.
-           
-            AddConnection(listenerSocket, wfdDevice);
-            
+
+
+
 
             var EndpointPairs = wfdDevice.GetConnectionEndpointPairs();
 
-             listenerSocket.ConnectionReceived += OnSocketConnectionReceived;
+            listenerSocket.ConnectionReceived += OnSocketConnectionReceived;
 
 
             try
@@ -227,8 +242,7 @@ namespace WifiDirect
             Notify($"Devices connected on L2, listening on IP Address: {EndpointPairs[0].LocalHostName}" +
                                 $" Port: {Globals.strServerPort}");
 
-            ConnectedDevices.Add(new ConnectedDevice(deviceName ?? "(unnamed)", wfdDevice));
-
+            AddConnection(listenerSocket, wfdDevice, deviceName);
 
             return true;
 
@@ -314,6 +328,19 @@ namespace WifiDirect
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+       
+        }
+
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            listConnectedDevices.Refresh();
+            listConnectedDevices.Update();
+            bindingSource1.ResetBindings(false);
 
         }
     }

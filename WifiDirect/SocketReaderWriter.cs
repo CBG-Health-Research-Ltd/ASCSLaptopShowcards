@@ -118,12 +118,18 @@ namespace WifiDirect
     {
 
         public WiFiDirectDevice WfdDevice { get; }
-        public string DisplayName { get; }
+        public string DisplayName { get; set; }
+        
+        public string Id { get; set; }
+        
+        public StreamSocketListener ListenerSocket { get; }
 
-        public ConnectedDevice(string displayName, WiFiDirectDevice wfdDevice)
+        public ConnectedDevice(string displayName, WiFiDirectDevice wfdDevice, StreamSocketListener socketListener)
         {
             DisplayName = displayName;
+            Id = wfdDevice.DeviceId;
             WfdDevice = wfdDevice;
+            ListenerSocket = socketListener;
 
         }
 
@@ -135,6 +141,7 @@ namespace WifiDirect
 
             // Close WiFiDirectDevice object
             WfdDevice.Dispose();
+            
         }
     }
 }

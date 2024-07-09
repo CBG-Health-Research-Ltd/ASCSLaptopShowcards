@@ -11,6 +11,7 @@ using Windows.UI.Core;
 using System.Collections.ObjectModel;
 using Windows.Devices.HumanInterfaceDevice;
 using System.Windows.Forms;
+using ABI.Windows.Devices.WiFiDirect.Services;
 
 namespace WifiDirect
 {
@@ -83,6 +84,7 @@ namespace WifiDirect
             btnStop.Enabled = false;
             btnStart.Enabled = true;
             btnDisconnect.Enabled = false;
+            ConnectedDevices.Clear();
 
 
         }
@@ -128,12 +130,9 @@ namespace WifiDirect
             WiFiDirectConnectionRequest connectionRequest = connectionEventArgs.GetConnectionRequest();
             bool success = await HandleConnectionRequestAsync(connectionRequest);
 
-            if (success)
+            if (!success)
             {
 
-            }
-            else
-            {
                 Notify($"Connection request from {connectionRequest.DeviceInformation.Name} failed", true);
 
                 connectionRequest.Dispose();
@@ -169,7 +168,7 @@ namespace WifiDirect
 
         public void AddConnection(StreamSocketListener listenerSocket, WiFiDirectDevice wfdDevice, string deviceName)
         {
-            _pendingConnections[listenerSocket] = wfdDevice;
+           
 
 
             ConnectedDevices.Add(new ConnectedDevice(deviceName ?? "(unnamed)", wfdDevice, listenerSocket));
@@ -215,12 +214,13 @@ namespace WifiDirect
             // Register for the ConnectionStatusChanged event handler
             wfdDevice.ConnectionStatusChanged += OnConnectionStatusChanged;
 
+            
 
             var listenerSocket = new StreamSocketListener();
 
             // Save this (listenerSocket, wfdDevice) pair so we can hook it up when the socket connection is made.
 
-
+            _pendingConnections[listenerSocket] = wfdDevice;
 
 
             var EndpointPairs = wfdDevice.GetConnectionEndpointPairs();
@@ -230,7 +230,7 @@ namespace WifiDirect
 
             try
             {
-                await listenerSocket.BindServiceNameAsync(Globals.strServerPort);
+                await listenerSocket.BindEndpointAsync(EndpointPairs[0].LocalHostName, "");
             }
             catch (Exception ex)
             {

@@ -141,6 +141,7 @@ namespace WifiDirect
 
             // Close WiFiDirectDevice object
             WfdDevice.Dispose();
+            ListenerSocket.Dispose();
             
         }
     }

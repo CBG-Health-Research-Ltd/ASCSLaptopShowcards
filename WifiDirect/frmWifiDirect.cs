@@ -90,12 +90,19 @@ namespace WifiDirect
                 toolStripStatusLabel1.Text = message;
                 if (isError)
                 {
-                    txtError.ForeColor = Color.Red;
+                    txtLogs.ForeColor = Color.Red;
                     string currentDate = DateTime.Now.ToString("u");
-                    txtError.Text += "[" + currentDate + "] - " + message + "\n";
+                    txtLogs.Text += "[" + currentDate + "] - " + message + "\n";
 
                 }
+                else
+                {
+                    txtLogs.ForeColor = Color.Black;
+                    string currentDate = DateTime.Now.ToString("u");
+                    txtLogs.Text += "[" + currentDate + "] - " + message + "\n";
+                }
 
+                txtLogs.ScrollToCaret();
             }));
 
 
@@ -140,6 +147,7 @@ namespace WifiDirect
             _listener = new WiFiDirectConnectionListener();
 
             _listener.ConnectionRequested += OnConnectionRequested;
+
 
             _publisher.StatusChanged += OnStatusChanged;
 
@@ -190,7 +198,7 @@ namespace WifiDirect
 
         public void AddConnection(StreamSocketListener listenerSocket, WiFiDirectDevice wfdDevice, string deviceName)
         {
-           
+
 
 
             ConnectedDevices.Add(new ConnectedDevice(deviceName ?? "(unnamed)", wfdDevice, listenerSocket));
@@ -236,8 +244,6 @@ namespace WifiDirect
             // Register for the ConnectionStatusChanged event handler
             wfdDevice.ConnectionStatusChanged += OnConnectionStatusChanged;
 
-            
-
             var listenerSocket = new StreamSocketListener();
 
             // Save this (listenerSocket, wfdDevice) pair so we can hook it up when the socket connection is made.
@@ -260,8 +266,9 @@ namespace WifiDirect
                 return false;
             }
 
-            Notify($"Devices connected on L2, listening on IP Address: {EndpointPairs[0].LocalHostName}" +
+            Notify($"Device connected : {deviceName}. listening on IP Address: {EndpointPairs[0].LocalHostName}" +
                                 $" Port: {Globals.strServerPort}");
+            Notify("Ready to send message...");
 
             AddConnection(listenerSocket, wfdDevice, deviceName);
 
@@ -305,11 +312,23 @@ namespace WifiDirect
         private void OnConnectionStatusChanged(WiFiDirectDevice sender, object arg)
         {
             Notify($"Connection status changed: {sender.ConnectionStatus}");
-
+            ConnectedDevice forDisconnection = null;
             if (sender.ConnectionStatus == WiFiDirectConnectionStatus.Disconnected)
             {
-                // TODO: Should we remove this connection from the list?
-                // (Yes, probably.)
+                foreach (var data in ConnectedDevices)
+                {
+                    if (data.Id == sender.DeviceId)
+                    {
+                        forDisconnection = data;
+                        break;
+                    }
+                }
+
+                if (forDisconnection != null)
+                {
+                    ConnectedDevices.Remove(forDisconnection);
+                    forDisconnection.Dispose();
+                }
             }
         }
 
@@ -371,6 +390,19 @@ namespace WifiDirect
             if (connectedDevice == null) return;
             ConnectedDevices.Remove(connectedDevice);
             connectedDevice.Dispose();
+        }
+
+        private void txtLogs_TextChanged(object sender, EventArgs e)
+        {
+            txtLogs.SelectionStart = txtLogs.Text.Length;
+
+            txtLogs.ScrollToCaret();
+        }
+
+        private void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            var connectedDevice = (ConnectedDevice)listConnectedDevices.SelectedItem;
+           // await connectedDevice.SocketRW.WriteMessageAsync(txtSendMessage.Text);
         }
     }
 }

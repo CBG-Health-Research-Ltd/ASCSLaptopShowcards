@@ -46,7 +46,7 @@
             timer1 = new System.Windows.Forms.Timer(components);
             bindingSource1 = new BindingSource(components);
             groupBox1 = new GroupBox();
-            txtError = new RichTextBox();
+            txtLogs = new RichTextBox();
             groupBox5 = new GroupBox();
             txtReceive = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -181,13 +181,13 @@
             // 
             // btnSendMessage
             // 
-            btnSendMessage.Enabled = false;
             btnSendMessage.Location = new Point(152, 158);
             btnSendMessage.Name = "btnSendMessage";
             btnSendMessage.Size = new Size(123, 58);
             btnSendMessage.TabIndex = 6;
             btnSendMessage.Text = "Send Data";
             btnSendMessage.UseVisualStyleBackColor = true;
+            btnSendMessage.Click += btnSendMessage_Click;
             // 
             // txtSendData
             // 
@@ -205,25 +205,26 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(txtError);
+            groupBox1.Controls.Add(txtLogs);
             groupBox1.Location = new Point(7, 567);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(893, 145);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Error Message";
+            groupBox1.Text = "Log Actions";
             // 
-            // txtError
+            // txtLogs
             // 
-            txtError.BackColor = Color.White;
-            txtError.BorderStyle = BorderStyle.FixedSingle;
-            txtError.ForeColor = Color.Red;
-            txtError.Location = new Point(20, 19);
-            txtError.Name = "txtError";
-            txtError.ReadOnly = true;
-            txtError.Size = new Size(853, 120);
-            txtError.TabIndex = 0;
-            txtError.Text = "";
+            txtLogs.BackColor = Color.White;
+            txtLogs.BorderStyle = BorderStyle.FixedSingle;
+            txtLogs.ForeColor = Color.Red;
+            txtLogs.Location = new Point(20, 19);
+            txtLogs.Name = "txtLogs";
+            txtLogs.ReadOnly = true;
+            txtLogs.Size = new Size(853, 120);
+            txtLogs.TabIndex = 0;
+            txtLogs.Text = "";
+            txtLogs.TextChanged += txtLogs_TextChanged;
             // 
             // groupBox5
             // 
@@ -297,7 +298,7 @@
         private System.Windows.Forms.Timer timer1;
         private BindingSource bindingSource1;
         private GroupBox groupBox1;
-        private RichTextBox txtError;
+        private RichTextBox txtLogs;
         private GroupBox groupBox5;
         private TextBox txtReceive;
     }

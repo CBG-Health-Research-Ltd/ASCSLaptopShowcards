@@ -58,7 +58,7 @@ namespace WifiDirect
                 _dataWriter.WriteUInt32(_dataWriter.MeasureString(message));
                 _dataWriter.WriteString(message);
                 await _dataWriter.StoreAsync();
-                _rootPage.Notify("Sent message: " + message);
+                _rootPage.NotifySentMessage(message);
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace WifiDirect
                     {
                         // Decode the string.
                         string message = _dataReader.ReadString(messageLength);
-                        _rootPage.Notify("Got message: " + message);
+                        _rootPage.NotifyReceiveMessage("Got message: " + message);
                         return message;
                     }
                 }

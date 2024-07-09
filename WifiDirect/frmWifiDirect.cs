@@ -61,6 +61,28 @@ namespace WifiDirect
 
         }
 
+
+        public void NotifyReceiveMessage(string message)
+        {
+            this.Invoke((System.Action)(() =>
+            {
+                string currentDate = DateTime.Now.ToString("u");
+                txtReceive.Text += "[" + currentDate + "] - " + message + "\n";
+
+            }));
+
+        }
+        public void NotifySentMessage(string message)
+        {
+            this.Invoke((System.Action)(() =>
+            {
+                string currentDate = DateTime.Now.ToString("u");
+                txtMessage.Text += "[" + currentDate + "] - " + message + "\n";
+
+            }));
+
+        }
+
         public void Notify(string message, bool isError = false)
         {
             this.Invoke((System.Action)(() =>
@@ -207,7 +229,7 @@ namespace WifiDirect
             }
             catch (Exception ex)
             {
-                Notify($"Exception in FromIdAsync: {ex.Message}", true);
+                //Notify($"Exception in FromIdAsync: {ex.Message}", true);
                 return false;
             }
 

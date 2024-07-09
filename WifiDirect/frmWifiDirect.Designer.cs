@@ -47,6 +47,8 @@
             bindingSource1 = new BindingSource(components);
             groupBox1 = new GroupBox();
             txtError = new RichTextBox();
+            groupBox5 = new GroupBox();
+            txtReceive = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -54,6 +56,7 @@
             groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             groupBox1.SuspendLayout();
+            groupBox5.SuspendLayout();
             SuspendLayout();
             // 
             // btnStop
@@ -149,7 +152,7 @@
             groupBox3.Controls.Add(txtMessage);
             groupBox3.Location = new Point(7, 366);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(863, 195);
+            groupBox3.Size = new Size(439, 195);
             groupBox3.TabIndex = 4;
             groupBox3.TabStop = false;
             groupBox3.Text = "Sent Data";
@@ -162,7 +165,7 @@
             txtMessage.Multiline = true;
             txtMessage.Name = "txtMessage";
             txtMessage.ReadOnly = true;
-            txtMessage.Size = new Size(828, 155);
+            txtMessage.Size = new Size(400, 155);
             txtMessage.TabIndex = 0;
             // 
             // groupBox4
@@ -171,7 +174,7 @@
             groupBox4.Controls.Add(txtSendData);
             groupBox4.Location = new Point(468, 107);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(402, 243);
+            groupBox4.Size = new Size(432, 243);
             groupBox4.TabIndex = 5;
             groupBox4.TabStop = false;
             groupBox4.Text = "Test Sender";
@@ -179,7 +182,7 @@
             // btnSendMessage
             // 
             btnSendMessage.Enabled = false;
-            btnSendMessage.Location = new Point(142, 158);
+            btnSendMessage.Location = new Point(152, 158);
             btnSendMessage.Name = "btnSendMessage";
             btnSendMessage.Size = new Size(123, 58);
             btnSendMessage.TabIndex = 6;
@@ -191,7 +194,7 @@
             txtSendData.Location = new Point(20, 22);
             txtSendData.Multiline = true;
             txtSendData.Name = "txtSendData";
-            txtSendData.Size = new Size(367, 108);
+            txtSendData.Size = new Size(392, 108);
             txtSendData.TabIndex = 0;
             // 
             // timer1
@@ -205,7 +208,7 @@
             groupBox1.Controls.Add(txtError);
             groupBox1.Location = new Point(7, 567);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(863, 145);
+            groupBox1.Size = new Size(893, 145);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Error Message";
@@ -218,15 +221,37 @@
             txtError.Location = new Point(20, 19);
             txtError.Name = "txtError";
             txtError.ReadOnly = true;
-            txtError.Size = new Size(828, 120);
+            txtError.Size = new Size(853, 120);
             txtError.TabIndex = 0;
             txtError.Text = "";
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(txtReceive);
+            groupBox5.Location = new Point(468, 366);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(432, 195);
+            groupBox5.TabIndex = 7;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Received Data";
+            // 
+            // txtReceive
+            // 
+            txtReceive.BackColor = Color.White;
+            txtReceive.BorderStyle = BorderStyle.FixedSingle;
+            txtReceive.Location = new Point(20, 22);
+            txtReceive.Multiline = true;
+            txtReceive.Name = "txtReceive";
+            txtReceive.ReadOnly = true;
+            txtReceive.Size = new Size(392, 155);
+            txtReceive.TabIndex = 1;
             // 
             // WifiDirect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(912, 748);
+            Controls.Add(groupBox5);
             Controls.Add(groupBox1);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
@@ -248,6 +273,8 @@
             groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             groupBox1.ResumeLayout(false);
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -271,5 +298,7 @@
         private BindingSource bindingSource1;
         private GroupBox groupBox1;
         private RichTextBox txtError;
+        private GroupBox groupBox5;
+        private TextBox txtReceive;
     }
 }

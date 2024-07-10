@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using Windows.Devices.HumanInterfaceDevice;
 using System.Windows.Forms;
 using ABI.Windows.Devices.WiFiDirect.Services;
+using WifiDirectHost;
 
 namespace WifiDirect
 {
@@ -26,9 +27,9 @@ namespace WifiDirect
         private bool _connected = false;
         private List<ConnectedDevice> ConnectedDevices = new List<ConnectedDevice>();
 
-        private List<string> ConnectedListNames = new List<string>();
+        private List<DeviceConnections> ConnectedListNames = new List<DeviceConnections>();
 
-        ConcurrentDictionary<StreamSocketListener, WiFiDirectDevice> _pendingConnections = new ConcurrentDictionary<StreamSocketListener, WiFiDirectDevice>();
+        ConcurrentDictionary<StreamSocketListener, WiFiDirectDevice> _connections = new ConcurrentDictionary<StreamSocketListener, WiFiDirectDevice>();
 
         public WifiDirect()
         {
@@ -47,6 +48,9 @@ namespace WifiDirect
                 btnStart.Enabled = false;
                 btnStop.Enabled = true;
                 btnDisconnect.Enabled = true;
+                txtSSID.ReadOnly = true;
+                txtPassword.ReadOnly = true;
+
                 Notify("Listening For Connections....");
             }
             else
@@ -54,6 +58,7 @@ namespace WifiDirect
                 Notify($"WifiDirect failed to start. Status is {_publisher.Status}", true);
             }
         }
+        
         private void btnStart_Click(object? sender, EventArgs e)
         {
             StartListening();
@@ -67,9 +72,10 @@ namespace WifiDirect
             this.Invoke((System.Action)(() =>
             {
                 string currentDate = DateTime.Now.ToString("u");
-                txtReceive.Text += "[" + currentDate + "] - " + message + "\n";
+                txtMessage.Text += " RECEIVED : [" + currentDate + "] - " + message + "\n";
 
             }));
+            Notify( message);
 
         }
         public void NotifySentMessage(string message)
@@ -77,9 +83,10 @@ namespace WifiDirect
             this.Invoke((System.Action)(() =>
             {
                 string currentDate = DateTime.Now.ToString("u");
-                txtMessage.Text += "[" + currentDate + "] - " + message + "\n";
+                txtMessage.Text += " SENT : [" + currentDate + "] - " + message + "\n";
 
             }));
+            Notify(message);
 
         }
 
@@ -100,8 +107,8 @@ namespace WifiDirect
                     string currentDate = DateTime.Now.ToString("u");
                     txtLogs.Text += "[" + currentDate + "] - " + message + "\n";
                 }
-                
-                
+
+
 
             }));
 
@@ -113,6 +120,9 @@ namespace WifiDirect
             btnStop.Enabled = false;
             btnStart.Enabled = true;
             btnDisconnect.Enabled = false;
+            txtSSID.ReadOnly = false;
+            txtPassword.ReadOnly = false;
+
             ConnectedDevices.Clear();
 
 
@@ -122,9 +132,9 @@ namespace WifiDirect
         {
             _randomPassword = GetMACAddress().ToLower().Replace(":", "");
             _ssid = "IPSOS_" + System.Environment.MachineName;
-            //  txtPassword.Text = _randomPassword;
-            //  txtSSID.Text = _ssid;
-            bindingSource1.DataSource = ConnectedDevices;
+            txtPassword.Text = _randomPassword;
+            txtSSID.Text = _ssid;
+            bindingSource1.DataSource = ConnectedListNames;
             listConnectedDevices.SelectionMode = SelectionMode.One;
             listConnectedDevices.DataSource = bindingSource1;
             listConnectedDevices.DisplayMember = "DisplayName";
@@ -150,6 +160,22 @@ namespace WifiDirect
 
 
             _publisher.StatusChanged += OnStatusChanged;
+
+            _publisher.Advertisement.LegacySettings.IsEnabled = true;
+            _publisher.Advertisement.IsAutonomousGroupOwnerEnabled = true;
+
+            if (!String.IsNullOrEmpty(txtPassword.Text))
+            {
+                var creds = new Windows.Security.Credentials.PasswordCredential();
+                creds.Password = txtPassword.Text;
+                _publisher.Advertisement.LegacySettings.Passphrase = creds;
+            }
+
+            if (!String.IsNullOrEmpty(txtSSID.Text))
+            {
+                _publisher.Advertisement.LegacySettings.Ssid = txtSSID.Text;
+            }
+
 
             _publisher.Advertisement.ListenStateDiscoverability = discoverability;
             _publisher.Start();
@@ -200,8 +226,22 @@ namespace WifiDirect
         {
 
 
+            DeviceConnections deviceConnections =new DeviceConnections();
 
-            ConnectedDevices.Add(new ConnectedDevice(deviceName ?? "(unnamed)", wfdDevice, listenerSocket));
+            deviceConnections.Id = wfdDevice.DeviceId;
+            deviceConnections.DisplayName = deviceName;
+            
+            ConnectedListNames.Add(deviceConnections);
+
+            this.Invoke((System.Action)(() =>
+            {
+
+                listConnectedDevices.Refresh();
+                listConnectedDevices.Update();
+                bindingSource1.ResetBindings(false);
+
+            }));
+
 
         }
 
@@ -216,7 +256,8 @@ namespace WifiDirect
             bool isPaired = (connectionRequest.DeviceInformation.Pairing?.IsPaired == true) ||
                             (await IsAepPairedAsync(deviceId));
 
-            if (isPaired)
+            /*
+            if (isPaired || _publisher.Advertisement.LegacySettings.IsEnabled)
             {
                 string message = $"Connection request received from {deviceName}. Do you want to continue ?";
                 var result = MessageBox.Show(message, "ConnectionRequest", MessageBoxButtons.YesNo,
@@ -228,6 +269,7 @@ namespace WifiDirect
 
 
             }
+            */
 
             WiFiDirectDevice wfdDevice = null;
             try
@@ -248,17 +290,17 @@ namespace WifiDirect
 
             // Save this (listenerSocket, wfdDevice) pair so we can hook it up when the socket connection is made.
 
-            _pendingConnections[listenerSocket] = wfdDevice;
+            _connections[listenerSocket] = wfdDevice;
 
 
             var EndpointPairs = wfdDevice.GetConnectionEndpointPairs();
 
-             listenerSocket.ConnectionReceived += OnSocketConnectionReceived;
+            listenerSocket.ConnectionReceived += OnSocketConnectionReceived;
 
 
             try
             {
-                await listenerSocket.BindEndpointAsync(EndpointPairs[0].LocalHostName, "");
+                await listenerSocket.BindEndpointAsync(EndpointPairs[0].LocalHostName, Globals.strServerPort);
             }
             catch (Exception ex)
             {
@@ -268,7 +310,7 @@ namespace WifiDirect
 
             Notify($"Device connected : {deviceName}. listening on IP Address: {EndpointPairs[0].LocalHostName}" +
                                 $" Port: {Globals.strServerPort}");
-            Notify("Ready to send message...");
+            Notify("Ready to send and receive message...");
 
             AddConnection(listenerSocket, wfdDevice, deviceName);
 
@@ -277,36 +319,41 @@ namespace WifiDirect
         }
 
 
-        private void OnSocketConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
+        private async void OnSocketConnectionReceived(StreamSocketListener sender,
+            StreamSocketListenerConnectionReceivedEventArgs args)
         {
-            var task = async () =>
+
+            StreamSocket serverSocket = args.Socket;
+
+            // Look up the WiFiDirectDevice associated with this StreamSocketListener.
+            WiFiDirectDevice wfdDevice=_connections[sender];
+            
+/*            if (!_connections.TryRemove(sender, out wfdDevice))
             {
-                Notify("Connecting to remote side on L4 layer...");
-                StreamSocket serverSocket = args.Socket;
-
-                // Look up the WiFiDirectDevice associated with this StreamSocketListener.
-                WiFiDirectDevice wfdDevice;
-                if (!_pendingConnections.TryRemove(sender, out wfdDevice))
-                {
-                    Notify("Unexpected connection ignored.");
-                    serverSocket.Dispose();
-                    return;
-                }
-
-                SocketReaderWriter socketRW = new SocketReaderWriter(serverSocket, this);
-
-                // The first message sent is the name of the connection.
-                string message = await socketRW.ReadMessageAsync();
-
-                // Add this connection to the list of active connections.
+                Notify("Unexpected connection ignored.");
+                serverSocket.Dispose();
+                return;
+            }
+*/
+            SocketReaderWriter socketRW = new SocketReaderWriter(serverSocket, this);
 
 
 
-                while (message != null)
-                {
-                    message = await socketRW.ReadMessageAsync();
-                }
-            };
+            // The first message sent is the name of the connection.
+            string message = await socketRW.ReadMessageAsync();
+
+
+            ConnectedDevices.Add(new ConnectedDevice(message ?? "(unnamed)", wfdDevice, socketRW));
+
+            // Add this connection to the list of active connections.
+
+
+
+            while (message != null)
+            {
+                message = await socketRW.ReadMessageAsync();
+            }
+
         }
 
         private void OnConnectionStatusChanged(WiFiDirectDevice sender, object arg)
@@ -315,21 +362,49 @@ namespace WifiDirect
             ConnectedDevice forDisconnection = null;
             if (sender.ConnectionStatus == WiFiDirectConnectionStatus.Disconnected)
             {
-                foreach (var data in ConnectedDevices)
+
+                DeviceConnections dcDevice = new DeviceConnections();
+                foreach (var device in ConnectedListNames)
                 {
-                    if (data.Id == sender.DeviceId)
+                    if (device.Id == sender.DeviceId)
                     {
-                        forDisconnection = data;
-                        break;
+                        dcDevice = device;
                     }
                 }
 
-                if (forDisconnection != null)
+                foreach (var device in _connections)
                 {
-                    ConnectedDevices.Remove(forDisconnection);
-                    forDisconnection.Dispose();
+                    if (device.Value.DeviceId == dcDevice.Id)
+                    {
+                        _connections.TryRemove(device.Key, out var t);
+                        t.Dispose();
+                    }
                 }
+
+                foreach (var device in ConnectedDevices)
+                {
+                    if (device.WfdDevice.DeviceId == dcDevice.Id)
+                    {
+                        ConnectedDevices.Remove(device);
+                        device.Dispose();
+                    }
+                }
+
+
+
+                ConnectedListNames.Remove(dcDevice);
+                
+                
             }
+
+            this.Invoke((System.Action)(() =>
+            {
+
+                listConnectedDevices.Refresh();
+                listConnectedDevices.Update();
+                bindingSource1.ResetBindings(false);
+
+            }));
         }
 
         void OnStatusChanged(WiFiDirectAdvertisementPublisher sender, WiFiDirectAdvertisementPublisherStatusChangedEventArgs statusEventArgs)
@@ -366,30 +441,43 @@ namespace WifiDirect
             return MACAddress;
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void timer1_Tick_1(object sender, EventArgs e)
-        {
-            listConnectedDevices.Refresh();
-            listConnectedDevices.Update();
-            bindingSource1.ResetBindings(false);
-
-        }
 
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
-            var connectedDevice = (ConnectedDevice)listConnectedDevices.SelectedItem;
+            
+            var connectedDevice = (DeviceConnections)listConnectedDevices.SelectedItem;
             if (connectedDevice == null) return;
-            ConnectedDevices.Remove(connectedDevice);
-            connectedDevice.Dispose();
+
+            foreach (var device in ConnectedDevices)
+            {
+                if (device.WfdDevice.DeviceId == connectedDevice.Id)
+                {
+                    ConnectedDevices.Remove(device);
+                    device.Dispose();
+                }
+            }
+
+            foreach (var device in _connections)
+            {
+                if (device.Value.DeviceId == connectedDevice.Id)
+                {
+                    _connections.TryRemove(device.Key, out var t);
+                    t.Dispose();
+                }
+            }
+
+            ConnectedListNames.Remove(connectedDevice);
+
+            this.Invoke((System.Action)(() =>
+            {
+
+                listConnectedDevices.Refresh();
+                listConnectedDevices.Update();
+                bindingSource1.ResetBindings(false);
+
+            }));
+
         }
 
         private void txtLogs_TextChanged(object sender, EventArgs e)
@@ -399,10 +487,33 @@ namespace WifiDirect
             txtLogs.ScrollToCaret();
         }
 
-        private void btnSendMessage_Click(object sender, EventArgs e)
+        private async void btnSendMessage_Click(object sender, EventArgs e)
         {
-            var connectedDevice = (ConnectedDevice)listConnectedDevices.SelectedItem;
-           // await connectedDevice.SocketRW.WriteMessageAsync(txtSendMessage.Text);
+            var connectedDevice = (DeviceConnections)listConnectedDevices.SelectedItem;
+            if (connectedDevice == null) return;
+
+            foreach (var device in ConnectedDevices)
+            {
+                if (device.WfdDevice.DeviceId == connectedDevice.Id)
+                {
+                    await device.SocketRW.WriteMessageAsync(txtSendData.Text);
+                }
+            }
+
+         
+  
+        }
+
+        private void txtMessage_TextChanged(object sender, EventArgs e)
+        {
+            txtMessage.SelectionStart = txtMessage.Text.Length;
+
+            txtMessage.ScrollToCaret();
+        }
+
+        private void btnSaveLog_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

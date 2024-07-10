@@ -79,7 +79,8 @@ namespace WifiDirect
                     if (bytesRead > 0)
                     {
                         // Decode the string.
-                        string message = _dataReader.ReadString(messageLength);
+                        string message = _dataReader.ReadString(bytesRead);
+                        await WriteMessageAsync("test123423121");
                         _rootPage.NotifyReceiveMessage("Got message: " + message);
                         return message;
                     }
@@ -114,33 +115,29 @@ namespace WifiDirect
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
+
     public class ConnectedDevice : IDisposable
     {
-
+        public SocketReaderWriter SocketRW { get; }
         public WiFiDirectDevice WfdDevice { get; }
-        public string DisplayName { get; set; }
-        
-        public string Id { get; set; }
-        
-        public StreamSocketListener ListenerSocket { get; }
+        public string DisplayName { get; }
 
-        public ConnectedDevice(string displayName, WiFiDirectDevice wfdDevice, StreamSocketListener socketListener)
+        public ConnectedDevice(string displayName, WiFiDirectDevice wfdDevice, SocketReaderWriter socketRW)
         {
             DisplayName = displayName;
-            Id = wfdDevice.DeviceId;
             WfdDevice = wfdDevice;
-            ListenerSocket = socketListener;
-
+            SocketRW = socketRW;
         }
 
         public override string ToString() => DisplayName;
 
         public void Dispose()
         {
+            // Close socket
+            SocketRW.Dispose();
+
             // Close WiFiDirectDevice object
             WfdDevice.Dispose();
-            ListenerSocket.Dispose();
-            
         }
     }
 }

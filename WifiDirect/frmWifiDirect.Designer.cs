@@ -39,16 +39,21 @@
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             groupBox3 = new GroupBox();
-            txtMessage = new TextBox();
+            txtMessage = new RichTextBox();
             groupBox4 = new GroupBox();
             btnSendMessage = new Button();
             txtSendData = new TextBox();
-            timer1 = new System.Windows.Forms.Timer(components);
             bindingSource1 = new BindingSource(components);
             groupBox1 = new GroupBox();
+            btnSaveLog = new Button();
             txtLogs = new RichTextBox();
             groupBox5 = new GroupBox();
-            txtReceive = new TextBox();
+            txtPassword = new TextBox();
+            label4 = new Label();
+            txtSSID = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
+            folderBrowserDialog1 = new FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -62,9 +67,9 @@
             // btnStop
             // 
             btnStop.Enabled = false;
-            btnStop.Location = new Point(158, 159);
+            btnStop.Location = new Point(235, 137);
             btnStop.Name = "btnStop";
-            btnStop.Size = new Size(123, 58);
+            btnStop.Size = new Size(123, 36);
             btnStop.TabIndex = 5;
             btnStop.Text = "Stop Listening";
             btnStop.UseVisualStyleBackColor = true;
@@ -72,9 +77,9 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(25, 159);
+            btnStart.Location = new Point(76, 137);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(123, 58);
+            btnStart.Size = new Size(123, 36);
             btnStart.TabIndex = 4;
             btnStart.Text = "Start Listening";
             btnStart.UseVisualStyleBackColor = true;
@@ -82,7 +87,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = LaptopShowcards.Properties.Resources.Ipsos_logo_svg;
+            pictureBox1.Image = WifiDirectHost.Properties.Resources.Ipsos_logo_svg;
             pictureBox1.Location = new Point(12, 22);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(80, 78);
@@ -101,13 +106,11 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(btnStart);
-            groupBox2.Controls.Add(btnStop);
             groupBox2.Controls.Add(listConnectedDevices);
             groupBox2.Controls.Add(btnDisconnect);
-            groupBox2.Location = new Point(12, 106);
+            groupBox2.Location = new Point(473, 102);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(434, 244);
+            groupBox2.Size = new Size(427, 195);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Connection List";
@@ -118,15 +121,15 @@
             listConnectedDevices.ItemHeight = 15;
             listConnectedDevices.Location = new Point(25, 22);
             listConnectedDevices.Name = "listConnectedDevices";
-            listConnectedDevices.Size = new Size(390, 109);
+            listConnectedDevices.Size = new Size(382, 109);
             listConnectedDevices.TabIndex = 6;
             // 
             // btnDisconnect
             // 
             btnDisconnect.Enabled = false;
-            btnDisconnect.Location = new Point(292, 159);
+            btnDisconnect.Location = new Point(25, 148);
             btnDisconnect.Name = "btnDisconnect";
-            btnDisconnect.Size = new Size(123, 58);
+            btnDisconnect.Size = new Size(382, 33);
             btnDisconnect.TabIndex = 5;
             btnDisconnect.Text = "Disconnect";
             btnDisconnect.UseVisualStyleBackColor = true;
@@ -135,7 +138,7 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip1.Location = new Point(0, 726);
+            statusStrip1.Location = new Point(0, 598);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(912, 22);
             statusStrip1.TabIndex = 3;
@@ -150,40 +153,42 @@
             // groupBox3
             // 
             groupBox3.Controls.Add(txtMessage);
-            groupBox3.Location = new Point(7, 366);
+            groupBox3.Location = new Point(474, 304);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(439, 195);
+            groupBox3.Size = new Size(426, 174);
             groupBox3.TabIndex = 4;
             groupBox3.TabStop = false;
-            groupBox3.Text = "Sent Data";
+            groupBox3.Text = "Communications Panel";
             // 
             // txtMessage
             // 
             txtMessage.BackColor = Color.White;
             txtMessage.BorderStyle = BorderStyle.FixedSingle;
-            txtMessage.Location = new Point(20, 22);
-            txtMessage.Multiline = true;
+            txtMessage.ForeColor = Color.Black;
+            txtMessage.Location = new Point(24, 22);
             txtMessage.Name = "txtMessage";
             txtMessage.ReadOnly = true;
-            txtMessage.Size = new Size(400, 155);
-            txtMessage.TabIndex = 0;
+            txtMessage.Size = new Size(382, 137);
+            txtMessage.TabIndex = 1;
+            txtMessage.Text = "";
+            txtMessage.TextChanged += txtMessage_TextChanged;
             // 
             // groupBox4
             // 
             groupBox4.Controls.Add(btnSendMessage);
             groupBox4.Controls.Add(txtSendData);
-            groupBox4.Location = new Point(468, 107);
+            groupBox4.Location = new Point(7, 303);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(432, 243);
+            groupBox4.Size = new Size(437, 175);
             groupBox4.TabIndex = 5;
             groupBox4.TabStop = false;
             groupBox4.Text = "Test Sender";
             // 
             // btnSendMessage
             // 
-            btnSendMessage.Location = new Point(152, 158);
+            btnSendMessage.Location = new Point(20, 129);
             btnSendMessage.Name = "btnSendMessage";
-            btnSendMessage.Size = new Size(123, 58);
+            btnSendMessage.Size = new Size(396, 31);
             btnSendMessage.TabIndex = 6;
             btnSendMessage.Text = "Send Data";
             btnSendMessage.UseVisualStyleBackColor = true;
@@ -191,67 +196,108 @@
             // 
             // txtSendData
             // 
-            txtSendData.Location = new Point(20, 22);
+            txtSendData.Location = new Point(20, 23);
             txtSendData.Multiline = true;
             txtSendData.Name = "txtSendData";
-            txtSendData.Size = new Size(392, 108);
+            txtSendData.Size = new Size(396, 100);
             txtSendData.TabIndex = 0;
-            // 
-            // timer1
-            // 
-            timer1.Enabled = true;
-            timer1.Interval = 1000;
-            timer1.Tick += timer1_Tick_1;
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnSaveLog);
             groupBox1.Controls.Add(txtLogs);
-            groupBox1.Location = new Point(7, 567);
+            groupBox1.Location = new Point(7, 484);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(893, 145);
+            groupBox1.Size = new Size(893, 108);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Log Actions";
+            // 
+            // btnSaveLog
+            // 
+            btnSaveLog.Location = new Point(733, 19);
+            btnSaveLog.Name = "btnSaveLog";
+            btnSaveLog.Size = new Size(140, 79);
+            btnSaveLog.TabIndex = 1;
+            btnSaveLog.Text = "Save Log Data";
+            btnSaveLog.UseVisualStyleBackColor = true;
+            btnSaveLog.Click += btnSaveLog_Click;
             // 
             // txtLogs
             // 
             txtLogs.BackColor = Color.White;
             txtLogs.BorderStyle = BorderStyle.FixedSingle;
             txtLogs.ForeColor = Color.Red;
-            txtLogs.Location = new Point(20, 19);
+            txtLogs.Location = new Point(20, 22);
             txtLogs.Name = "txtLogs";
             txtLogs.ReadOnly = true;
-            txtLogs.Size = new Size(853, 120);
+            txtLogs.Size = new Size(696, 76);
             txtLogs.TabIndex = 0;
             txtLogs.Text = "";
             txtLogs.TextChanged += txtLogs_TextChanged;
             // 
             // groupBox5
             // 
-            groupBox5.Controls.Add(txtReceive);
-            groupBox5.Location = new Point(468, 366);
+            groupBox5.Controls.Add(btnStop);
+            groupBox5.Controls.Add(btnStart);
+            groupBox5.Controls.Add(txtPassword);
+            groupBox5.Controls.Add(label4);
+            groupBox5.Controls.Add(txtSSID);
+            groupBox5.Controls.Add(label3);
+            groupBox5.Controls.Add(label2);
+            groupBox5.Location = new Point(7, 110);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(432, 195);
+            groupBox5.Size = new Size(437, 187);
             groupBox5.TabIndex = 7;
             groupBox5.TabStop = false;
-            groupBox5.Text = "Received Data";
+            groupBox5.Text = "Connection Details";
             // 
-            // txtReceive
+            // txtPassword
             // 
-            txtReceive.BackColor = Color.White;
-            txtReceive.BorderStyle = BorderStyle.FixedSingle;
-            txtReceive.Location = new Point(20, 22);
-            txtReceive.Multiline = true;
-            txtReceive.Name = "txtReceive";
-            txtReceive.ReadOnly = true;
-            txtReceive.Size = new Size(392, 155);
-            txtReceive.TabIndex = 1;
+            txtPassword.Location = new Point(121, 86);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(296, 23);
+            txtPassword.TabIndex = 4;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(28, 94);
+            label4.Name = "label4";
+            label4.Size = new Size(87, 15);
+            label4.TabIndex = 3;
+            label4.Text = "Wifi Password :";
+            // 
+            // txtSSID
+            // 
+            txtSSID.Location = new Point(121, 57);
+            txtSSID.Name = "txtSSID";
+            txtSSID.Size = new Size(296, 23);
+            txtSSID.TabIndex = 2;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(5, 65);
+            label3.Name = "label3";
+            label3.Size = new Size(110, 15);
+            label3.TabIndex = 1;
+            label3.Text = "Connection Name :";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(6, 32);
+            label2.Name = "label2";
+            label2.Size = new Size(411, 15);
+            label2.TabIndex = 0;
+            label2.Text = "Default Connection Details has been provided. You may change this settings.";
             // 
             // WifiDirect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(912, 748);
+            ClientSize = new Size(912, 620);
             Controls.Add(groupBox5);
             Controls.Add(groupBox1);
             Controls.Add(groupBox4);
@@ -269,7 +315,6 @@
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
@@ -290,16 +335,21 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private Button btnDisconnect;
         private GroupBox groupBox3;
-        private TextBox txtMessage;
         private GroupBox groupBox4;
         private Button btnSendMessage;
         private TextBox txtSendData;
         private ListBox listConnectedDevices;
-        private System.Windows.Forms.Timer timer1;
         private BindingSource bindingSource1;
         private GroupBox groupBox1;
         private RichTextBox txtLogs;
         private GroupBox groupBox5;
-        private TextBox txtReceive;
+        private Label label2;
+        private TextBox txtPassword;
+        private Label label4;
+        private TextBox txtSSID;
+        private Label label3;
+        private RichTextBox txtMessage;
+        private Button btnSaveLog;
+        private FolderBrowserDialog folderBrowserDialog1;
     }
 }

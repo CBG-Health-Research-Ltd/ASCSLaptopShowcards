@@ -54,6 +54,7 @@
             label3 = new Label();
             label2 = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
+            saveFileDialog1 = new SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -98,11 +99,11 @@
             // label1
             // 
             label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(214, 38);
+            label1.Location = new Point(188, 31);
             label1.Name = "label1";
             label1.Size = new Size(481, 51);
             label1.TabIndex = 1;
-            label1.Text = "Welcome to Ipsos Wifi Direct Host";
+            label1.Text = "Welcome to Ipsos Wifi Direct Host v1.0";
             // 
             // groupBox2
             // 
@@ -293,6 +294,10 @@
             label2.TabIndex = 0;
             label2.Text = "Default Connection Details has been provided. You may change this settings.";
             // 
+            // saveFileDialog1
+            // 
+            saveFileDialog1.FileName = "LogData.txt";
+            // 
             // WifiDirect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -351,5 +356,6 @@
         private RichTextBox txtMessage;
         private Button btnSaveLog;
         private FolderBrowserDialog folderBrowserDialog1;
+        private SaveFileDialog saveFileDialog1;
     }
 }

@@ -35,6 +35,7 @@ namespace WifiDirect
 
         public static readonly string strServerPort = "8988";
         public static readonly int iAdvertisementStartTimeout = 5000; // in ms
+        
     }
 
     public static class Utils

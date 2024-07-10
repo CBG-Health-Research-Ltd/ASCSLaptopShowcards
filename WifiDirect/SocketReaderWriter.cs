@@ -14,6 +14,7 @@ using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 using Windows.Devices.Enumeration;
 using System.ComponentModel;
+using System.Net.Sockets;
 using Windows.Devices.WiFiDirect;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -118,15 +119,14 @@ namespace WifiDirect
 
     public class ConnectedDevice : IDisposable
     {
-        public SocketReaderWriter SocketRW { get; }
+        public TcpListener TcpDataListener { get; }
         public WiFiDirectDevice WfdDevice { get; }
         public string DisplayName { get; }
 
-        public ConnectedDevice(string displayName, WiFiDirectDevice wfdDevice, SocketReaderWriter socketRW)
+        public ConnectedDevice(string displayName, WiFiDirectDevice wfdDevice)
         {
             DisplayName = displayName;
             WfdDevice = wfdDevice;
-            SocketRW = socketRW;
         }
 
         public override string ToString() => DisplayName;
@@ -134,7 +134,7 @@ namespace WifiDirect
         public void Dispose()
         {
             // Close socket
-            SocketRW.Dispose();
+            TcpDataListener.Stop();
 
             // Close WiFiDirectDevice object
             WfdDevice.Dispose();

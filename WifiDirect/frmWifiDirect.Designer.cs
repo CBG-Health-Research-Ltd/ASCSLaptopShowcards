@@ -82,7 +82,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = WifiDirectHost.Properties.Resources.Ipsos_logo_svg;
+            pictureBox1.Image = LaptopShowcards.Properties.Resources.Ipsos_logo_svg;
             pictureBox1.Location = new Point(12, 22);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(80, 78);

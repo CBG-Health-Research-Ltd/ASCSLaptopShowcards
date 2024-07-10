@@ -62,7 +62,7 @@ namespace WifiDirect
             }
             catch (Exception ex)
             {
-                _rootPage.Notify("WriteMessage threw exception: " + ex.Message);
+                _rootPage.Notify("WriteMessage threw exception: " + ex.Message+","+ex.StackTrace);
             }
         }
 
@@ -85,9 +85,9 @@ namespace WifiDirect
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _rootPage.Notify("Socket was closed!");
+                _rootPage.Notify("Socket was closed! " + ex.Message + "," + ex.StackTrace);
             }
             return null;
         }
@@ -137,8 +137,6 @@ namespace WifiDirect
 
         public void Dispose()
         {
-            
-
             // Close WiFiDirectDevice object
             WfdDevice.Dispose();
             ListenerSocket.Dispose();

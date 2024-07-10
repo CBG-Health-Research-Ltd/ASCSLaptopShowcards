@@ -90,7 +90,6 @@ namespace WifiDirect
                 toolStripStatusLabel1.Text = message;
                 if (isError)
                 {
-                    txtLogs.ForeColor = Color.Red;
                     string currentDate = DateTime.Now.ToString("u");
                     txtLogs.Text += "[" + currentDate + "] - " + message + "\n";
 
@@ -101,8 +100,9 @@ namespace WifiDirect
                     string currentDate = DateTime.Now.ToString("u");
                     txtLogs.Text += "[" + currentDate + "] - " + message + "\n";
                 }
+                
+                
 
-                txtLogs.ScrollToCaret();
             }));
 
 
@@ -237,7 +237,7 @@ namespace WifiDirect
             }
             catch (Exception ex)
             {
-                //Notify($"Exception in FromIdAsync: {ex.Message}", true);
+                Notify($"Exception in FromIdAsync: {ex.Message},{ex.StackTrace}", true);
                 return false;
             }
 
@@ -253,7 +253,7 @@ namespace WifiDirect
 
             var EndpointPairs = wfdDevice.GetConnectionEndpointPairs();
 
-            listenerSocket.ConnectionReceived += OnSocketConnectionReceived;
+             listenerSocket.ConnectionReceived += OnSocketConnectionReceived;
 
 
             try

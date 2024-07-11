@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WifiDirect;
 
 namespace WifiDirectHost
 {
@@ -13,12 +14,14 @@ namespace WifiDirectHost
         private Stream ClientStream;
         private TcpClient Client;
         private WifiDirect.WifiDirect frm;
+        private ShowCardManager showCardManager;
 
-        public CommunicationServer(TcpClient Client,WifiDirect.WifiDirect frm)
+        public CommunicationServer(TcpClient Client,WifiDirect.WifiDirect frm,ShowCardManager cardManager)
         {
             this.Client = Client;
             ClientStream = Client.GetStream();
             this.frm = frm;
+            showCardManager=cardManager;
         }
 
         public void WriteToClient(string message)
@@ -41,7 +44,7 @@ namespace WifiDirectHost
                
                 WriteToClient("Connected to LaptopShowcards");
                 string data;
-                while ((data = sr.ReadLine()) != "exit")
+                while ((data = sr.ReadLine()) != "exit" || !Globals.AppCancellationTokenSource.IsCancellationRequested)
                 {
                     frm.NotifyReceiveMessage(data);
                 }

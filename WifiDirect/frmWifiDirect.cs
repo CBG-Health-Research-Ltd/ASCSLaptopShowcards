@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using ABI.Windows.Devices.WiFiDirect.Services;
 using WifiDirectHost;
 using System.Net;
+using System.Diagnostics;
 
 namespace WifiDirect
 {
@@ -29,17 +30,30 @@ namespace WifiDirect
         private bool _connected = false;
 
         private List<DeviceConnections> ConnectedListNames = new List<DeviceConnections>();
-        private ConcurrentDictionary<string,CommunicationServer> CommunicationServers=new ConcurrentDictionary<string,CommunicationServer>();
+        private ConcurrentDictionary<string, CommunicationServer> CommunicationServers = new ConcurrentDictionary<string, CommunicationServer>();
 
         private TcpListener _server = null;
 
 
+        private Thread _thread1 = null;
+        private Thread _thread2 = null;
+        public ShowCardManager CardManager = null;
+
+
         public WifiDirect()
         {
+
             InitializeComponent();
+            CloseFirstInstance();
+            CardManager= new ShowCardManager();
+            CardManager.Initialize(this);
+            
+            
 
         }
 
+        
+        
 
 
         private void StartListening()
@@ -61,7 +75,7 @@ namespace WifiDirect
                 Notify($"WifiDirect failed to start. Status is {_publisher.Status}", true);
             }
         }
-        
+
         private void btnStart_Click(object? sender, EventArgs e)
         {
             StartListening();
@@ -77,10 +91,14 @@ namespace WifiDirect
                 string currentDate = DateTime.Now.ToString("u");
                 txtMessage.Text += " RECEIVED : [" + currentDate + "] - " + message + "\n";
                 Notify(txtMessage.Text);
+                
+                // pass to ShowCardManager
+                
+                
             }));
-          
-            
-            
+
+
+
 
         }
         public void NotifySentMessage(string message)
@@ -91,7 +109,7 @@ namespace WifiDirect
                 txtMessage.Text += " SENT : [" + currentDate + "] - " + message + "\n";
                 Notify(txtMessage.Text);
             }));
-           
+
 
         }
 
@@ -138,8 +156,8 @@ namespace WifiDirect
             _server.Start();
 
 
+            this.TopMost = false;
 
-            
             Notify($"Listening to 0.0.0.0, Port {Globals.strServerPort}...");
 
             _randomPassword = GetMACAddress().ToLower().Replace(":", "");
@@ -157,9 +175,20 @@ namespace WifiDirect
             Notify("Loaded Wifi Direct.");
             StartListening();
             MessageBox.Show("First make sure CBG Laptop and Tablet are paired." + Environment.NewLine + Environment.NewLine +
-                            "Open TabletShowcards on show-card display tablet, then click connect on the Laptop." +
+                            "Open TabletShowcards on show-card display tablet." +
                             Environment.NewLine + Environment.NewLine + " You will be notified here when to begin the survey.",
-                "Lets Start!!", MessageBoxButtons.OK, MessageBoxIcon.Information,MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                "Laptop Showcard", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            
+            
+        }
+
+        private void CloseFirstInstance()
+        {
+            Process[] pname = Process.GetProcessesByName(AppDomain.CurrentDomain.FriendlyName.Remove(AppDomain.CurrentDomain.FriendlyName.Length - 4));
+            if (pname.Length > 1)
+            {
+                pname[1].Kill();
+            }
         }
 
 
@@ -242,12 +271,12 @@ namespace WifiDirect
         {
 
 
-            DeviceConnections deviceConnections =new DeviceConnections();
+            DeviceConnections deviceConnections = new DeviceConnections();
 
             deviceConnections.Id = wfdDevice.DeviceId;
             deviceConnections.DisplayName = deviceName;
-            deviceConnections.WfdDevice= wfdDevice;
-            
+            deviceConnections.WfdDevice = wfdDevice;
+
             ConnectedListNames.Add(deviceConnections);
 
 
@@ -264,13 +293,14 @@ namespace WifiDirect
         }
 
 
-        private void TcpThread(string deviceId,TcpListener tcpListener)
+        private void TcpThread(string deviceId, TcpListener tcpListener)
         {
-            while (true)
+            while (!Globals.AppCancellationTokenSource.IsCancellationRequested)
             {
-                
-                CommunicationServer communicationServer = new CommunicationServer(tcpListener.AcceptTcpClient(),this);
-                new Thread(new ThreadStart(communicationServer.ReadFromClient)).Start();
+
+                CommunicationServer communicationServer = new CommunicationServer(tcpListener.AcceptTcpClient(), this,CardManager);
+                _thread2 = new Thread(new ThreadStart(communicationServer.ReadFromClient));
+                _thread2.Start();
                 CommunicationServers[deviceId] = communicationServer;
             }
         }
@@ -312,17 +342,17 @@ namespace WifiDirect
                 return false;
             }
 
-            
-            
+
+
             // Register for the ConnectionStatusChanged event handler
             wfdDevice.ConnectionStatusChanged += OnConnectionStatusChanged;
-            
-            
-            
+
+
+
             var EndpointPairs = wfdDevice.GetConnectionEndpointPairs();
 
 
-            
+
 
             Notify($"Device connected : {deviceName}. listening on IP Address: {EndpointPairs[0].LocalHostName}" +
                                 $" Port: {Globals.strServerPort}");
@@ -330,8 +360,8 @@ namespace WifiDirect
 
             AddConnection(wfdDevice, deviceName);
 
-            Thread thread = new Thread(() => TcpThread(wfdDevice.DeviceId,_server));
-            thread.Start();
+            _thread1 = new Thread(() => TcpThread(wfdDevice.DeviceId, _server));
+            _thread1.Start();
 
             return true;
 
@@ -343,7 +373,6 @@ namespace WifiDirect
         private void OnConnectionStatusChanged(WiFiDirectDevice sender, object arg)
         {
             Notify($"Connection status changed: {sender.ConnectionStatus}");
-            ConnectedDevice forDisconnection = null;
             CommunicationServers[sender.DeviceId].CloseConnection();
             if (sender.ConnectionStatus == WiFiDirectConnectionStatus.Disconnected)
             {
@@ -353,9 +382,9 @@ namespace WifiDirect
                 {
                     if (device.Id == sender.DeviceId)
                     {
-                        
+
                         dcDevice = device;
-                        
+
                     }
                 }
 
@@ -364,8 +393,8 @@ namespace WifiDirect
                 dcDevice.WfdDevice.Dispose();
 
                 ConnectedListNames.Remove(dcDevice);
-                
-                
+
+
             }
 
             this.Invoke((System.Action)(() =>
@@ -416,7 +445,7 @@ namespace WifiDirect
 
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
-            
+
             var connectedDevice = (DeviceConnections)listConnectedDevices.SelectedItem;
             if (connectedDevice == null) return;
 
@@ -444,6 +473,22 @@ namespace WifiDirect
             txtLogs.ScrollToCaret();
         }
 
+        public void SendMessage(string message)
+        {
+            try
+            {
+                foreach (var device in CommunicationServers.Values)
+                {
+                    device.WriteToClient(message);
+                }
+                NotifySentMessage(message);
+            }
+            catch (Exception exp)
+            {
+
+            }
+        }
+
         private async void btnSendMessage_Click(object sender, EventArgs e)
         {
             try
@@ -457,7 +502,7 @@ namespace WifiDirect
             }
             catch (Exception exp)
             {
-                
+
             }
 
         }
@@ -478,8 +523,38 @@ namespace WifiDirect
             saveFileDialog1.ShowDialog();
             if (saveFileDialog1.FileName != "")
             {
-               
-                this.txtLogs.SaveFile(saveFileDialog1.FileName,RichTextBoxStreamType.PlainText);
+
+                this.txtLogs.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void WifiDirect_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                Globals.AppCancellationTokenSource.Cancel();
+                _thread1.Interrupt();
+                _thread2.Interrupt();
+                _server.Stop();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        private void WifiDirect_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                Globals.AppCancellationTokenSource.Cancel();
+                _thread1.Interrupt();
+                _thread2.Interrupt();
+                _server.Stop();
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

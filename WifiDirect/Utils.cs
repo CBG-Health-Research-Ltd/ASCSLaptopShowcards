@@ -35,30 +35,13 @@ namespace WifiDirect
 
         public static readonly string strServerPort = "8988";
         public static readonly int iAdvertisementStartTimeout = 5000; // in ms
-        
+
+        public static readonly string QuestionLog = @"C:\nzhs\questioninformation\QuestionLog\";
+
+        public static CancellationTokenSource AppCancellationTokenSource = new CancellationTokenSource();
+
+
     }
 
-    public static class Utils
-    {
-       
-
-         
-
-        // Function binding target for the "Send" button on a text box.
-        static public bool CanSendMessage(string message, object connectedDevice)
-        {
-            return !String.IsNullOrEmpty(message) && connectedDevice != null;
-        }
-
-        // General-purpose function binding targets.
-        static public bool IsNonNull(object o)
-        {
-            return o != null;
-        }
-
-        static public bool IsNonEmptyString(string value)
-        {
-            return !String.IsNullOrEmpty(value);
-        }
-    }
+  
 }

@@ -55,6 +55,7 @@
             label2 = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
             saveFileDialog1 = new SaveFileDialog();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -68,7 +69,7 @@
             // btnStop
             // 
             btnStop.Enabled = false;
-            btnStop.Location = new Point(235, 137);
+            btnStop.Location = new Point(238, 145);
             btnStop.Name = "btnStop";
             btnStop.Size = new Size(123, 36);
             btnStop.TabIndex = 5;
@@ -78,7 +79,7 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(76, 137);
+            btnStart.Location = new Point(77, 145);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(123, 36);
             btnStart.TabIndex = 4;
@@ -89,7 +90,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = WifiDirectHost.Properties.Resources.Ipsos_logo_svg;
-            pictureBox1.Location = new Point(12, 22);
+            pictureBox1.Location = new Point(13, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(80, 78);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -107,6 +108,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(label5);
             groupBox2.Controls.Add(listConnectedDevices);
             groupBox2.Controls.Add(btnDisconnect);
             groupBox2.Location = new Point(473, 102);
@@ -120,9 +122,9 @@
             // 
             listConnectedDevices.FormattingEnabled = true;
             listConnectedDevices.ItemHeight = 15;
-            listConnectedDevices.Location = new Point(25, 22);
+            listConnectedDevices.Location = new Point(25, 67);
             listConnectedDevices.Name = "listConnectedDevices";
-            listConnectedDevices.Size = new Size(382, 109);
+            listConnectedDevices.Size = new Size(382, 64);
             listConnectedDevices.TabIndex = 6;
             // 
             // btnDisconnect
@@ -246,16 +248,16 @@
             groupBox5.Controls.Add(txtSSID);
             groupBox5.Controls.Add(label3);
             groupBox5.Controls.Add(label2);
-            groupBox5.Location = new Point(7, 110);
+            groupBox5.Location = new Point(7, 102);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(437, 187);
+            groupBox5.Size = new Size(437, 195);
             groupBox5.TabIndex = 7;
             groupBox5.TabStop = false;
             groupBox5.Text = "Connection Details";
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(121, 86);
+            txtPassword.Location = new Point(120, 101);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(296, 23);
             txtPassword.TabIndex = 4;
@@ -263,7 +265,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(28, 94);
+            label4.Location = new Point(27, 109);
             label4.Name = "label4";
             label4.Size = new Size(87, 15);
             label4.TabIndex = 3;
@@ -271,7 +273,7 @@
             // 
             // txtSSID
             // 
-            txtSSID.Location = new Point(121, 57);
+            txtSSID.Location = new Point(120, 72);
             txtSSID.Name = "txtSSID";
             txtSSID.Size = new Size(296, 23);
             txtSSID.TabIndex = 2;
@@ -279,7 +281,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(5, 65);
+            label3.Location = new Point(4, 80);
             label3.Name = "label3";
             label3.Size = new Size(110, 15);
             label3.TabIndex = 1;
@@ -287,16 +289,23 @@
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(6, 32);
+            label2.Location = new Point(6, 27);
             label2.Name = "label2";
-            label2.Size = new Size(411, 15);
+            label2.Size = new Size(401, 34);
             label2.TabIndex = 0;
-            label2.Text = "Default Connection Details has been provided. You may change this settings.";
+            label2.Text = "Default Connection Details has been provided. You may change this settings. ";
             // 
             // saveFileDialog1
             // 
             saveFileDialog1.FileName = "LogData.txt";
+            // 
+            // label5
+            // 
+            label5.Location = new Point(25, 27);
+            label5.Name = "label5";
+            label5.Size = new Size(320, 21);
+            label5.TabIndex = 7;
+            label5.Text = "Make sure Ipsos Laptop and Tablet are paired.  ";
             // 
             // WifiDirect
             // 
@@ -314,6 +323,9 @@
             Name = "WifiDirect";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Ipsos Wifi Direct";
+            TopMost = true;
+            FormClosing += WifiDirect_FormClosing;
+            FormClosed += WifiDirect_FormClosed;
             Load += WifiDirect_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox2.ResumeLayout(false);
@@ -357,5 +369,6 @@
         private Button btnSaveLog;
         private FolderBrowserDialog folderBrowserDialog1;
         private SaveFileDialog saveFileDialog1;
+        private Label label5;
     }
 }

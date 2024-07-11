@@ -22,6 +22,7 @@ namespace WifiDirectHost
             ClientStream = Client.GetStream();
             this.frm = frm;
             showCardManager=cardManager;
+            frm.Notify("Connected on Socket. Ready to receive message.");
         }
 
         public void WriteToClient(string message)
@@ -44,6 +45,7 @@ namespace WifiDirectHost
                
                 WriteToClient("Connected to LaptopShowcards");
                 string data;
+                
                 while ((data = sr.ReadLine()) != "exit" || !Globals.AppCancellationTokenSource.IsCancellationRequested)
                 {
                     frm.NotifyReceiveMessage(data);

@@ -33,7 +33,7 @@ namespace WifiDirect
         // OUI assigned to Microsoft Corporation.
         public static readonly byte[] MsftOui = { 0x00, 0x50, 0xF2 };
 
-        public static readonly string strServerPort = "8988";
+        public static readonly string strServerPort = "23";
         public static readonly int iAdvertisementStartTimeout = 5000; // in ms
 
         public static readonly string QuestionLog = @"C:\nzhs\questioninformation\QuestionLog\";

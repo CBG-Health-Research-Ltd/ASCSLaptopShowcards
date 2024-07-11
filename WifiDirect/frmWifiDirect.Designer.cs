@@ -34,6 +34,7 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             groupBox2 = new GroupBox();
+            label5 = new Label();
             listConnectedDevices = new ListBox();
             btnDisconnect = new Button();
             statusStrip1 = new StatusStrip();
@@ -55,7 +56,8 @@
             label2 = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
             saveFileDialog1 = new SaveFileDialog();
-            label5 = new Label();
+            pollTextTimer = new System.Windows.Forms.Timer(components);
+            linkLabel1 = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -79,7 +81,7 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(77, 145);
+            btnStart.Location = new Point(74, 145);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(123, 36);
             btnStart.TabIndex = 4;
@@ -117,6 +119,14 @@
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Connection List";
+            // 
+            // label5
+            // 
+            label5.Location = new Point(25, 27);
+            label5.Name = "label5";
+            label5.Size = new Size(382, 37);
+            label5.TabIndex = 7;
+            label5.Text = "Make sure Ipsos Laptop and Tablet are paired.  You will be notified when to begin the survey ";
             // 
             // listConnectedDevices
             // 
@@ -299,19 +309,27 @@
             // 
             saveFileDialog1.FileName = "LogData.txt";
             // 
-            // label5
+            // pollTextTimer
             // 
-            label5.Location = new Point(25, 27);
-            label5.Name = "label5";
-            label5.Size = new Size(320, 21);
-            label5.TabIndex = 7;
-            label5.Text = "Make sure Ipsos Laptop and Tablet are paired.  ";
+            pollTextTimer.Tick += pollTextTimer_Tick;
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AutoSize = true;
+            linkLabel1.Location = new Point(740, 49);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(107, 15);
+            linkLabel1.TabIndex = 8;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "Click Here for Help";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // WifiDirect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(912, 620);
+            Controls.Add(linkLabel1);
             Controls.Add(groupBox5);
             Controls.Add(groupBox1);
             Controls.Add(groupBox4);
@@ -370,5 +388,7 @@
         private FolderBrowserDialog folderBrowserDialog1;
         private SaveFileDialog saveFileDialog1;
         private Label label5;
+        private System.Windows.Forms.Timer pollTextTimer;
+        private LinkLabel linkLabel1;
     }
 }

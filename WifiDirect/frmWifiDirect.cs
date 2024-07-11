@@ -42,18 +42,17 @@ namespace WifiDirect
 
         public WifiDirect()
         {
-
-            InitializeComponent();
             CloseFirstInstance();
-            CardManager= new ShowCardManager();
+            CardManager = new ShowCardManager();
+            InitializeComponent();
             CardManager.Initialize(this);
-            
-            
+
+
 
         }
 
-        
-        
+
+
 
 
         private void StartListening()
@@ -91,10 +90,11 @@ namespace WifiDirect
                 string currentDate = DateTime.Now.ToString("u");
                 txtMessage.Text += " RECEIVED : [" + currentDate + "] - " + message + "\n";
                 Notify(txtMessage.Text);
-                
+
+                CardManager.ReadStream(message);
                 // pass to ShowCardManager
-                
-                
+
+
             }));
 
 
@@ -152,6 +152,8 @@ namespace WifiDirect
 
         private void WifiDirect_Load(object sender, EventArgs e)
         {
+            pollTextTimer.Enabled = true;
+
             _server = new TcpListener(IPAddress.Parse("0.0.0.0"), Convert.ToInt32(Globals.strServerPort));
             _server.Start();
 
@@ -174,12 +176,8 @@ namespace WifiDirect
             btnStop.Enabled = true;
             Notify("Loaded Wifi Direct.");
             StartListening();
-            MessageBox.Show("First make sure CBG Laptop and Tablet are paired." + Environment.NewLine + Environment.NewLine +
-                            "Open TabletShowcards on show-card display tablet." +
-                            Environment.NewLine + Environment.NewLine + " You will be notified here when to begin the survey.",
-                "Laptop Showcard", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-            
-            
+
+
         }
 
         private void CloseFirstInstance()
@@ -298,7 +296,7 @@ namespace WifiDirect
             while (!Globals.AppCancellationTokenSource.IsCancellationRequested)
             {
 
-                CommunicationServer communicationServer = new CommunicationServer(tcpListener.AcceptTcpClient(), this,CardManager);
+                CommunicationServer communicationServer = new CommunicationServer(tcpListener.AcceptTcpClient(), this, CardManager);
                 _thread2 = new Thread(new ThreadStart(communicationServer.ReadFromClient));
                 _thread2.Start();
                 CommunicationServers[deviceId] = communicationServer;
@@ -315,20 +313,6 @@ namespace WifiDirect
             bool isPaired = (connectionRequest.DeviceInformation.Pairing?.IsPaired == true) ||
                             (await IsAepPairedAsync(deviceId));
 
-            /*
-            if (isPaired || _publisher.Advertisement.LegacySettings.IsEnabled)
-            {
-                string message = $"Connection request received from {deviceName}. Do you want to continue ?";
-                var result = MessageBox.Show(message, "ConnectionRequest", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                if (result == DialogResult.No)
-                {
-                    return false;
-                }
-
-
-            }
-            */
 
             WiFiDirectDevice wfdDevice = null;
             try
@@ -354,9 +338,9 @@ namespace WifiDirect
 
 
 
-            Notify($"Device connected : {deviceName}. listening on IP Address: {EndpointPairs[0].LocalHostName}" +
+            Notify($"Device connected : {deviceName}. listening on IP Address:{EndpointPairs[0].LocalHostName} " +
                                 $" Port: {Globals.strServerPort}");
-            Notify("Ready to send and receive message...");
+            Notify($"Ready to receive socket connection at {EndpointPairs[0].LocalHostName}  Port: {Globals.strServerPort}...");
 
             AddConnection(wfdDevice, deviceName);
 
@@ -539,7 +523,7 @@ namespace WifiDirect
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -556,6 +540,29 @@ namespace WifiDirect
             {
 
             }
+        }
+
+        private void pollTextTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                pollTextTimer.Enabled = false;
+                CardManager.PollTxtFile();
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                pollTextTimer.Enabled = true;
+            }
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Help.ShowHelp(this, "file://C:\\LaptopShowcards\\HelpFile.chm",
+                HelpNavigator.Topic, "About.htm");
         }
     }
 }

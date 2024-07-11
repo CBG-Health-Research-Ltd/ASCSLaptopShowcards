@@ -9,6 +9,7 @@ using NAudio.Wave;
 using System.Media;
 using Windows.Security.EnterpriseData;
 using NAudio;
+using NAudio.Wave.Compression;
 
 namespace WifiDirectHost
 {
@@ -32,20 +33,27 @@ namespace WifiDirectHost
         private string _desiredShowcard;
         private bool _recording;
         private string _latestFile;
-        private string _record;//Used as a global to determine if the voice recording is still hapening in secret.
+        private string _record="";//Used as a global to determine if the voice recording is still hapening in secret.
         private string _savedDevice;
         private bool _newDevice;
         private string[] _subStrings;
         private string _mostRecentDevice = null;
-        private bool _userInputting = false; //Determines if the current question demands user input.
+        public bool UserInputting = false; //Determines if the current question demands user input.
         private bool _successfulConnection;
         private WifiDirect.WifiDirect _mainForm;
+
 
         //Global variables to be updated on separate selection form.
         public string SelectedDevice; //The device selected from opened select device form.
         public int SelectIndex; //The index of this selected device so it may be relayed to the device list constructed for this form.
         public bool DeviceIsSelected = false;//Helps for instances of no device-selection from device form.
-
+        FileSystemWatcher _fileWatcher = new FileSystemWatcher();
+        string _username = Environment.UserName;
+        bool _newFile = false;
+        bool _changedFile = false;
+        string _pageNum;
+        bool _firstShowcardPresented = false;
+        private bool recording = false;
 
         public void Initialize(WifiDirect.WifiDirect frm)
         {
@@ -53,11 +61,36 @@ namespace WifiDirectHost
             {
                 Array.ForEach(Directory.GetFiles(Globals.QuestionLog), File.Delete);
             }
+
+            if (!Directory.Exists(@"C:\nzhs\questioninformation\QuestionLog\"))
+            {
+                Directory.CreateDirectory(@"C:\nzhs\questioninformation\QuestionLog\");
+            }
             ReceiveShowcardLists();
             _waveSource = new WaveInEvent();//Needs to be initialised for event firing inr ecording function.
             _recording = false; //needs to be initialised orignially to false for correct functionality.
             MUUID = new Guid("8a63d9e7-ab03-4fd1-b835-9fa143b02c10");//Used on both laptop and tablet for specified conenction.
             _mainForm = frm;
+
+            
+
+            //New file watcher initialised to monitor the QuesitonLog folder and raise created/updated events.
+            //This process is used along side page turner ex to retrieve the current survey question name as a .txt file.
+      
+            _fileWatcher.Path = @"C:\nzhs\questioninformation\QuestionLog\";
+            _fileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                                                | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            _fileWatcher.Filter = "*.txt";
+
+
+
+            //Event handling for given filewatcher filters. Allows detection of file update/creation and
+            //modification detection of POST info sent by bluetooth link.
+            _fileWatcher.EnableRaisingEvents = true;
+            _fileWatcher.Created += delegate { _newFile = true; };
+            _fileWatcher.Changed += delegate { _changedFile = true; };
+
+            recording = false;
 
 
         }
@@ -137,7 +170,349 @@ namespace WifiDirectHost
         {
             _mainForm.SendMessage(message);
         }
-        
-        
+
+        private string getLatest(string directory)//Gets the name of the latest file created/updated in QuestionLog directory.
+        {
+            string Username = Environment.UserName;
+            DirectoryInfo questionDirectory = new DirectoryInfo(directory);
+            string latestFile = Path.GetFileNameWithoutExtension(FindLatestFile(questionDirectory).Name);
+            return latestFile;
+
+        }
+
+        private static FileInfo FindLatestFile(DirectoryInfo directoryInfo)//Gets file info of latest file updated/created in directory.
+        {
+            if (directoryInfo == null || !directoryInfo.Exists)
+                return null;
+
+            FileInfo[] files = directoryInfo.GetFiles();
+            DateTime lastWrite = DateTime.MinValue;
+            TimeSpan lastWriteMiliseconds = lastWrite.TimeOfDay;
+            FileInfo lastWrittenFile = null;
+
+            foreach (FileInfo file in files)
+            {
+                if (file.LastWriteTime.TimeOfDay > lastWriteMiliseconds)
+                {
+                    lastWriteMiliseconds = file.LastWriteTime.TimeOfDay;
+                    lastWrittenFile = file;
+                }
+            }
+            return lastWrittenFile;
+        }
+
+        private string ObtainShowcard(string inputTxt)
+        {
+
+            //Obtain the question number and then find the corresponding showcard from look up.
+            if (string.Equals(inputTxt.Substring(0, 8), "question", StringComparison.CurrentCultureIgnoreCase)) ; //Makesure question&QN& CHILD/ADULT
+            {
+                char Qsplitter = ' ';//Splitting at the space between e.g. "question14 CHILD/ADULT" (the raw survey args).
+                string[] subStrings = inputTxt.Split(Qsplitter);
+                string questionNum = subStrings[0].Substring(8); //Page number hardcoded to correspond to question number.
+                string surveyInfo = subStrings[1];//Either CHILD or ADULT (determines which survey look up and PDF to use).
+                return ReturnDesiredShowcard(surveyInfo, questionNum);
+            }
+
+            return "non question specific detail from TSS. Check pageturner.txt";
+
+        }
+
+
+
+        //Two functions below must be changed to accomodate new surveys, also the global variable list instantiation
+        //must be updated so that showcard reference lists are generated upon application launch.
+        private List<string[]> getShowcardList(string survey)
+        {
+            survey = survey.ToLower();
+            List<string[]> showcardList = new List<string[]>();
+            switch (survey)
+            {
+                case ("nhc13"):
+                    showcardList = _childY13ShowcardList;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("nha13"):
+                    showcardList = _adultY13ShowcardList;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("y7cvs"):
+                    showcardList = _nzcvsy7ShowcardList;
+                    break;
+                case ("y7ppm"):
+                    showcardList = _ppmy7ShowcardList;
+                    break;
+                case ("nhc14"):
+                    showcardList = _childY14ShowcardList;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("nha14"):
+                    showcardList = _adultY14ShowcardList;//UPDATE FOR ASKIA SURVEY
+                    break;
+
+            }
+            return showcardList;
+        }
+
+        private int FirstPageIndex(string survey)
+        {
+            survey = survey.ToLower();
+            int pageIndex = 0;
+            switch (survey)
+            {
+                case ("nha13"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
+                    break;
+                case ("nhc13"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("y7cvs"):
+                    pageIndex = 2;//UPDATE!!!!
+                    break;
+                case ("y7ppm"):
+                    pageIndex = 2;//UPDATE!!!!
+                    break;
+                case ("nha14"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
+                    break;
+                case ("nhc14"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
+                    break;
+            }
+            return pageIndex;
+        }
+        private string ReturnDesiredShowcard(string survey, string questionNum)  //Quite an ugly function but no other option really.
+        {
+            int i = 0;
+            string surveyType = survey.ToLower();
+            List<string[]> showcardList = getShowcardList(surveyType);
+            int firstPageIndex = FirstPageIndex(surveyType);
+            while (i < showcardList.Count)
+            {
+                if ((showcardList[i])[0] == questionNum)//Page num is first element i.e. 0 index of showcard list entries.
+                {
+
+                    //IMPORTANT: IF showcard-list[i] contains 'user-input', then desiredShowcard = user-input(ID). Tablet will have to
+                    //open in full-screen chrome environment to gain user input. "user-input questionNum".
+                    if (showcardList[i].Contains("user-input"))
+                    {
+                        _desiredShowcard = "user-input" + questionNum; 
+                        UserInputting = true; 
+                        break;
+                    }
+
+                    _desiredShowcard = (showcardList[i])[1];//Because desired showcard is found in 2nd index of list.
+                    _firstShowcardPresented = true;
+                    break;
+                }
+                //Automatically returns to title page for the case that showcards haven't started being displayed.
+                //EXTRMEMELY IMPORTANT: 20 is hardcoded for NZCHSY7 survey!!!
+                else if (_firstShowcardPresented == false)
+                {
+                    _desiredShowcard = "0"; //Because on tablet side, a +1 is added to 'desiredShowcard'. So actual display at "1"
+                }
+                else
+                {
+                    _desiredShowcard = "1";//Because on tablet side, a +1 is added to 'desiredShowcard'. "2" shown if non-existant showcard.
+                }
+                i++;
+            }
+            return (_desiredShowcard + " " + survey);
+            //return "Non specific survey detail, check pageturner.txt";
+        }
+
+
+        public void PollTxtFile() //Checks the most recent .txt file update in QuestionLog folder. Handles null exceptions.
+        {
+            if (_newFile == true || _changedFile == true) //Un-comment else for user-interactivity
+            {
+                //Below only occurrs on the event of a .txt file update or creation withing QuestionLog folder.
+                //Open a dictionary which contains the relevant bookmark for each question.
+
+                _latestFile = getLatest(@"C:\nzhs\questioninformation\QuestionLog\");
+                _pageNum = ObtainShowcard(_latestFile);
+
+                _mainForm.Notify(_latestFile + " corresponds to: " + "Page number " + _pageNum);
+
+                TransmitText(("page" + _pageNum)); 
+                
+                
+                _changedFile = false;
+                _newFile = false;
+            }
+            else if (UserInputting == true)
+            {
+              //  readStream(stream);
+            } //reads incoming stream for user-input
+
+
+        }
+
+        private void TransmitText(string text)
+        {
+            _mainForm.SendMessage(text);
+        }
+
+        public void ReadStream(string data)
+        {
+            try
+            {
+                if (!Directory.Exists(@"C:\CBGShared\postRetrieve\"))
+                {
+                    Directory.CreateDirectory(@"C:\CBGShared\postRetrieve\");
+                }
+                File.WriteAllText(@"C:\CBGShared\postRetrieve\post.txt", data);
+            }
+            catch (Exception e) { }
+        }
+
+
+        void waveSource_DataAvailable(object sender, WaveInEventArgs e)
+        {
+            _waveFile.WriteData(e.Buffer, 0, e.BytesRecorded);
+
+        }
+
+        private void RecordInSecret()
+        {
+
+            //If the previous question was recording, then this will stop it from recording and dispose the 
+            //waveSource. waveSource is re initialised when told to being recording again.
+            if (recording == true)
+            {
+                _waveSource.StopRecording();
+                recording = false;
+                _waveFile.Dispose();
+            }
+
+            string userName = System.Environment.UserName;
+
+            if (_record == "record")
+            {
+                _waveSource = new WaveInEvent();
+                _waveSource.WaveFormat = new WaveFormat(8000, 1);
+                _waveSource.DataAvailable += new EventHandler<WaveInEventArgs>(waveSource_DataAvailable);
+                string fileName = _latestFile.Replace(' ', '_') + "_" + DateTime.Now.ToString("h_mm_ss tt").Replace(' ', '_');
+
+                string tempFile = (@"C:\RecordedQuestions\" + fileName + ".wav");
+                _waveFile = new WaveFileWriter(tempFile, _waveSource.WaveFormat);
+                _waveSource.StartRecording();
+                recording = true;
+            }
+
+        }
+
+        private string ShouldYouRecord(string inputTxt) //This could be tidied up in the future.
+        {
+            //Obtain the question number and then find the corresponding showcard from look up.
+            if (string.Equals(inputTxt.Substring(0, 8), "question", StringComparison.CurrentCultureIgnoreCase)) ; //Makesure question&QN& CHILD/ADULT
+            {
+                char Qsplitter = ' ';//Splitting at the space between e.g. "question14 CHILD/ADULT" (the raw survey args).
+                string[] subStrings = inputTxt.Split(Qsplitter);
+                string questionNum = subStrings[0].Substring(8); //Page number hardcoded to correspond to question number.
+                string surveyInfo = subStrings[1];//Either CHILD or ADULT (determines which survey look up and PDF to use).
+                //houseHoldID = subStrings[2];
+                return SelectRecord(surveyInfo, questionNum);
+            }
+            return ("Error in instruction file");
+        }
+
+        private string SelectRecord(string surveyInfo, string questionNum)
+        {
+            string permission = ReadFirstLine(@"C:\AudioRecording\RecordPermission\recordpermission.txt");
+            string record = null; //Default record setting. Rif record keyword does not exist then this wil be returned.
+
+            //Ensures that file creation is within two hour limit and respondne has consented to recording.
+            if (permission.Contains("true") && CheckTimeStamp(@"C:\AudioRecording\RecordPermission\recordpermission.txt", 2))
+            {
+                List<string[]> showcardList = getShowcardList(surveyInfo);
+                int i = 0;
+                while (i < showcardList.Count)
+                {
+                    if ((showcardList[i])[0] == questionNum)//Page num is first element i.e. 0 index of showcard list entries.
+                    {
+                        //Must ensure that length is greater than 2 in order to avoid index out of range exception.
+                        //Any element in list with more than just QN->SPN will have greater than 2 length.
+                        if ((showcardList[i].Length > 4) && showcardList[i][4] == "record")//Checks to see that record exists.
+
+                        { record = (showcardList[i])[4]; }//Because record is found in 3rd column.
+                        break;
+                    }
+                    i++;
+                }
+            }
+            return record;
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+
+        //Ensures that the given file was created/modified within the given hoursRange.
+        private bool CheckTimeStamp(string fileName, int hoursRange)
+        {
+
+            DateTime modificationTime = File.GetLastWriteTime(fileName);
+            DateTime currentTime = DateTime.Now;
+            bool sameDate = false;
+            bool withinRange = false;
+
+            int modDate = modificationTime.Day;
+            int currentDate = currentTime.Day;
+            if (modDate == currentDate) { sameDate = true; }
+
+            int modHour = modificationTime.Hour;
+            int currentHour = currentTime.Hour;
+            if ((currentHour - modHour) <= hoursRange) { withinRange = true; }
+
+            if ((withinRange == true) && (sameDate == true))
+            {
+                return true;
+            }
+            else { return false; }
+        }
+
+
+        private string ReadFirstLine(string textfile)
+        {
+            string permission = File.ReadLines(textfile).First();
+            return permission;
+        }
+
+
+        public void AddToConnectionCSV(string failureType, string status)
+        {
+            //Create CSV monitoring if does not exist.
+            System.IO.Directory.CreateDirectory(@"C:\CBGShared\ConnectionMonitoring");
+
+            string username = ReadFirstLine(@"C:\CBGShared\currentuser\currentuser.txt");
+            string machinename = Environment.MachineName.ToString();
+            string fileName = @"C:\CBGShared\ConnectionMonitoring\" + username + "_ConnectionCSV.csv";
+
+            string currentDateTime = DateTime.Now.ToString();
+
+
+            if (!File.Exists(fileName))
+            {
+                FileStream fs = new FileStream(fileName, FileMode.CreateNew);
+                fs.Close();
+                var csv1 = new StringBuilder();
+                var first1 = "Date";
+                var second1 = "Re-connection Type";
+                var third1 = "Status";
+                var fourth1 = "Username";
+                var fifth1 = "Machine Name";
+                var newLine1 = string.Format("{0},{1},{2},{3},{4}", first1, second1, third1, fourth1, fifth1);
+                csv1.AppendLine(newLine1);
+                File.WriteAllText(fileName, csv1.ToString());
+            }
+
+            var csv = new StringBuilder();
+            var first = currentDateTime;
+            var second = failureType;
+            var third = status;
+            var fourth = username;
+            var fifth = machinename;
+            var newLine = string.Format("{0},{1},{2},{3},{4}", first, second, third, fourth, fifth);
+            csv.AppendLine(newLine);
+
+            File.AppendAllText(fileName, csv.ToString());
+        }
+
     }
 }

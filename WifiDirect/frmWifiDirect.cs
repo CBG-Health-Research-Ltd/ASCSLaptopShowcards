@@ -16,6 +16,7 @@ using ABI.Windows.Devices.WiFiDirect.Services;
 using WifiDirectHost;
 using System.Net;
 using System.Diagnostics;
+using Windows.Devices.WiFiDirect.Services;
 
 namespace WifiDirect
 {
@@ -327,6 +328,11 @@ namespace WifiDirect
             }
 
 
+            if (wfdDevice == null)
+            {
+                Notify($"Connection to {deviceId} failed", true);
+                return false;
+            }
 
             // Register for the ConnectionStatusChanged event handler
             wfdDevice.ConnectionStatusChanged += OnConnectionStatusChanged;

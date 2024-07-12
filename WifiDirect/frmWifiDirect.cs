@@ -35,7 +35,7 @@ namespace WifiDirect
 
         private TcpListener _server = null;
 
-
+       
         private Thread _thread1 = null;
         private Thread _thread2 = null;
         public ShowCardManager CardManager = null;
@@ -173,7 +173,7 @@ namespace WifiDirect
             listConnectedDevices.DisplayMember = "DisplayName";
             listConnectedDevices.ValueMember = "DisplayName";
             bindingSource1.ResetBindings(false);
-
+            qrCodeControl1.TextData = string.Format(Globals.QrCodeData, _ssid, _randomPassword);
             btnStop.Enabled = true;
             Notify("Loaded Wifi Direct.");
             StartListening();

@@ -58,6 +58,7 @@
             saveFileDialog1 = new SaveFileDialog();
             pollTextTimer = new System.Windows.Forms.Timer(components);
             linkLabel1 = new LinkLabel();
+            qrCodeControl1 = new WifiDirectHost.QrCodeControl();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -71,7 +72,7 @@
             // btnStop
             // 
             btnStop.Enabled = false;
-            btnStop.Location = new Point(238, 145);
+            btnStop.Location = new Point(238, 242);
             btnStop.Name = "btnStop";
             btnStop.Size = new Size(123, 36);
             btnStop.TabIndex = 5;
@@ -81,7 +82,7 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(74, 145);
+            btnStart.Location = new Point(74, 242);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(123, 36);
             btnStart.TabIndex = 4;
@@ -115,7 +116,7 @@
             groupBox2.Controls.Add(btnDisconnect);
             groupBox2.Location = new Point(473, 102);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(427, 195);
+            groupBox2.Size = new Size(427, 287);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Connection List";
@@ -134,13 +135,13 @@
             listConnectedDevices.ItemHeight = 15;
             listConnectedDevices.Location = new Point(25, 67);
             listConnectedDevices.Name = "listConnectedDevices";
-            listConnectedDevices.Size = new Size(382, 64);
+            listConnectedDevices.Size = new Size(382, 124);
             listConnectedDevices.TabIndex = 6;
             // 
             // btnDisconnect
             // 
             btnDisconnect.Enabled = false;
-            btnDisconnect.Location = new Point(25, 148);
+            btnDisconnect.Location = new Point(25, 230);
             btnDisconnect.Name = "btnDisconnect";
             btnDisconnect.Size = new Size(382, 33);
             btnDisconnect.TabIndex = 5;
@@ -151,7 +152,7 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip1.Location = new Point(0, 598);
+            statusStrip1.Location = new Point(0, 692);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(912, 22);
             statusStrip1.TabIndex = 3;
@@ -166,7 +167,7 @@
             // groupBox3
             // 
             groupBox3.Controls.Add(txtMessage);
-            groupBox3.Location = new Point(474, 304);
+            groupBox3.Location = new Point(474, 395);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(426, 174);
             groupBox3.TabIndex = 4;
@@ -190,7 +191,7 @@
             // 
             groupBox4.Controls.Add(btnSendMessage);
             groupBox4.Controls.Add(txtSendData);
-            groupBox4.Location = new Point(7, 303);
+            groupBox4.Location = new Point(7, 395);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(437, 175);
             groupBox4.TabIndex = 5;
@@ -219,7 +220,7 @@
             // 
             groupBox1.Controls.Add(btnSaveLog);
             groupBox1.Controls.Add(txtLogs);
-            groupBox1.Location = new Point(7, 484);
+            groupBox1.Location = new Point(7, 575);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(893, 108);
             groupBox1.TabIndex = 6;
@@ -251,6 +252,7 @@
             // 
             // groupBox5
             // 
+            groupBox5.Controls.Add(qrCodeControl1);
             groupBox5.Controls.Add(btnStop);
             groupBox5.Controls.Add(btnStart);
             groupBox5.Controls.Add(txtPassword);
@@ -260,14 +262,14 @@
             groupBox5.Controls.Add(label2);
             groupBox5.Location = new Point(7, 102);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(437, 195);
+            groupBox5.Size = new Size(437, 287);
             groupBox5.TabIndex = 7;
             groupBox5.TabStop = false;
             groupBox5.Text = "Connection Details";
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(120, 101);
+            txtPassword.Location = new Point(120, 212);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(296, 23);
             txtPassword.TabIndex = 4;
@@ -275,7 +277,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(27, 109);
+            label4.Location = new Point(27, 220);
             label4.Name = "label4";
             label4.Size = new Size(87, 15);
             label4.TabIndex = 3;
@@ -283,7 +285,7 @@
             // 
             // txtSSID
             // 
-            txtSSID.Location = new Point(120, 72);
+            txtSSID.Location = new Point(120, 183);
             txtSSID.Name = "txtSSID";
             txtSSID.Size = new Size(296, 23);
             txtSSID.TabIndex = 2;
@@ -291,7 +293,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(4, 80);
+            label3.Location = new Point(4, 191);
             label3.Name = "label3";
             label3.Size = new Size(110, 15);
             label3.TabIndex = 1;
@@ -301,9 +303,9 @@
             // 
             label2.Location = new Point(6, 27);
             label2.Name = "label2";
-            label2.Size = new Size(401, 34);
+            label2.Size = new Size(410, 21);
             label2.TabIndex = 0;
-            label2.Text = "Default Connection Details has been provided. You may change this settings. ";
+            label2.Text = "Scan QR Code to Connect";
             // 
             // saveFileDialog1
             // 
@@ -324,11 +326,23 @@
             linkLabel1.Text = "Click Here for Help";
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
+            // qrCodeControl1
+            // 
+            qrCodeControl1.BinaryData = null;
+            qrCodeControl1.BorderWidth = 3;
+            qrCodeControl1.ErrorCorrection = 2;
+            qrCodeControl1.Location = new Point(162, 20);
+            qrCodeControl1.Name = "qrCodeControl1";
+            qrCodeControl1.Size = new Size(224, 142);
+            qrCodeControl1.TabIndex = 6;
+            qrCodeControl1.Text = "qrCodeControl1";
+            qrCodeControl1.TextData = "Test";
+            // 
             // WifiDirect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(912, 620);
+            ClientSize = new Size(912, 714);
             Controls.Add(linkLabel1);
             Controls.Add(groupBox5);
             Controls.Add(groupBox1);
@@ -378,7 +392,6 @@
         private GroupBox groupBox1;
         private RichTextBox txtLogs;
         private GroupBox groupBox5;
-        private Label label2;
         private TextBox txtPassword;
         private Label label4;
         private TextBox txtSSID;
@@ -390,5 +403,7 @@
         private Label label5;
         private System.Windows.Forms.Timer pollTextTimer;
         private LinkLabel linkLabel1;
+        private Label label2;
+        private WifiDirectHost.QrCodeControl qrCodeControl1;
     }
 }

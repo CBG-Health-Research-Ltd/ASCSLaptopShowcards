@@ -40,8 +40,12 @@ namespace WifiDirect
 
         public static CancellationTokenSource AppCancellationTokenSource = new CancellationTokenSource();
 
+        public static string QrCodeData = "WIFI:T:WPA;S:{0};P:{1};H:;;";
+
+        //QR Code text for WIfi example : WIFI:T:WPA;S:IPSOS_JLCRIMSON;P:f4c88a546186;H:;;
+
 
     }
 
-  
+
 }

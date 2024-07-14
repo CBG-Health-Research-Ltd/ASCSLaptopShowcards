@@ -49,6 +49,7 @@
             btnSaveLog = new Button();
             txtLogs = new RichTextBox();
             groupBox5 = new GroupBox();
+            qrCodeControl1 = new WifiDirectHost.QrCodeControl();
             txtPassword = new TextBox();
             label4 = new Label();
             txtSSID = new TextBox();
@@ -58,7 +59,6 @@
             saveFileDialog1 = new SaveFileDialog();
             pollTextTimer = new System.Windows.Forms.Timer(components);
             linkLabel1 = new LinkLabel();
-            qrCodeControl1 = new WifiDirectHost.QrCodeControl();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -267,6 +267,18 @@
             groupBox5.TabStop = false;
             groupBox5.Text = "Connection Details";
             // 
+            // qrCodeControl1
+            // 
+            qrCodeControl1.BinaryData = null;
+            qrCodeControl1.BorderWidth = 3;
+            qrCodeControl1.ErrorCorrection = 2;
+            qrCodeControl1.Location = new Point(162, 20);
+            qrCodeControl1.Name = "qrCodeControl1";
+            qrCodeControl1.Size = new Size(224, 142);
+            qrCodeControl1.TabIndex = 6;
+            qrCodeControl1.Text = "qrCodeControl1";
+            qrCodeControl1.TextData = "Test";
+            // 
             // txtPassword
             // 
             txtPassword.Location = new Point(120, 212);
@@ -313,6 +325,7 @@
             // 
             // pollTextTimer
             // 
+            pollTextTimer.Interval = 50;
             pollTextTimer.Tick += pollTextTimer_Tick;
             // 
             // linkLabel1
@@ -325,18 +338,6 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Click Here for Help";
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
-            // 
-            // qrCodeControl1
-            // 
-            qrCodeControl1.BinaryData = null;
-            qrCodeControl1.BorderWidth = 3;
-            qrCodeControl1.ErrorCorrection = 2;
-            qrCodeControl1.Location = new Point(162, 20);
-            qrCodeControl1.Name = "qrCodeControl1";
-            qrCodeControl1.Size = new Size(224, 142);
-            qrCodeControl1.TabIndex = 6;
-            qrCodeControl1.Text = "qrCodeControl1";
-            qrCodeControl1.TextData = "Test";
             // 
             // WifiDirect
             // 

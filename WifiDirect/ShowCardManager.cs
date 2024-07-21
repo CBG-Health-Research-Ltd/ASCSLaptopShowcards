@@ -10,6 +10,8 @@ using System.Media;
 using Windows.Security.EnterpriseData;
 using NAudio;
 using NAudio.Wave.Compression;
+using Newtonsoft.Json;
+using WifiDirectHost.JSONObjects;
 
 namespace WifiDirectHost
 {
@@ -59,7 +61,7 @@ namespace WifiDirectHost
         {
             if (Directory.Exists(Globals.QuestionLog))
             {
-                Array.ForEach(Directory.GetFiles(Globals.QuestionLog), File.Delete);
+            //    Array.ForEach(Directory.GetFiles(Globals.QuestionLog), File.Delete);
             }
 
             if (!Directory.Exists(@"C:\nzhs\questioninformation\QuestionLog\"))
@@ -171,11 +173,11 @@ namespace WifiDirectHost
             _mainForm.SendMessage(message);
         }
 
-        private string getLatest(string directory)//Gets the name of the latest file created/updated in QuestionLog directory.
+        private string GetLatest(string directory)//Gets the name of the latest file created/updated in QuestionLog directory.
         {
             string Username = Environment.UserName;
             DirectoryInfo questionDirectory = new DirectoryInfo(directory);
-            string latestFile = Path.GetFileNameWithoutExtension(FindLatestFile(questionDirectory).Name);
+            string latestFile = FindLatestFile(questionDirectory).Name;
             return latestFile;
 
         }
@@ -185,23 +187,13 @@ namespace WifiDirectHost
             if (directoryInfo == null || !directoryInfo.Exists)
                 return null;
 
-            FileInfo[] files = directoryInfo.GetFiles();
-            DateTime lastWrite = DateTime.MinValue;
-            TimeSpan lastWriteMiliseconds = lastWrite.TimeOfDay;
-            FileInfo lastWrittenFile = null;
-
-            foreach (FileInfo file in files)
-            {
-                if (file.LastWriteTime.TimeOfDay > lastWriteMiliseconds)
-                {
-                    lastWriteMiliseconds = file.LastWriteTime.TimeOfDay;
-                    lastWrittenFile = file;
-                }
-            }
-            return lastWrittenFile;
+            var myFile = directoryInfo.GetFiles()
+                .OrderByDescending(f => f.LastWriteTime)
+                .First();
+            return myFile;
         }
 
-        private string ObtainShowcard(string inputTxt)
+        private string ObtainShowcard(string inputTxt,PageNumData pageNumData)
         {
 
             //Obtain the question number and then find the corresponding showcard from look up.
@@ -211,7 +203,9 @@ namespace WifiDirectHost
                 string[] subStrings = inputTxt.Split(Qsplitter);
                 string questionNum = subStrings[0].Substring(8); //Page number hardcoded to correspond to question number.
                 string surveyInfo = subStrings[1];//Either CHILD or ADULT (determines which survey look up and PDF to use).
-                return ReturnDesiredShowcard(surveyInfo, questionNum);
+                pageNumData.SurveyInfo = surveyInfo;
+                pageNumData.Shortcut = questionNum;
+                return ReturnDesiredShowcard(surveyInfo, questionNum,pageNumData);
             }
 
             return "non question specific detail from TSS. Check pageturner.txt";
@@ -278,23 +272,29 @@ namespace WifiDirectHost
             }
             return pageIndex;
         }
-        private string ReturnDesiredShowcard(string survey, string questionNum)  //Quite an ugly function but no other option really.
+        private string ReturnDesiredShowcard(string survey, string questionNum, PageNumData pageNumData)  //Quite an ugly function but no other option really.
         {
             int i = 0;
+            pageNumData.HasData = false;
             string surveyType = survey.ToLower();
             List<string[]> showcardList = getShowcardList(surveyType);
             int firstPageIndex = FirstPageIndex(surveyType);
+            pageNumData.FirstPageIndex = firstPageIndex;
             while (i < showcardList.Count)
             {
                 if ((showcardList[i])[0] == questionNum)//Page num is first element i.e. 0 index of showcard list entries.
                 {
-
+                    pageNumData.Shortcut = showcardList[i][0];
+                    pageNumData.PageNumber = showcardList[i][1];
+                    pageNumData.Record=showcardList[i][2];
+                    pageNumData.HasData = true;
+                    pageNumData.FullLine = showcardList[i];
                     //IMPORTANT: IF showcard-list[i] contains 'user-input', then desiredShowcard = user-input(ID). Tablet will have to
                     //open in full-screen chrome environment to gain user input. "user-input questionNum".
                     if (showcardList[i].Contains("user-input"))
                     {
-                        _desiredShowcard = "user-input" + questionNum; 
-                        UserInputting = true; 
+                        _desiredShowcard = "user-input" + questionNum;
+                        UserInputting = true;
                         break;
                     }
 
@@ -314,6 +314,12 @@ namespace WifiDirectHost
                 }
                 i++;
             }
+
+            pageNumData.IsUserInputting = UserInputting;
+
+
+            pageNumData.IsFirstShowCardPresented = _firstShowcardPresented;
+
             return (_desiredShowcard + " " + survey);
             //return "Non specific survey detail, check pageturner.txt";
         }
@@ -326,12 +332,22 @@ namespace WifiDirectHost
                 //Below only occurrs on the event of a .txt file update or creation withing QuestionLog folder.
                 //Open a dictionary which contains the relevant bookmark for each question.
 
-                _latestFile = getLatest(@"C:\nzhs\questioninformation\QuestionLog\");
-                _pageNum = ObtainShowcard(_latestFile);
+                PageNumData pageNumData = new PageNumData();
+                
+                var fileName= GetLatest(@"C:\nzhs\questioninformation\QuestionLog\");
+
+                _latestFile= Path.GetFileNameWithoutExtension(fileName);
+
+                pageNumData.File = fileName;
+                
+                _pageNum = ObtainShowcard(_latestFile,pageNumData);
+
+                string jsonData = JsonConvert.SerializeObject(pageNumData);
 
                 _mainForm.Notify(_latestFile + " corresponds to: " + "Page number " + _pageNum);
 
-                TransmitText(("page" + _pageNum)); 
+                
+                TransmitText(jsonData); 
                 
                 
                 _changedFile = false;

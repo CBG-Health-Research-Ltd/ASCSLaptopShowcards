@@ -342,11 +342,19 @@ namespace WifiDirectHost
                 
                 _pageNum = ObtainShowcard(_latestFile,pageNumData);
 
-                _pageNum = _pageNum + 1;
+                if (!string.IsNullOrEmpty(_pageNum))
+                {
 
-                pageNumData.PageNumber = pageNumData.PageNumber + 1;
-                
-                
+                    _pageNum = _pageNum + 1;
+                }
+
+                if (!string.IsNullOrEmpty(pageNumData.PageNumber))
+                {
+
+                    pageNumData.PageNumber = pageNumData.PageNumber + 1;
+                }
+
+
                 string jsonData = JsonConvert.SerializeObject(pageNumData);
 
                 _mainForm.Notify(_latestFile + " corresponds to: " + "Page number " + _pageNum);

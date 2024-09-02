@@ -32,6 +32,13 @@ namespace WifiDirectHost
             sw.Flush();
         }
 
+        public void WriteFileToClient(byte[] data)
+        {
+             BinaryWriter sw = new BinaryWriter(ClientStream);
+            sw.Write(data);
+            sw.Flush();
+        }
+
 
         public void CloseConnection()
         {
@@ -68,7 +75,10 @@ namespace WifiDirectHost
                     {
                         var urlCommand = command.Replace("browse.download:", "");
                             var url = urlCommand.Trim();
-
+                        var returnData = ExtCommunication.DownloadGet(url);
+                        WriteFileToClient(returnData);
+                        
+                        //https://stackoverflow.com/questions/23758095/how-to-open-a-file-received-as-a-binary-content-in-the-http-body-using-restsharp
 
                     }
                 }

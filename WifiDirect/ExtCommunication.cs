@@ -31,5 +31,20 @@ namespace WifiDirectHost
                 return "{}";
             }
         }
+
+        public static byte[] DownloadGet(string url)
+        {
+            var options = new RestClientOptions()
+            {
+                MaxTimeout = 60000
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest(url, Method.Get);
+            request.AddHeader("sm-authorize", SmAuthorize);
+            var response = client.DownloadData(request);
+            return response;
+        }
+        
+        
     }
 }

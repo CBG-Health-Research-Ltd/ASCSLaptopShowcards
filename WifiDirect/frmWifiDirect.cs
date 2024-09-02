@@ -479,6 +479,7 @@ namespace WifiDirect
             }
         }
 
+
         private async void btnSendMessage_Click(object sender, EventArgs e)
         {
             try

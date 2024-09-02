@@ -15,7 +15,6 @@ namespace WifiDirectHost
         private TcpClient Client;
         private WifiDirect.WifiDirect frm;
         private ShowCardManager showCardManager;
-        private string sessionId = "66165b02-d2fc-4917-ae48-baf2e5f4df55";
 
         public CommunicationServer(TcpClient Client,WifiDirect.WifiDirect frm,ShowCardManager cardManager)
         {
@@ -59,13 +58,18 @@ namespace WifiDirectHost
                     var command = data.ToLower();
                     if (command.StartsWith("browse.get:"))
                     {
-                        var urlCommand = command.Split(":");
-                        if (urlCommand.Length >= 2)
-                        {
-                            var url = urlCommand[1].Trim();
-                            
-                            
-                        }
+                        var urlCommand = command.Replace("browse.get:","");
+                            var url = urlCommand.Trim();
+                            var returnData=ExtCommunication.BrowseGet(url);
+                            WriteToClient(returnData);
+
+                    }
+                    if (command.StartsWith("browse.download:"))
+                    {
+                        var urlCommand = command.Replace("browse.download:", "");
+                            var url = urlCommand.Trim();
+
+
                     }
                 }
             }

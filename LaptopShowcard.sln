@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiDirectHost", "WifiDirect\WifiDirectHost.csproj", "{7D020F5B-BBF2-4910-A9AB-355759DCE41D}"
 EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "LaptopShowcardInstaller", "WifiDirectInstaller\LaptopShowcardInstaller\LaptopShowcardInstaller.aiproj", "{19A430BA-4A64-477B-AB87-3763F3971280}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,11 @@ Global
 		Debug|ARM64 = Debug|ARM64
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		DefaultBuild|Any CPU = DefaultBuild|Any CPU
+		DefaultBuild|ARM = DefaultBuild|ARM
+		DefaultBuild|ARM64 = DefaultBuild|ARM64
+		DefaultBuild|x64 = DefaultBuild|x64
+		DefaultBuild|x86 = DefaultBuild|x86
 		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|ARM64 = Release|ARM64
@@ -46,6 +53,16 @@ Global
 		{3735C83B-F55B-431A-98C1-5770242247AE}.Debug|x64.Build.0 = Debug|Any CPU
 		{3735C83B-F55B-431A-98C1-5770242247AE}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{3735C83B-F55B-431A-98C1-5770242247AE}.Debug|x86.Build.0 = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|ARM.ActiveCfg = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|ARM.Build.0 = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|ARM64.ActiveCfg = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|ARM64.Build.0 = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|x64.ActiveCfg = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|x64.Build.0 = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|x86.ActiveCfg = Debug|Any CPU
+		{3735C83B-F55B-431A-98C1-5770242247AE}.DefaultBuild|x86.Build.0 = Debug|Any CPU
 		{3735C83B-F55B-431A-98C1-5770242247AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3735C83B-F55B-431A-98C1-5770242247AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3735C83B-F55B-431A-98C1-5770242247AE}.Release|ARM.ActiveCfg = Release|Any CPU
@@ -66,6 +83,16 @@ Global
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Debug|x64.Build.0 = Debug|Any CPU
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|ARM.ActiveCfg = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|ARM.Build.0 = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|ARM64.ActiveCfg = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|ARM64.Build.0 = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|x64.ActiveCfg = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|x64.Build.0 = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|x86.ActiveCfg = Debug|Any CPU
+		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.DefaultBuild|x86.Build.0 = Debug|Any CPU
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Release|ARM.ActiveCfg = Release|Any CPU
@@ -76,6 +103,36 @@ Global
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Release|x64.Build.0 = Release|Any CPU
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Release|x86.ActiveCfg = Release|Any CPU
 		{7D020F5B-BBF2-4910-A9AB-355759DCE41D}.Release|x86.Build.0 = Release|Any CPU
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|Any CPU.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|Any CPU.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|ARM.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|ARM.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|ARM64.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|ARM64.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|x64.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|x64.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|x86.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Debug|x86.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|Any CPU.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|Any CPU.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|ARM.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|ARM.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|ARM64.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|ARM64.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|x64.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|x64.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|x86.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.DefaultBuild|x86.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|Any CPU.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|Any CPU.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|ARM.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|ARM.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|ARM64.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|ARM64.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|x64.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|x64.Build.0 = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|x86.ActiveCfg = DefaultBuild
+		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|x86.Build.0 = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

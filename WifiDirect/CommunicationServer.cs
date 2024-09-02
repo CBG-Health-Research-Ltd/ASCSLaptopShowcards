@@ -65,7 +65,7 @@ namespace WifiDirectHost
                     var command = data.ToLower();
                     if (command.StartsWith("browse.get:"))
                     {
-                        var urlCommand = command.Replace("browse.get:","");
+                        var urlCommand = command.Replace("api.get:","");
                             var url = urlCommand.Trim();
                             var returnData=ExtCommunication.BrowseGet(url);
                             WriteToClient(returnData);
@@ -73,7 +73,7 @@ namespace WifiDirectHost
                     }
                     if (command.StartsWith("browse.download:"))
                     {
-                        var urlCommand = command.Replace("browse.download:", "");
+                        var urlCommand = command.Replace("api.download:", "");
                             var url = urlCommand.Trim();
                         var returnData = ExtCommunication.DownloadGet(url);
                         WriteFileToClient(returnData);

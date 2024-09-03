@@ -78,7 +78,6 @@ namespace WifiDirectHost
                         var returnData = ExtCommunication.DownloadGet(url);
                         WriteFileToClient(returnData);
                         
-                        //https://stackoverflow.com/questions/23758095/how-to-open-a-file-received-as-a-binary-content-in-the-http-body-using-restsharp
 
                     }
                 }

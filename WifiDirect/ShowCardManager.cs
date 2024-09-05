@@ -59,6 +59,13 @@ namespace WifiDirectHost
 
         public void Initialize(WifiDirect.WifiDirect frm)
         {
+
+           
+
+
+
+
+
             if (Directory.Exists(Globals.QuestionLog))
             {
             //    Array.ForEach(Directory.GetFiles(Globals.QuestionLog), File.Delete);

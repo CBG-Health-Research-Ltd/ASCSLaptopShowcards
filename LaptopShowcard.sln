@@ -24,6 +24,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiDirectHost", "WifiDirec
 EndProject
 Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "LaptopShowcardInstaller", "WifiDirectInstaller\LaptopShowcardInstaller\LaptopShowcardInstaller.aiproj", "{19A430BA-4A64-477B-AB87-3763F3971280}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{CBB12A36-DE2F-4FC5-AF95-5F7312521E63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirewallHelper", "FirewallHelper\FirewallHelper.csproj", "{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,9 +137,42 @@ Global
 		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|x64.Build.0 = DefaultBuild
 		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|x86.ActiveCfg = DefaultBuild
 		{19A430BA-4A64-477B-AB87-3763F3971280}.Release|x86.Build.0 = DefaultBuild
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|ARM.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|x64.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Debug|x86.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|ARM.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|ARM.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|ARM64.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|ARM64.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|x64.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|x64.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|x86.ActiveCfg = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.DefaultBuild|x86.Build.0 = Debug|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|ARM.ActiveCfg = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|ARM.Build.0 = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|ARM64.Build.0 = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|x64.ActiveCfg = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|x64.Build.0 = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|x86.ActiveCfg = Release|Any CPU
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BEF8CD10-E4E8-4580-BD0F-0ED19D81C329} = {CBB12A36-DE2F-4FC5-AF95-5F7312521E63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4BB1BC2A-785E-4888-A865-930A350FAE63}

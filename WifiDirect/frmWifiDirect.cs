@@ -524,13 +524,41 @@ namespace WifiDirect
             try
             {
                 Globals.AppCancellationTokenSource.Cancel();
-                _thread1.Interrupt();
-                _thread2.Interrupt();
-                _server.Stop();
+                try
+                {
+                    _thread1.Interrupt();
+                }
+
+                catch (Exception ex)
+                {
+
+                }
+
+                try
+                {
+                    _thread2.Interrupt();
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                try
+                {
+                    _server.Stop();
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
             catch (Exception ex)
             {
 
+            }
+            finally
+            {
+                Application.Exit();
             }
         }
 
@@ -539,13 +567,41 @@ namespace WifiDirect
             try
             {
                 Globals.AppCancellationTokenSource.Cancel();
-                _thread1.Interrupt();
-                _thread2.Interrupt();
-                _server.Stop();
+                try
+                {
+                    _thread1.Interrupt();
+                }
+
+                catch (Exception ex)
+                {
+
+                }
+
+                try
+                {
+                    _thread2.Interrupt();
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                try
+                {
+                    _server.Stop();
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
             catch (Exception ex)
             {
 
+            }
+            finally
+            {
+                Application.Exit();
             }
         }
 

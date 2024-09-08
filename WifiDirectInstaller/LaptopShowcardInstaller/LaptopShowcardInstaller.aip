@@ -4,6 +4,46 @@
     <ROW Property="AI_APP_FILE" Value="[#FirewallHelper.exe]"/>
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_PREDEF_LCONDS_PROPS" Value="AI_DETECTED_DOTNET_CORE_VERSION"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Ipsos.ico" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Ipsos.png" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_LaptopShowcards.deps.json_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_LaptopShowcards.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_LaptopShowcards.exe_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_LaptopShowcards.runtimeconfig.json_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.Windows.SDK.NET.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NAudio.Asio.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NAudio.Core.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NAudio.Midi.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NAudio.Wasapi.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NAudio.WinForms.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NAudio.WinMM.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NAudio.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_QrCodeGenerator.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_RestSharp.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.CodeDom.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Management.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_WinRT.Runtime.dll_1" Value="..\..\WifiDirect\bin\publish"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Ipsos.ico" Value="Ipsos.ico"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Ipsos.png" Value="Ipsos.png"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.deps.json_1" Value="LaptopShowcards.deps.json"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.dll_1" Value="LaptopShowcards.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.exe_1" Value="LaptopShowcards.exe"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.runtimeconfig.json_1" Value="LaptopShowcards.runtimeconfig.json"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Windows.SDK.NET.dll_1" Value="Microsoft.Windows.SDK.NET.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_NAudio.Asio.dll_1" Value="NAudio.Asio.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_NAudio.Core.dll_1" Value="NAudio.Core.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_NAudio.Midi.dll_1" Value="NAudio.Midi.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_NAudio.Wasapi.dll_1" Value="NAudio.Wasapi.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_NAudio.WinForms.dll_1" Value="NAudio.WinForms.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_NAudio.WinMM.dll_1" Value="NAudio.WinMM.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_NAudio.dll_1" Value="NAudio.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll_1" Value="Newtonsoft.Json.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_QrCodeGenerator.dll_1" Value="QrCodeGenerator.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_RestSharp.dll_1" Value="RestSharp.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.CodeDom.dll_1" Value="System.CodeDom.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Management.dll_1" Value="System.Management.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_WinRT.Runtime.dll_1" Value="WinRT.Runtime.dll"/>
     <ROW Property="AI_REQUIRED_DOTNET_CORE_DISPLAY" MultiBuildValue="DefaultBuild:6.0" ValueLocId="-"/>
     <ROW Property="AI_REQUIRED_DOTNET_CORE_VERSION" MultiBuildValue="DefaultBuild:6.0" ValueLocId="-"/>
     <ROW Property="AI_RUN_AS_ADMIN" Value="1"/>
@@ -35,6 +75,7 @@
     <ROW Directory="FirewallSetup_Dir" Directory_Parent="APPDIR" DefaultDir="FIREWA~1|FirewallSetup"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="WifiDirectHost_Dir" Directory_Parent="APPDIR" DefaultDir="WIFIDI~1|WifiDirectHost"/>
     <ROW Directory="lib_Dir" Directory_Parent="win_Dir" DefaultDir="lib"/>
     <ROW Directory="netcoreapp2.0_Dir" Directory_Parent="lib_Dir" DefaultDir="NETCOR~1.0|netcoreapp2.0"/>
     <ROW Directory="netstandard2.0_Dir" Directory_Parent="lib_Dir" DefaultDir="NETSTA~1.0|netstandard2.0"/>
@@ -72,6 +113,8 @@
     <ROW Component="System.Management.dll" ComponentId="{AC0C250E-749B-4040-8A0B-6DC6E1AC90BA}" Directory_="APPDIR" Attributes="0" KeyPath="System.Management.dll"/>
     <ROW Component="System.ServiceProcess.ServiceContr_2_oller.dll" ComponentId="{27C9F87B-16A5-47A0-A853-A3F0C9D171DB}" Directory_="netstandard2.0_Dir" Attributes="0" KeyPath="System.ServiceProcess.ServiceContr_2_oller.dll"/>
     <ROW Component="System.ServiceProcess.ServiceController.dll" ComponentId="{59CF645B-11AB-46AD-81CC-0AA65B29B799}" Directory_="FirewallSetup_Dir" Attributes="0" KeyPath="System.ServiceProcess.ServiceController.dll"/>
+    <ROW Component="WifiDirectHost_PrimaryOutput" ComponentId="{9023ACF2-313B-44AD-876E-52BCF2595B2F}" Directory_="WifiDirectHost_Dir" Attributes="0" KeyPath="LaptopShowcards.dll_1"/>
+    <ROW Component="WifiDirectHost_PublishOutput" ComponentId="{CB28AE04-BDD2-48BF-B44C-FC7797E71D9A}" Directory_="WifiDirectHost_Dir" Attributes="0" KeyPath="Ipsos.ico" Type="0"/>
     <ROW Component="WinRT.Runtime.dll" ComponentId="{00895C78-B2D3-41AA-9A5C-EE50DEE21CE0}" Directory_="APPDIR" Attributes="0" KeyPath="WinRT.Runtime.dll"/>
     <ROW Component="WindowsFirewallHelper.dll" ComponentId="{4DF78510-E935-4702-8C9E-F32A2713B920}" Directory_="FirewallSetup_Dir" Attributes="0" KeyPath="WindowsFirewallHelper.dll"/>
   </COMPONENT>
@@ -109,6 +152,48 @@
     <ROW File="WindowsFirewallHelper.dll" Component_="WindowsFirewallHelper.dll" FileName="WINDOW~1.DLL|WindowsFirewallHelper.dll" Attributes="0" SourcePath="..\..\FirewallHelper\bin\publish\WindowsFirewallHelper.dll" SelfReg="false"/>
     <ROW File="System.Diagnostics.EventLog.dll_2" Component_="System.Diagnostics.EventLog.dll_2" FileName="SYSTEM~1.DLL|System.Diagnostics.EventLog.dll" Attributes="0" SourcePath="..\..\FirewallHelper\bin\publish\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.EventLog.dll" SelfReg="false"/>
     <ROW File="System.ServiceProcess.ServiceContr_2_oller.dll" Component_="System.ServiceProcess.ServiceContr_2_oller.dll" FileName="SYSTEM~1.DLL|System.ServiceProcess.ServiceController.dll" Attributes="0" SourcePath="..\..\FirewallHelper\bin\publish\runtimes\win\lib\netstandard2.0\System.ServiceProcess.ServiceController.dll" SelfReg="false"/>
+    <ROW File="LaptopShowcards.dll_1" Component_="WifiDirectHost_PrimaryOutput" FileName="LAPTOP~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_LaptopShowcards.dll_1&gt;" SelfReg="false"/>
+    <ROW File="Ipsos.ico" Component_="WifiDirectHost_PublishOutput" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_Ipsos.ico]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Ipsos.ico&gt;" SelfReg="false"/>
+    <ROW File="Ipsos.png" Component_="WifiDirectHost_PublishOutput" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_Ipsos.png]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Ipsos.png&gt;" SelfReg="false"/>
+    <ROW File="LaptopShowcards.deps.json_1" Component_="WifiDirectHost_PublishOutput" FileName="LAPTOP~2.JSO|[|AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.deps.json_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_LaptopShowcards.deps.json_1&gt;" SelfReg="false"/>
+    <ROW File="LaptopShowcards.exe_1" Component_="WifiDirectHost_PublishOutput" FileName="LAPTOP~2.EXE|[|AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.exe_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_LaptopShowcards.exe_1&gt;" SelfReg="false" DigSign="true"/>
+    <ROW File="LaptopShowcards.runtimeconfig.json_1" Component_="WifiDirectHost_PublishOutput" FileName="LAPTOP~3.JSO|[|AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.runtimeconfig.json_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_LaptopShowcards.runtimeconfig.json_1&gt;" SelfReg="false"/>
+    <ROW File="Microsoft.Windows.SDK.NET.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="MICROS~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Windows.SDK.NET.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.Windows.SDK.NET.dll_1&gt;" SelfReg="false"/>
+    <ROW File="NAudio.Asio.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="NAUDIO~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.Asio.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NAudio.Asio.dll_1&gt;" SelfReg="false"/>
+    <ROW File="NAudio.Core.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="NAUDIO~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.Core.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NAudio.Core.dll_1&gt;" SelfReg="false"/>
+    <ROW File="NAudio.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NAudio.dll_1&gt;" SelfReg="false"/>
+    <ROW File="NAudio.Midi.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="NAUDIO~4.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.Midi.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NAudio.Midi.dll_1&gt;" SelfReg="false"/>
+    <ROW File="NAudio.Wasapi.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="NAUDIO~5.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.Wasapi.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NAudio.Wasapi.dll_1&gt;" SelfReg="false"/>
+    <ROW File="NAudio.WinForms.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="NAUDIO~6.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.WinForms.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NAudio.WinForms.dll_1&gt;" SelfReg="false"/>
+    <ROW File="NAudio.WinMM.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="NAUDIO~7.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.WinMM.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NAudio.WinMM.dll_1&gt;" SelfReg="false"/>
+    <ROW File="Newtonsoft.Json.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="NEWTON~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Newtonsoft.Json.dll_1&gt;" SelfReg="false"/>
+    <ROW File="QrCodeGenerator.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="QRCODE~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_QrCodeGenerator.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_QrCodeGenerator.dll_1&gt;" SelfReg="false"/>
+    <ROW File="RestSharp.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="RESTSH~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_RestSharp.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_RestSharp.dll_1&gt;" SelfReg="false"/>
+    <ROW File="System.CodeDom.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="SYSTEM~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.CodeDom.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.CodeDom.dll_1&gt;" SelfReg="false"/>
+    <ROW File="System.Management.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="SYSTEM~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Management.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Management.dll_1&gt;" SelfReg="false"/>
+    <ROW File="WinRT.Runtime.dll_1" Component_="WifiDirectHost_PublishOutput" FileName="WINRTR~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_WinRT.Runtime.dll_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_WinRT.Runtime.dll_1&gt;" SelfReg="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
+    <ROW Name="AI_APPPATH_PERBUILD_Ipsos.ico" Path="[|AI_PROPPATH_DIR_PERBUILD_Ipsos.ico]\[|AI_PROPPATH_FILENAME_PERBUILD_Ipsos.ico]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Ipsos.png" Path="[|AI_PROPPATH_DIR_PERBUILD_Ipsos.png]\[|AI_PROPPATH_FILENAME_PERBUILD_Ipsos.png]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_LaptopShowcards.deps.json_1" Path="[|AI_PROPPATH_DIR_PERBUILD_LaptopShowcards.deps.json_1]\[|AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.deps.json_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_LaptopShowcards.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_LaptopShowcards.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_LaptopShowcards.exe_1" Path="[|AI_PROPPATH_DIR_PERBUILD_LaptopShowcards.exe_1]\[|AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.exe_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_LaptopShowcards.runtimeconfig.json_1" Path="[|AI_PROPPATH_DIR_PERBUILD_LaptopShowcards.runtimeconfig.json_1]\[|AI_PROPPATH_FILENAME_PERBUILD_LaptopShowcards.runtimeconfig.json_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Microsoft.Windows.SDK.NET.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.Windows.SDK.NET.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Windows.SDK.NET.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_NAudio.Asio.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_NAudio.Asio.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.Asio.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_NAudio.Core.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_NAudio.Core.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.Core.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_NAudio.Midi.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_NAudio.Midi.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.Midi.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_NAudio.Wasapi.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_NAudio.Wasapi.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.Wasapi.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_NAudio.WinForms.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_NAudio.WinForms.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.WinForms.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_NAudio.WinMM.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_NAudio.WinMM.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.WinMM.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_NAudio.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_NAudio.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_NAudio.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Newtonsoft.Json.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_QrCodeGenerator.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_QrCodeGenerator.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_QrCodeGenerator.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_RestSharp.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_RestSharp.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_RestSharp.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.CodeDom.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_System.CodeDom.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_System.CodeDom.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Management.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Management.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Management.dll_1]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_WinRT.Runtime.dll_1" Path="[|AI_PROPPATH_DIR_PERBUILD_WinRT.Runtime.dll_1]\[|AI_PROPPATH_FILENAME_PERBUILD_WinRT.Runtime.dll_1]" Type="2" Content="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrapperUISequenceComponent">
     <ROW Action="AI_DetectSoftware" Sequence="151"/>
@@ -211,6 +296,8 @@
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
     <ROW Feature_="MainFeature" Component_="System.Diagnostics.EventLog.dll_2"/>
     <ROW Feature_="MainFeature" Component_="System.ServiceProcess.ServiceContr_2_oller.dll"/>
+    <ROW Feature_="MainFeature" Component_="WifiDirectHost_PrimaryOutput"/>
+    <ROW Feature_="MainFeature" Component_="WifiDirectHost_PublishOutput"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="Ipsos.exe" SourcePath="..\..\WifiDirect\bin\publish\Ipsos.ico" Index="0"/>
@@ -257,5 +344,27 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="769" ActionProperty="OLDPRODUCTS"/>
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.VsProjectComponent">
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="Ipsos.ico"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="Ipsos.png"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="LaptopShowcards.deps.json_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="LaptopShowcards.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="LaptopShowcards.exe_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="LaptopShowcards.runtimeconfig.json_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="Microsoft.Windows.SDK.NET.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="NAudio.Asio.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="NAudio.Core.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="NAudio.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="NAudio.Midi.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="NAudio.Wasapi.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="NAudio.WinForms.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="NAudio.WinMM.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="Newtonsoft.Json.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="QrCodeGenerator.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="RestSharp.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="System.CodeDom.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="System.Management.dll_1"/>
+    <ROW ProjectId="{7d020f5b-bbf2-4910-a9ab-355759dce41d}" ProjectName="WifiDirectHost" OutputGroup="PublishOutput" OutputFile="WinRT.Runtime.dll_1"/>
   </COMPONENT>
 </DOCUMENT>

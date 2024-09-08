@@ -59,6 +59,13 @@ namespace WifiDirectHost
 
         public void Initialize(WifiDirect.WifiDirect frm)
         {
+
+           
+
+
+
+
+
             if (Directory.Exists(Globals.QuestionLog))
             {
             //    Array.ForEach(Directory.GetFiles(Globals.QuestionLog), File.Delete);
@@ -181,6 +188,8 @@ namespace WifiDirectHost
             return latestFile;
 
         }
+        
+        
 
         private static FileInfo FindLatestFile(DirectoryInfo directoryInfo)//Gets file info of latest file updated/created in directory.
         {
@@ -341,6 +350,19 @@ namespace WifiDirectHost
                 pageNumData.File = fileName;
                 
                 _pageNum = ObtainShowcard(_latestFile,pageNumData);
+
+                if (!string.IsNullOrEmpty(_pageNum))
+                {
+
+                    _pageNum = _pageNum + 1;
+                }
+
+                if (!string.IsNullOrEmpty(pageNumData.PageNumber))
+                {
+
+                    pageNumData.PageNumber = pageNumData.PageNumber + 1;
+                }
+
 
                 string jsonData = JsonConvert.SerializeObject(pageNumData);
 

@@ -32,11 +32,24 @@ namespace WifiDirectHost
             sw.Flush();
         }
 
+        public void WriteFileToClient(byte[] data)
+        {
+             BinaryWriter sw = new BinaryWriter(ClientStream);
+            sw.Write(data);
+            sw.Flush();
+        }
+
 
         public void CloseConnection()
         {
            ClientStream.Close();
         }
+        
+        
+         
+        
+        
+        
         public void ReadFromClient()
         {
             StreamReader sr = new StreamReader(ClientStream);
@@ -49,6 +62,24 @@ namespace WifiDirectHost
                 while ((data = sr.ReadLine()) != "exit" || !Globals.AppCancellationTokenSource.IsCancellationRequested)
                 {
                     frm.NotifyReceiveMessage(data);
+                    var command = data.ToLower();
+                    if (command.StartsWith("api.get:"))
+                    {
+                        var urlCommand = command.Replace("api.get:","");
+                            var url = urlCommand.Trim();
+                            var returnData=ExtCommunication.BrowseGet(url);
+                            WriteToClient(returnData);
+
+                    }
+                    if (command.StartsWith("api.download:"))
+                    {
+                        var urlCommand = command.Replace("api.download:", "");
+                            var url = urlCommand.Trim();
+                        var returnData = ExtCommunication.DownloadGet(url);
+                        WriteFileToClient(returnData);
+                        
+
+                    }
                 }
             }
             catch (Exception ex)

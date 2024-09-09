@@ -354,13 +354,13 @@ namespace WifiDirectHost
                 if (!string.IsNullOrEmpty(_pageNum))
                 {
 
-                    _pageNum = _pageNum + 1;
+                    _pageNum = (int.Parse(_pageNum) + 1).ToString();
                 }
 
                 if (!string.IsNullOrEmpty(pageNumData.PageNumber))
                 {
 
-                    pageNumData.PageNumber = pageNumData.PageNumber + 1;
+                    pageNumData.PageNumber = (int.Parse(pageNumData.PageNumber) + 1).ToString();
                 }
 
 

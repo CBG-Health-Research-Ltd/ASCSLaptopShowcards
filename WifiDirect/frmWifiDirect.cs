@@ -363,7 +363,14 @@ namespace WifiDirect
         private void OnConnectionStatusChanged(WiFiDirectDevice sender, object arg)
         {
             Notify($"Connection status changed: {sender.ConnectionStatus}");
-            CommunicationServers[sender.DeviceId].CloseConnection();
+            try
+            {
+                CommunicationServers[sender.DeviceId].CloseConnection();
+            }
+            catch (Exception ex)
+            {
+            }
+
             if (sender.ConnectionStatus == WiFiDirectConnectionStatus.Disconnected)
             {
 

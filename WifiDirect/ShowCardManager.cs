@@ -351,22 +351,17 @@ namespace WifiDirectHost
                 
                 _pageNum = ObtainShowcard(_latestFile,pageNumData);
 
-                if (!string.IsNullOrEmpty(_pageNum))
-                {
-
-                    _pageNum = (int.Parse(_pageNum) + 1).ToString();
-                }
-
                 if (!string.IsNullOrEmpty(pageNumData.PageNumber))
                 {
-
-                    pageNumData.PageNumber = (int.Parse(pageNumData.PageNumber) + 1).ToString();
+                    if (int.TryParse(pageNumData.PageNumber, out var pageNumber)) {
+                        pageNumData.PageNumber = (pageNumber + 1).ToString();
+                    }
                 }
 
 
                 string jsonData = JsonConvert.SerializeObject(pageNumData);
 
-                _mainForm.Notify(_latestFile + " corresponds to: " + "Page number " + _pageNum);
+                _mainForm.Notify(_latestFile + " corresponds to: " + _pageNum);
 
                 
                 TransmitText(jsonData); 

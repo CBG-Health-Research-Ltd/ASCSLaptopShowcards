@@ -16,10 +16,10 @@ namespace WifiDirectHost
         private WifiDirect.WifiDirect frm;
         private ShowCardManager showCardManager;
 
-        public CommunicationServer(TcpClient Client,WifiDirect.WifiDirect frm,ShowCardManager cardManager)
+        public CommunicationServer(TcpClient client,WifiDirect.WifiDirect frm,ShowCardManager cardManager)
         {
-            this.Client = Client;
-            ClientStream = Client.GetStream();
+            this.Client = client;
+            ClientStream = client.GetStream();
             this.frm = frm;
             showCardManager=cardManager;
             frm.Notify("Connected on Socket. Ready to receive message.");

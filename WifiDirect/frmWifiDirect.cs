@@ -39,6 +39,7 @@ namespace WifiDirect
         private Thread _thread1 = null;
         private Thread _thread2 = null;
         public ShowCardManager CardManager = null;
+        private frmClosePrevInstance childForm;
 
 
         public WifiDirect()
@@ -183,10 +184,13 @@ namespace WifiDirect
 
         private void CloseFirstInstance()
         {
-            Process[] pname = Process.GetProcessesByName(AppDomain.CurrentDomain.FriendlyName.Remove(AppDomain.CurrentDomain.FriendlyName.Length - 4));
+            var name = AppDomain.CurrentDomain.FriendlyName;
+            Process[] pname = Process.GetProcessesByName(name);
             if (pname.Length > 1)
             {
-                pname[1].Kill();
+                pname[0].Kill();
+                childForm = new frmClosePrevInstance();
+                childForm.Show();
             }
         }
 

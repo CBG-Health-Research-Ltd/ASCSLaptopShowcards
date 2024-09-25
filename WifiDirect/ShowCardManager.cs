@@ -71,9 +71,9 @@ namespace WifiDirectHost
             //    Array.ForEach(Directory.GetFiles(Globals.QuestionLog), File.Delete);
             }
 
-            if (!Directory.Exists(@"C:\nzhs\questioninformation\QuestionLog\"))
+            if (!Directory.Exists(Globals.QuestionLog))
             {
-                Directory.CreateDirectory(@"C:\nzhs\questioninformation\QuestionLog\");
+                Directory.CreateDirectory(Globals.QuestionLog);
             }
             ReceiveShowcardLists();
             _waveSource = new WaveInEvent();//Needs to be initialised for event firing inr ecording function.
@@ -86,7 +86,7 @@ namespace WifiDirectHost
             //New file watcher initialised to monitor the QuesitonLog folder and raise created/updated events.
             //This process is used along side page turner ex to retrieve the current survey question name as a .txt file.
       
-            _fileWatcher.Path = @"C:\nzhs\questioninformation\QuestionLog\";
+            _fileWatcher.Path = Globals.QuestionLog;
             _fileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                                                 | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             _fileWatcher.Filter = "*.txt";
@@ -343,7 +343,7 @@ namespace WifiDirectHost
 
                 PageNumData pageNumData = new PageNumData();
                 
-                var fileName= GetLatest(@"C:\nzhs\questioninformation\QuestionLog\");
+                var fileName= GetLatest(Globals.QuestionLog);
 
                 _latestFile= Path.GetFileNameWithoutExtension(fileName);
 

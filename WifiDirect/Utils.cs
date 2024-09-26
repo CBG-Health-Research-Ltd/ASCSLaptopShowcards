@@ -10,6 +10,7 @@
 //*********************************************************
 
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
@@ -44,6 +45,12 @@ namespace WifiDirect
 
         //QR Code text for WIfi example : WIFI:T:WPA;S:IPSOS_JLCRIMSON;P:f4c88a546186;H:;;
 
+
+        public static string GetAssemblyVersion()
+        {
+
+            return Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+        }
 
     }
 

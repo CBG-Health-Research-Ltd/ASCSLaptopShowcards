@@ -68,7 +68,7 @@ namespace WifiDirectHost
 
             if (Directory.Exists(Globals.QuestionLog))
             {
-            //    Array.ForEach(Directory.GetFiles(Globals.QuestionLog), File.Delete);
+               Array.ForEach(Directory.GetFiles(Globals.QuestionLog), File.Delete);
             }
 
             if (!Directory.Exists(Globals.QuestionLog))

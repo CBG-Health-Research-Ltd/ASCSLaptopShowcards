@@ -160,6 +160,11 @@ namespace WifiDirect
             _server.Start();
 
 
+            var version = Globals.GetAssemblyVersion();
+
+            label6.Text = "Version : " + version;
+
+
             this.TopMost = false;
 
             Notify($"Listening to 0.0.0.0, Port {Globals.strServerPort}...");

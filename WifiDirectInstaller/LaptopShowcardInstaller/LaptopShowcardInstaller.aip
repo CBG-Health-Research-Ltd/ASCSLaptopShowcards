@@ -13,10 +13,10 @@
     <ROW Property="AiSkipExitDlg" Value="1"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="IpSos"/>
-    <ROW Property="ProductCode" Value="1033:{88E905B6-D357-4657-8056-4BC731FE08C8} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{5BECDCAE-5FFE-4B48-87F8-E0CD8566CBB4} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="IpSos Laptop Showcards"/>
-    <ROW Property="ProductVersion" Value="1.0.2" Options="32"/>
+    <ROW Property="ProductVersion" Value="1.0.3" Options="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{B3DCB1E5-48FB-471B-BCD3-9301505BE8DA}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>

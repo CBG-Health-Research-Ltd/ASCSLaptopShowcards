@@ -59,6 +59,7 @@
             saveFileDialog1 = new SaveFileDialog();
             pollTextTimer = new System.Windows.Forms.Timer(components);
             linkLabel1 = new LinkLabel();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -105,9 +106,9 @@
             label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(188, 31);
             label1.Name = "label1";
-            label1.Size = new Size(481, 51);
+            label1.Size = new Size(481, 33);
             label1.TabIndex = 1;
-            label1.Text = "Welcome to Ipsos Wifi Direct Host v1.0";
+            label1.Text = "Welcome to Ipsos Wifi Direct Host";
             // 
             // groupBox2
             // 
@@ -339,11 +340,22 @@
             linkLabel1.Text = "Click Here for Help";
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(200, 69);
+            label6.Name = "label6";
+            label6.Size = new Size(75, 21);
+            label6.TabIndex = 9;
+            label6.Text = "Version :";
+            // 
             // WifiDirect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(912, 714);
+            Controls.Add(label6);
             Controls.Add(linkLabel1);
             Controls.Add(groupBox5);
             Controls.Add(groupBox1);
@@ -406,5 +418,6 @@
         private LinkLabel linkLabel1;
         private Label label2;
         private WifiDirectHost.QrCodeControl qrCodeControl1;
+        private Label label6;
     }
 }

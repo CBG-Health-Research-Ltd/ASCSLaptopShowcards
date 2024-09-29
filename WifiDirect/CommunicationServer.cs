@@ -77,8 +77,6 @@ namespace WifiDirectHost
                             var url = urlCommand.Trim();
                         var returnData = ExtCommunication.DownloadGet(url);
                         WriteFileToClient(returnData);
-                        
-
                     }
                 }
             }

@@ -58,15 +58,6 @@
     <None Update="Files\NZCVSY7.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Files\NZHSAdultY14.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Files\NZHSChildY14.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Files\PPMY7.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Ipsos.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

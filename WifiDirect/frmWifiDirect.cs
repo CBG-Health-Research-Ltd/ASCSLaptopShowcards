@@ -35,7 +35,7 @@ namespace WifiDirect
 
         private TcpListener _server = null;
 
-       
+
         private Thread _thread1 = null;
         private Thread _thread2 = null;
         public ShowCardManager CardManager = null;
@@ -145,8 +145,6 @@ namespace WifiDirect
             btnStop.Enabled = false;
             btnStart.Enabled = true;
             btnDisconnect.Enabled = false;
-            txtSSID.ReadOnly = false;
-            txtPassword.ReadOnly = false;
 
 
 
@@ -174,7 +172,6 @@ namespace WifiDirect
             txtPassword.Text = _randomPassword;
             txtSSID.Text = _ssid;
             bindingSource1.DataSource = ConnectedListNames;
-            listConnectedDevices.SelectionMode = SelectionMode.One;
             listConnectedDevices.DataSource = bindingSource1;
             listConnectedDevices.DisplayMember = "DisplayName";
             listConnectedDevices.ValueMember = "DisplayName";
@@ -642,6 +639,35 @@ namespace WifiDirect
         {
             Help.ShowHelp(this, "file://C:\\LaptopShowcards\\HelpFile.chm",
                 HelpNavigator.Topic, "About.htm");
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.Size.Width >478)
+            {
+                this.Size = new Size(478, 477);
+                linkLabel2.Text = "Show Logs";
+               ReallyCenterToScreen();
+            }
+            else
+            {
+                this.Size = new Size(1158, 477);
+                linkLabel2.Text = "Hide Logs";
+                ReallyCenterToScreen();
+
+            }
+        }
+
+        protected void ReallyCenterToScreen()
+        {
+            Screen screen = Screen.FromControl(this);
+
+            Rectangle workingArea = screen.WorkingArea;
+            this.Location = new Point()
+            {
+                X = Math.Max(workingArea.X, workingArea.X + (workingArea.Width - this.Width) / 2),
+                Y = Math.Max(workingArea.Y, workingArea.Y + (workingArea.Height - this.Height) / 2)
+            };
         }
     }
 }

@@ -333,7 +333,7 @@
             // linkLabel2
             // 
             linkLabel2.AutoSize = true;
-            linkLabel2.Location = new Point(116, 84);
+            linkLabel2.Location = new Point(147, 80);
             linkLabel2.Name = "linkLabel2";
             linkLabel2.Size = new Size(64, 15);
             linkLabel2.TabIndex = 10;

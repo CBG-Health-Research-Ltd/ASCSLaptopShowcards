@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.CompilerServices;
+using Newtonsoft.Json.Linq;
 using WifiDirect;
 
 namespace WifiDirectHost
@@ -66,6 +67,12 @@ namespace WifiDirectHost
                     var command = data.ToLower();
                     if (command.StartsWith("api.download:"))
                     {
+                        var fileDataText = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Config", "ShowCard.json"));
+
+                        var fileJsonData = fileDataText.ToLower();
+
+                        Globals.JsonConfig = JObject.Parse(fileJsonData);
+                        
                         var urlCommand = command.Replace("api.download:", "");
                         var filePointer = urlCommand.Trim();
                         var config = Globals.JsonConfig[filePointer];

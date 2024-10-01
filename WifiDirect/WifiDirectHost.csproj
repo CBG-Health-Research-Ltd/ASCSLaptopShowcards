@@ -55,7 +55,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Config\ShowCard.Json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\NZCVSY7.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\NZCVSYr7.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Files\NZHSAdultY14.pdf">

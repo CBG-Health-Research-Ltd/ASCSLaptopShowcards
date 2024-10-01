@@ -13,10 +13,10 @@
     <ROW Property="AiSkipExitDlg" Value="1"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="IpSos"/>
-    <ROW Property="ProductCode" Value="1033:{5BECDCAE-5FFE-4B48-87F8-E0CD8566CBB4} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{652903EA-7B1E-4617-85F7-3231BAC98FED} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="IpSos Laptop Showcards"/>
-    <ROW Property="ProductVersion" Value="1.0.3" Options="32"/>
+    <ROW Property="ProductVersion" Value="1.0.5" Options="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{B3DCB1E5-48FB-471B-BCD3-9301505BE8DA}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -32,6 +32,8 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="Config_Dir" Directory_Parent="APPDIR" DefaultDir="Config"/>
+    <ROW Directory="Files_Dir" Directory_Parent="APPDIR" DefaultDir="Files"/>
     <ROW Directory="FirewallSetup_Dir" Directory_Parent="APPDIR" DefaultDir="FIREWA~1|FirewallSetup"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
@@ -61,11 +63,13 @@
     <ROW Component="NAudio.WinForms.dll" ComponentId="{99BF0E11-52C4-4DA7-977D-65DB288C1137}" Directory_="APPDIR" Attributes="0" KeyPath="NAudio.WinForms.dll"/>
     <ROW Component="NAudio.WinMM.dll" ComponentId="{2A44603E-75E6-4A96-A6A1-943769AAD8A1}" Directory_="APPDIR" Attributes="0" KeyPath="NAudio.WinMM.dll"/>
     <ROW Component="NAudio.dll" ComponentId="{7099EC48-F0C5-4479-9B6B-84CA01DA3EF7}" Directory_="APPDIR" Attributes="0" KeyPath="NAudio.dll"/>
+    <ROW Component="NZCVSYr7.pdf" ComponentId="{98B27469-68B3-4E30-8E8C-F6FF46D2525C}" Directory_="Files_Dir" Attributes="0" KeyPath="NZCVSYr7.pdf" Type="0"/>
     <ROW Component="Newtonsoft.Json.dll" ComponentId="{2BED2051-2888-4CAA-915B-9B2E545B0971}" Directory_="APPDIR" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
     <ROW Component="ProductInformation" ComponentId="{DF38A52D-089A-42F0-A211-C2E4C17A187F}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="QrCodeGenerator.dll" ComponentId="{9E2E082E-BD65-4DB3-920A-1425E94A0AE9}" Directory_="APPDIR" Attributes="0" KeyPath="QrCodeGenerator.dll"/>
     <ROW Component="RestSharp.dll" ComponentId="{CC088365-5B8F-4BCB-A79A-7372152575D5}" Directory_="APPDIR" Attributes="0" KeyPath="RestSharp.dll"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{12A85CF2-1C34-47F4-AB25-1D47D537577B}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="ShowCard.Json" ComponentId="{71D90637-75EB-4672-809A-46EF04884A24}" Directory_="Config_Dir" Attributes="0" KeyPath="ShowCard.Json" Type="0"/>
     <ROW Component="System.CodeDom.dll" ComponentId="{F14A7269-A1EF-463E-8F45-38F0F913F697}" Directory_="APPDIR" Attributes="0" KeyPath="System.CodeDom.dll"/>
     <ROW Component="System.Diagnostics.EventLog.dll" ComponentId="{9A5C963D-9B84-44AF-83E4-DFF52DEDB3BB}" Directory_="FirewallSetup_Dir" Attributes="0" KeyPath="System.Diagnostics.EventLog.dll"/>
     <ROW Component="System.Diagnostics.EventLog.dll_2" ComponentId="{95F11A65-81A7-4508-8615-5078AA38E698}" Directory_="netcoreapp2.0_Dir" Attributes="0" KeyPath="System.Diagnostics.EventLog.dll_2"/>
@@ -109,6 +113,11 @@
     <ROW File="WindowsFirewallHelper.dll" Component_="WindowsFirewallHelper.dll" FileName="WINDOW~1.DLL|WindowsFirewallHelper.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\..\FirewallHelper\bin\publish\WindowsFirewallHelper.dll" SelfReg="false"/>
     <ROW File="System.Diagnostics.EventLog.dll_2" Component_="System.Diagnostics.EventLog.dll_2" FileName="SYSTEM~1.DLL|System.Diagnostics.EventLog.dll" Attributes="0" SourcePath="..\..\FirewallHelper\bin\publish\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.EventLog.dll" SelfReg="false"/>
     <ROW File="System.ServiceProcess.ServiceContr_2_oller.dll" Component_="System.ServiceProcess.ServiceContr_2_oller.dll" FileName="SYSTEM~1.DLL|System.ServiceProcess.ServiceController.dll" Attributes="0" SourcePath="..\..\FirewallHelper\bin\publish\runtimes\win\lib\netstandard2.0\System.ServiceProcess.ServiceController.dll" SelfReg="false"/>
+    <ROW File="ShowCard.Json" Component_="ShowCard.Json" FileName="SHOWCA~1.JSO|ShowCard.Json" Attributes="0" SourcePath="..\..\WifiDirect\bin\publish\Config\ShowCard.Json" SelfReg="false"/>
+    <ROW File="NZCVSYr7.pdf" Component_="NZCVSYr7.pdf" FileName="NZCVSYr7.pdf" Attributes="0" SourcePath="..\..\WifiDirect\bin\publish\Files\NZCVSYr7.pdf" SelfReg="false"/>
+    <ROW File="NZHSAdultY14.pdf" Component_="NZCVSYr7.pdf" FileName="NZHSAD~1.PDF|NZHSAdultY14.pdf" Attributes="0" SourcePath="..\..\WifiDirect\bin\publish\Files\NZHSAdultY14.pdf" SelfReg="false"/>
+    <ROW File="NZHSChildY14.pdf" Component_="NZCVSYr7.pdf" FileName="NZHSCH~1.PDF|NZHSChildY14.pdf" Attributes="0" SourcePath="..\..\WifiDirect\bin\publish\Files\NZHSChildY14.pdf" SelfReg="false"/>
+    <ROW File="PPMY7.pdf" Component_="NZCVSYr7.pdf" FileName="PPMY7.pdf" Attributes="0" SourcePath="..\..\WifiDirect\bin\publish\Files\PPMY7.pdf" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrapperUISequenceComponent">
     <ROW Action="AI_DetectSoftware" Sequence="151"/>
@@ -211,6 +220,8 @@
     <ROW Feature_="MainFeature" Component_="System.Diagnostics.EventLog.dll_2"/>
     <ROW Feature_="MainFeature" Component_="System.ServiceProcess.ServiceContr_2_oller.dll"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+    <ROW Feature_="MainFeature" Component_="ShowCard.Json"/>
+    <ROW Feature_="MainFeature" Component_="NZCVSYr7.pdf"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="Ipsos.exe" SourcePath="..\..\WifiDirect\bin\publish\Ipsos.ico" Index="0"/>
@@ -255,7 +266,7 @@
     <ATTRIBUTE name="UsedTheme" value="classic"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
-    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="769" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
   </COMPONENT>
 </DOCUMENT>

@@ -1,26 +1,8 @@
 ﻿{
-	"NZHS": {
-		"NHC13": {
-			"FileName": "NZHSAdultY13.pdf"
-		},
-		"NHA13": {
-			"FileName": "NZHSChildY13.pdf"
-		},
-		"NHA14": {
-			"FileName": "NZHSAdultY14.pdf"
-		},
-		"NHC14": {
-			"FileName": "NZHSChildY14.pdf"
-		}
-	},
-	"NZCVS": {
-		"Y7CVS": {
-			"FileName": "NZCVSYr7.pdf"
-		}
-	},
-	"PPM": {
-		"Y7PPM": {
-			"FileName": "PPMY7.pdf"
-		}
-	}
+	"NHC13": "NZHSAdultY13.pdf",
+	"NHA13": "NZHSChildY13.pdf",
+	"NHA14": "NZHSAdultY14.pdf",
+	"NHC14": "NZHSChildY14.pdf",
+	"Y7CVS": "NZCVSYr7.pdf",
+	"Y7PPM": "PPMY7.pdf"
 }

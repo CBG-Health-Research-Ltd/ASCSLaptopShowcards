@@ -16,6 +16,8 @@ using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Popups;
+using Newtonsoft.Json.Linq;
+using WifiDirectHost.JSONObjects;
 
 
 namespace WifiDirect
@@ -46,10 +48,19 @@ namespace WifiDirect
         //QR Code text for WIfi example : WIFI:T:WPA;S:IPSOS_JLCRIMSON;P:f4c88a546186;H:;;
 
 
+        public static JObject JsonConfig = new JObject();
+        
         public static string GetAssemblyVersion()
         {
 
             return Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+        }
+
+        public static T GetValue<T>(string json, string jsonPropertyName)
+        {
+            var parsedResult = JObject.Parse(json);
+
+            return parsedResult.SelectToken(jsonPropertyName).ToObject<T>();
         }
 
     }

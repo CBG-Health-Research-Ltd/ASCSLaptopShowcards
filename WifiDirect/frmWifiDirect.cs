@@ -17,6 +17,9 @@ using WifiDirectHost;
 using System.Net;
 using System.Diagnostics;
 using Windows.Devices.WiFiDirect.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using WifiDirectHost.JSONObjects;
 
 namespace WifiDirect
 {
@@ -157,7 +160,13 @@ namespace WifiDirect
             _server = new TcpListener(IPAddress.Parse("0.0.0.0"), Convert.ToInt32(Globals.strServerPort));
             _server.Start();
 
+            var fileData = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Config", "ShowCard.json"));
 
+            var fileJsonData = fileData.ToLower();
+
+            Globals.JsonConfig = JObject.Parse(fileJsonData);
+
+           
             var version = Globals.GetAssemblyVersion();
 
             label6.Text = "Version : " + version;

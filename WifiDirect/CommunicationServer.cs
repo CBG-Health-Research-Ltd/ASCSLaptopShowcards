@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.CompilerServices;
 using WifiDirect;
 
 namespace WifiDirectHost
@@ -63,20 +64,18 @@ namespace WifiDirectHost
                 {
                     frm.NotifyReceiveMessage(data);
                     var command = data.ToLower();
-                    if (command.StartsWith("api.get:"))
-                    {
-                        var urlCommand = command.Replace("api.get:","");
-                            var url = urlCommand.Trim();
-                            var returnData=ExtCommunication.BrowseGet(url);
-                            WriteToClient(returnData);
-
-                    }
                     if (command.StartsWith("api.download:"))
                     {
                         var urlCommand = command.Replace("api.download:", "");
-                            var url = urlCommand.Trim();
-                        var returnData = ExtCommunication.DownloadGet(url);
-                        WriteFileToClient(returnData);
+                        var filePointer = urlCommand.Trim();
+                        var config = Globals.JsonConfig[filePointer];
+                        var valueData = ((Newtonsoft.Json.Linq.JValue)config).Value;
+                        if (valueData != null)
+                        {
+                            var fileName = Path.Combine(AppContext.BaseDirectory, "Files", valueData.ToString());
+                            var fileData = File.ReadAllBytes(fileName);
+                            WriteFileToClient(fileData);
+                        }
                     }
                 }
             }

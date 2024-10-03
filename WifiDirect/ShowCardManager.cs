@@ -196,10 +196,20 @@ namespace WifiDirectHost
             if (directoryInfo == null || !directoryInfo.Exists)
                 return null;
 
-            var myFile = directoryInfo.GetFiles()
-                .OrderByDescending(f => f.LastWriteTime)
-                .First();
-            return myFile;
+            FileInfo[] files = directoryInfo.GetFiles();
+            DateTime lastWrite = DateTime.MinValue;
+            TimeSpan lastWriteMiliseconds = lastWrite.TimeOfDay;
+            FileInfo lastWrittenFile = null;
+
+            foreach (FileInfo file in files)
+            {
+                if (file.LastWriteTime.TimeOfDay > lastWriteMiliseconds)
+                {
+                    lastWriteMiliseconds = file.LastWriteTime.TimeOfDay;
+                    lastWrittenFile = file;
+                }
+            }
+            return lastWrittenFile;
         }
 
         private string ObtainShowcard(string inputTxt,PageNumData pageNumData)

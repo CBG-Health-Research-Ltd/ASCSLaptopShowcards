@@ -72,6 +72,7 @@ namespace BluetoothTestClient
         {
             //Exit Show-cards button
             Application.Exit();
+            System.Environment.Exit(1);
         }
 
         private void DeviceSelection_FormClosing(Object sender, FormClosingEventArgs e)

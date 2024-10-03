@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="22.0" version="22.0" Modules="simple" RootPath="." Language="en" Id="{3997AD8B-16AF-4398-8C1E-D004E03BCDE9}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="22.0" version="22.1" Modules="simple" RootPath="." Language="en" Id="{3997AD8B-16AF-4398-8C1E-D004E03BCDE9}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_APP_FILE" Value="[#FirewallHelper.exe]"/>
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
@@ -13,10 +13,10 @@
     <ROW Property="AiSkipExitDlg" Value="1"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="IpSos"/>
-    <ROW Property="ProductCode" Value="1033:{CCB4D0B2-28A9-4986-B9A3-721E44BCC6F2} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{6064EF11-4496-4546-BAEE-2B89927E8341} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="IpSos Laptop Showcards"/>
-    <ROW Property="ProductVersion" Value="1.1.0" Options="32"/>
+    <ROW Property="ProductVersion" Value="1.1.7" Options="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{B3DCB1E5-48FB-471B-BCD3-9301505BE8DA}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>

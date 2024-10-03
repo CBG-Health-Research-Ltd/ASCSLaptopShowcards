@@ -20,6 +20,7 @@ using Windows.Devices.WiFiDirect.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WifiDirectHost.JSONObjects;
+using System.Runtime.InteropServices;
 
 namespace WifiDirect
 {
@@ -47,7 +48,8 @@ namespace WifiDirect
 
         public WifiDirect()
         {
-            CloseFirstInstance();
+            CloseCurrentInstanceIfOpen();
+
             CardManager = new ShowCardManager();
             InitializeComponent();
             CardManager.Initialize(this);
@@ -56,6 +58,13 @@ namespace WifiDirect
 
         }
 
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr handle);
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindowAsync(HandleRef hWnd, int nCmdShow);
+
+        public const int SW_RESTORE = 9;
+        private IntPtr handle;
 
 
 
@@ -176,7 +185,7 @@ namespace WifiDirect
 
             Notify($"Listening to 0.0.0.0, Port {Globals.strServerPort}...");
 
-            _randomPassword = GetMACAddress().ToLower().Replace(":", "");
+            _randomPassword = getCPUId().ToLower().Replace(":", "");
             _ssid = "IPSOS_" + System.Environment.MachineName;
             txtPassword.Text = _randomPassword;
             txtSSID.Text = _ssid;
@@ -193,16 +202,22 @@ namespace WifiDirect
 
         }
 
-        private void CloseFirstInstance()
+        private void CloseCurrentInstanceIfOpen()
         {
             var name = AppDomain.CurrentDomain.FriendlyName;
             Process[] pname = Process.GetProcessesByName(name);
             if (pname.Length > 1)
             {
-                pname[0].Kill();
+
+                IntPtr hWnd = IntPtr.Zero;
+                hWnd = pname[0].MainWindowHandle;
+                ShowWindowAsync(new HandleRef(null, hWnd), SW_RESTORE);
+                SetForegroundWindow(pname[0].MainWindowHandle);
+                
                 childForm = new frmClosePrevInstance();
-                childForm.Show();
+                childForm.ShowDialog();
             }
+
         }
 
 
@@ -434,7 +449,25 @@ namespace WifiDirect
 
         }
 
-        public string GetMACAddress()
+        public string getCPUId()
+        {
+            string cpuInfo = string.Empty;
+            ManagementClass mc = new ManagementClass("win32_processor");
+            ManagementObjectCollection moc = mc.GetInstances();
+
+            foreach (ManagementObject mo in moc)
+            {
+                if (cpuInfo == "")
+                {
+                    //Get only the first CPU's ID
+                    cpuInfo = mo.Properties["processorID"].Value.ToString();
+                    break;
+                }
+            }
+            return cpuInfo;
+        }
+
+        public string GetMacAddress()
         {
             ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
             ManagementObjectCollection moc = mc.GetInstances();
@@ -580,6 +613,7 @@ namespace WifiDirect
             }
             finally
             {
+                System.Environment.Exit(1);
                 Application.Exit();
             }
         }
@@ -623,6 +657,7 @@ namespace WifiDirect
             }
             finally
             {
+                System.Environment.Exit(1);
                 Application.Exit();
             }
         }

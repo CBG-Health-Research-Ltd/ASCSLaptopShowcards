@@ -38,9 +38,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(30, 53);
             label1.Name = "label1";
-            label1.Size = new Size(241, 15);
+            label1.Size = new Size(404, 15);
             label1.TabIndex = 0;
-            label1.Text = "Closing the previous instance... Please wait...";
+            label1.Text = "Existing Application is running.. Closing the current instance... Please wait...";
             // 
             // timer1
             // 
@@ -51,12 +51,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(310, 124);
+            ClientSize = new Size(475, 124);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "frmClosePrevInstance";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Closing Previous Instance";
+            Text = "Closing Current Instance";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();

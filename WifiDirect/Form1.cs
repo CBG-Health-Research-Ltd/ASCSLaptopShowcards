@@ -24,6 +24,8 @@ namespace WifiDirectHost
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            System.Environment.Exit(1);
+            Application.Exit();
             this.Close();
         }
     }

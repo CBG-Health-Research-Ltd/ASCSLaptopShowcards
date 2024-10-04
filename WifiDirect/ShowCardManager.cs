@@ -374,9 +374,11 @@ namespace WifiDirectHost
                 _mainForm.Notify(_latestFile + " corresponds to: " + _pageNum);
 
                 
-                TransmitText(jsonData); 
-                
-                
+                TransmitText(jsonData);
+
+                System.Threading.Thread.Sleep(50);
+
+
                 _changedFile = false;
                 _newFile = false;
             }

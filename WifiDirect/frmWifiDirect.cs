@@ -175,7 +175,7 @@ namespace WifiDirect
 
             Globals.JsonConfig = JObject.Parse(fileJsonData);
 
-           
+
             var version = Globals.GetAssemblyVersion();
 
             label6.Text = "Version : " + version;
@@ -213,7 +213,7 @@ namespace WifiDirect
                 hWnd = pname[0].MainWindowHandle;
                 ShowWindowAsync(new HandleRef(null, hWnd), SW_RESTORE);
                 SetForegroundWindow(pname[0].MainWindowHandle);
-                
+
                 childForm = new frmClosePrevInstance();
                 childForm.ShowDialog();
             }
@@ -687,19 +687,29 @@ namespace WifiDirect
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.Size.Width >478)
+            if (this.Size.Width > 478)
             {
                 this.Size = new Size(478, 477);
                 linkLabel2.Text = "Show Logs";
-               ReallyCenterToScreen();
+                LeftScreen();
             }
             else
             {
                 this.Size = new Size(1158, 477);
                 linkLabel2.Text = "Hide Logs";
-                ReallyCenterToScreen();
+                LeftScreen();
 
             }
+        }
+
+
+        protected void LeftScreen()
+        {
+            this.Location = new Point()
+            {
+                X = 0,
+                Y = 0
+            };
         }
 
         protected void ReallyCenterToScreen()
@@ -712,6 +722,27 @@ namespace WifiDirect
                 X = Math.Max(workingArea.X, workingArea.X + (workingArea.Width - this.Width) / 2),
                 Y = Math.Max(workingArea.Y, workingArea.Y + (workingArea.Height - this.Height) / 2)
             };
+        }
+
+        private void WifiDirect_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Maximized)
+            {
+                WindowState = FormWindowState.Normal;
+                if (this.Size.Width > 478)
+                {
+                    this.Size = new Size(478, 477);
+                    linkLabel2.Text = "Show Logs";
+                    LeftScreen();
+                }
+                else
+                {
+                    this.Size = new Size(1158, 477);
+                    linkLabel2.Text = "Hide Logs";
+                    LeftScreen();
+
+                }
+            }
         }
     }
 }

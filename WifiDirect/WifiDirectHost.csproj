@@ -7,9 +7,9 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>LaptopShowcards</AssemblyName>
-    <AssemblyVersion>1.1.7</AssemblyVersion>
-    <FileVersion>1.1.7</FileVersion>
-    <Version>1.1.7</Version>
+    <AssemblyVersion>1.1.8</AssemblyVersion>
+    <FileVersion>1.1.8</FileVersion>
+    <Version>1.1.8</Version>
   </PropertyGroup>
 
   <ItemGroup>

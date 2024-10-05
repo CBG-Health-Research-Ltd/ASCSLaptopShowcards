@@ -355,13 +355,15 @@
             Controls.Add(statusStrip1);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "WifiDirect";
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.Manual;
             Text = "Ipsos Wifi Direct";
             TopMost = true;
             FormClosing += WifiDirect_FormClosing;
             FormClosed += WifiDirect_FormClosed;
             Load += WifiDirect_Load;
+            Resize += WifiDirect_Resize;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox2.ResumeLayout(false);
             statusStrip1.ResumeLayout(false);

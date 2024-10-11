@@ -355,7 +355,6 @@
             Controls.Add(statusStrip1);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "WifiDirect";
             StartPosition = FormStartPosition.Manual;
             Text = "Ipsos Wifi Direct";

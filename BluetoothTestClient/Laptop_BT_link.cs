@@ -34,13 +34,11 @@ namespace BluetoothTestClient
         public static string currentDeviceName;
         Stream stream;
         string[] subStrings;
-        List<string[]> adultY13ShowcardList;
-        List<string[]> childY13ShowcardList;
-        List<string[]> nzcvsy7ShowcardList;
-        List<string[]> ppmy7ShowcardList;
         List<string[]> adultY14ShowcardList;
         List<string[]> childY14ShowcardList;
         List<string[]> nzcvsy8ShowcardList;
+        List<string[]> adultY15ShowcardList;
+        List<string[]> childY15ShowcardList;
 
 
         string desiredShowcard;
@@ -91,13 +89,11 @@ namespace BluetoothTestClient
         private void receiveShowcardLists()
         {
             //This method could be cleaned up in the future
-            childY13ShowcardList = GetShowcardPageList("CHILDY13");
-            adultY13ShowcardList = GetShowcardPageList("ADULTY13");
-            nzcvsy7ShowcardList = GetShowcardPageList("NZCVSY7");
-            ppmy7ShowcardList = GetShowcardPageList("PPMY7");
             childY14ShowcardList = GetShowcardPageList("CHILDY14");
             adultY14ShowcardList = GetShowcardPageList("ADULTY14");
             nzcvsy8ShowcardList = GetShowcardPageList("NZCVSY8");
+            childY15ShowcardList = GetShowcardPageList("CHILDY15");
+            adultY15ShowcardList = GetShowcardPageList("ADULTY15");
         }
 
         private void closeFirstInstance()
@@ -634,8 +630,19 @@ namespace BluetoothTestClient
         //Function used for sending strings regarding SC information.
         private void transmitText(string text, Stream stream)
         {
-            byte[] message = Encoding.ASCII.GetBytes(text);
-            stream.Write(message, 0, message.Length);
+            try
+            {
+                byte[] message = Encoding.ASCII.GetBytes(text);
+                stream.Write(message, 0, message.Length);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
         }
 
         //Key part f app. Continuously monitoring information being sent from TSS and stored in QuestionLog folder.
@@ -812,18 +819,6 @@ namespace BluetoothTestClient
             List<string[]> showcardList = new List<string[]>();
             switch(survey)
             {
-                case ("nhc13"):
-                    showcardList = childY13ShowcardList;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("nha13"):
-                    showcardList = adultY13ShowcardList;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("y7cvs"):
-                    showcardList = nzcvsy7ShowcardList;
-                    break;
-                case ("y7ppm"):
-                    showcardList = ppmy7ShowcardList;
-                    break;
                 case ("nhc14"):
                     showcardList = childY14ShowcardList;//UPDATE FOR ASKIA SURVEY
                     break;
@@ -832,6 +827,12 @@ namespace BluetoothTestClient
                     break;
                 case ("y8cvs"):
                     showcardList = nzcvsy8ShowcardList;
+                    break;
+                case ("nhc15"):
+                    showcardList = childY15ShowcardList;//UPDATE FOR ASKIA SURVEY
+                    break;
+                case ("nha15"):
+                    showcardList = adultY15ShowcardList;//UPDATE FOR ASKIA SURVEY
                     break;
 
             }
@@ -846,18 +847,6 @@ namespace BluetoothTestClient
             int pageIndex = 0;
             switch (survey)
             {
-                case ("nha13"):
-                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
-                    break;
-                case ("nhc13"):
-                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
-                    break;
-                case ("y7cvs"):
-                    pageIndex = 2;//UPDATE!!!!
-                    break;
-                case ("y7ppm"):
-                    pageIndex = 2;//UPDATE!!!!
-                    break;
                 case ("nha14"):
                     pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
                     break;
@@ -866,6 +855,12 @@ namespace BluetoothTestClient
                     break;
                 case ("y8cvs"):
                     pageIndex = 2;//UPDATE!!!!
+                    break;
+                case ("nha15"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY first seen QID that has a showcard
+                    break;
+                case ("nhc15"):
+                    pageIndex = 3;//UPDATE FOR ASKIA SURVEY
                     break;
             }
             return pageIndex;
@@ -888,18 +883,6 @@ namespace BluetoothTestClient
             {
                 switch (survey)
                 {
-                    case ("CHILDY13"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY13ChildInstructions.txt", Encoding.Default);
-                        break;
-                    case ("ADULTY13"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY13AdultInstructions.txt", Encoding.Default);
-                        break;
-                    case ("NZCVSY7"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY7Instructions.txt", Encoding.Default);
-                        break;
-                    case ("PPMY7"):
-                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\PPMY7Instructions.txt", Encoding.Default);
-                        break;
                     case ("CHILDY14"):
                         ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY14ChildInstructions.txt", Encoding.Default);
                         break;
@@ -908,6 +891,12 @@ namespace BluetoothTestClient
                         break;
                     case ("NZCVSY8"):
                         ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZCVSY8Instructions.txt", Encoding.Default);
+                        break;
+                    case ("CHILDY15"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY15ChildInstructions.txt", Encoding.Default);
+                        break;
+                    case ("ADULTY15"):
+                        ShowcardPageArray = File.ReadAllLines(@"C:\CBGShared\surveyinstructions\NZHSY15AdultInstructions.txt", Encoding.Default);
                         break;
                 }
             }
